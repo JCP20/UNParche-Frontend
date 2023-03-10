@@ -43,7 +43,7 @@ body {
   width: 100vw;
   display: flex;
   justify-content: center; 
-  background-image: url('Fondo.png');
+  background-image: url('fondo2.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -73,6 +73,42 @@ display: flex;
 width: 1000px;
 height: 400px;
             }
+.card{
+margin: auto;
+border-radius: 64px;
+background: #FCFFE7;
+box-shadow:  12px 12px 24px #b0c1c2;
+
+display: flex;
+width: 1000px;
+height: 400px;
+            }
+.cardR{
+margin: auto;
+border-radius: 64px;
+background: #FCFFE7;
+box-shadow:  12px 12px 24px #b0c1c2;
+
+              
+display: flex;
+width: 800px;
+height: 540px;
+}
+.formR {
+
+
+  display: grid;
+  padding: 2.3rem 2.2rem;
+  z-index: 10;
+  overflow: hidden;
+  position: relative;
+  top: 0 px;
+  left: 10px;
+  height: 580px;
+  width: 360px;
+
+
+}
 .ellipse{
   position: absolute;
   width: 1114px;
@@ -80,4 +116,10 @@ height: 400px;
   left: 1286px;
   top: -476px;
   background: rgba(235, 69, 95, 0.8);
+}
+
+
+.ant-select-item-option-content {
+  white-space: normal;
+  word-break: keep-all;
 }
