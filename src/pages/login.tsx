@@ -1,12 +1,13 @@
 import { Button, Checkbox, Form, Input } from "antd";
+import React from "react";
 
-const LoginForm = () => {
+const login = () => {
   return (
     <div className="mainContainer">
       <title>Inicio de sesión</title>
       <div className="blob-ctr"></div>
       <div className="card">
-        <Form className="form">
+        <Form className="form" layout="vertical">
           <h1 style={{ color: "#2B3467" }}>Bienvenido de nuevo </h1>
           <Form.Item
             name="correo"
@@ -47,4 +48,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default login;
