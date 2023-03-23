@@ -13,6 +13,7 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "antd": "^5.2.3",
+    "antd-img-crop": "^4.10.2",
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

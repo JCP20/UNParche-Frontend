@@ -1,30 +1,34 @@
 import React from 'react';
 import { Button, Form, Input, message, Space } from 'antd';
-import { type } from 'os';
+
 
 const layout = {
   labelCol: { span: 50 },
   wrapperCol: { span: 50 },
 };
 
-
+//Aplicación de registro
 const RegistroApp: React.FC = () => {
+  //Declaración de constandes
   const dominio = "@unal.edu.co";
   const [form] = Form.useForm();
-
+  
+  //Mensaje de exito
   const onFinish = () => {
     message.success('Registro exitoso!');
   };
-
+  
+  //Mensaje de error
   const onFinishFailed = () => {
     message.error('Registro fallido!');
   };
   
   return (
-    <div className='mainContainer'>
-      
-    <div className='cardR'>     
-    <Form className='formR'      
+    //Contenedor principal
+    <div className='mainContainer'>         
+    
+    <div className='cardR'>         
+    <Form className='formR'      //Detalles del Formulario
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -36,7 +40,7 @@ const RegistroApp: React.FC = () => {
       scrollToFirstError
     >
       <Form.Item     
-        name='nombreUsuario'
+        name='nombreUsuario'  //Label usuario
         label='Usuario'
         rules={[{
             required: true,
