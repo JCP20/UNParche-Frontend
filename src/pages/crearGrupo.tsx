@@ -1,4 +1,4 @@
-import CreateGroupApp from "@/components/CreateGroup";
+import React from "react";
 import {
   Cascader,
   Form,
@@ -13,15 +13,13 @@ import {
 import AntdImgCrop from "antd-img-crop";
 import { RcFile } from "antd/es/upload";
 import { useState } from "react";
-// import MenuApp from "@/components/SideMenu";
-// import App from "@/components/prueba";
 
 const layout = {
   labelCol: { span: 50 },
   wrapperCol: { span: 50 },
 };
 
-export default function Home() {
+const crearGrupo = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
@@ -158,4 +156,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default crearGrupo;

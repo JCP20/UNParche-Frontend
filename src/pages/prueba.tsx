@@ -1,9 +1,8 @@
-import MenuApp from "@/components/SideMenu";
+import React from "react";
+import SideMenu from "../components/SideMenu";
 
-export default function Home() {
-  
-    return ( 
-      <MenuApp/>
-    
-    );
-  }
+export const prueba = () => {
+  return <SideMenu />;
+};
+
+export default prueba;
