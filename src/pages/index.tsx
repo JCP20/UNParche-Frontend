@@ -1,3 +1,11 @@
+import Pokemon from "@/components/Pokemon";
+
 export default function Home() {
-  return <></>;
+  return (
+    <Pokemon>
+      <>
+        <p>hola</p>
+      </>
+    </Pokemon>
+  );
 }

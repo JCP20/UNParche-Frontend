@@ -4,15 +4,14 @@ import React from "react";
 const login = () => {
   return (
     <div className="mainContainer">
-      <title>Inicio de sesión</title>
-      <div className="blob-ctr"></div>
+      <title>Incio de Sesion</title>
       <div className="card">
         <Form className="form" layout="vertical">
           <h1 style={{ color: "#2B3467" }}>Bienvenido de nuevo </h1>
           <Form.Item
             name="correo"
             label="Correo"
-            wrapperCol={{ span: 16 }}
+            wrapperCol={{ span: 20 }}
             rules={[{ required: true, message: "Porfavor ingrese su correo" }]}
           >
             <Input />
@@ -20,7 +19,7 @@ const login = () => {
           <Form.Item
             name="contraseña"
             label="Contraseña"
-            wrapperCol={{ span: 12 }}
+            wrapperCol={{ span: 20 }}
             rules={[
               { required: true, message: "Porfavor ingrese su contraseña" },
             ]}
@@ -30,7 +29,7 @@ const login = () => {
           <Form.Item
             name="remember"
             valuePropName="checked"
-            wrapperCol={{ span: 16 }}
+            wrapperCol={{ span: 20 }}
           >
             <Checkbox> Recuerdame</Checkbox>
           </Form.Item>
@@ -39,11 +38,17 @@ const login = () => {
               Ingresar
             </Button>
           </Form.Item>
+          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+            ¿No tienes cuenta? <a href=""> Registrate</a>
+          </Form.Item>
         </Form>
+        <div className="gallery">
+          <div className="pic" id="pic4" />
+          <div className="pic" id="pic3" />
+          <div className="pic" id="pic2" />
+          <div className="pic" id="pic1" />
+        </div>
       </div>
-      <div className="shape-blob" />
-      <div className="shape-blob one" />
-      <div className="shape-blob two" />
     </div>
   );
 };
