@@ -1,28 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap");
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
+
 .content {
   max-width: 500px;
   margin: auto;
 }
 
 html,
-
-
 a {
   color: inherit;
   text-decoration: none;
 }
-
 .ant-input:focus {
   border-color: #e98557;
 }
 
-* { font-family: 'Poppins' }
+* {
+  font-family: "Poppins";
+}
+
 body {
   background: #f6f5f7;
 	display: flex;
@@ -32,8 +33,6 @@ body {
 }
 
 .mainContainer {
-
-
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -42,9 +41,8 @@ body {
   background-size: cover;
 
 }
+
 .form {
-
-
   display: grid;
   padding: 2.3rem 2.2rem;
   z-index: 10;
