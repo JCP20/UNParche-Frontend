@@ -1,12 +1,15 @@
 import React from 'react';
 import { Button, Form, Input, message, Space } from 'antd';
+import { type } from 'os';
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  labelCol: { span: 50 },
+  wrapperCol: { span: 50 },
 };
 
+
 const RegistroApp: React.FC = () => {
+  const dominio = "@unal.edu.co";
   const [form] = Form.useForm();
 
   const onFinish = () => {
@@ -16,36 +19,25 @@ const RegistroApp: React.FC = () => {
   const onFinishFailed = () => {
     message.error('Registro fallido!');
   };
-
+  
   return (
-    <Form
+    <div className='mainContainer'>
       
+    <div className='cardR'>     
+    <Form className='formR'      
       form={form}
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}      
-      name="wrap"            
-      labelAlign="right"
-      style={{ maxWidth: 600 }}
+      name="wrap"      
+      labelAlign="left"
+      //style={{ maxWidth: 600 }}
       {...layout}
+      scrollToFirstError
     >
-      <Form.Item 
-        name='nombreCompleto' 
-        label='Nombre Completo'
-        rules={[{
-            required: true,
-            message:'Porfavor ingrese su nombre Completo'
-        },
-        {whitespace:true},
-        {min: 3}
-
-        ]}
-        >
-        <Input placeholder="Escribe tú nombre"/>
-    </Form.Item>
-    <Form.Item 
+      <Form.Item     
         name='nombreUsuario'
-        label='Nombre de Usuario'
+        label='Usuario'
         rules={[{
             required: true,
             message:'Porfavor ingrese su usuario'            
@@ -58,9 +50,19 @@ const RegistroApp: React.FC = () => {
         label='Correo'
         rules={[{
             required: true,
-            message:'Porfavor ingrese su correo' 
+            message:'Porfavor ingrese   su correo',
+            //pattern: new RegExp(*dominio$),
 
-            }]}
+            }, ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (getFieldValue('correo').includes("@unal.edu.co")) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('El correo debe pertenece a @unal.edu.co'));
+              },
+            }),
+          ]}
+          hasFeedback
         >
         <Input placeholder="Escribe tu correo"/>       
     </Form.Item>
@@ -69,18 +71,33 @@ const RegistroApp: React.FC = () => {
         label='Contraseña'
         rules={[{
             required: true,
-            message:'Porfavor ingrese su contraseña'            
+        pattern: new RegExp("(?=.*[!@#$%^&*/-_])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"),
+            message:'Porfavor ingrese su contraseña'           
+
             }]}
+        hasFeedback
         >
         <Input.Password placeholder="Escribe tu contraseña"/>
     </Form.Item>
     <Form.Item
         name='confirmarContraseña' 
         label='Confirmar Contraseña'
+        dependencies={['contraseña']}
         rules={[{
             required: true,
-            message:'Porfavor ingrese nuevamente su contraseña'            
-            }]}
+            message:'Porfavor ingrese nuevamente su contraseña'                        
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('contraseña') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('Las contraseñas no coinciden!'));
+              },
+            }),
+
+          ]}
+        hasFeedback
         >
         <Input.Password placeholder="Confirma tu contraseña tu contraseña"/>
         </Form.Item>
@@ -90,6 +107,8 @@ const RegistroApp: React.FC = () => {
             </Button>
         </Form.Item>   
     </Form>
+    </div>
+    </div>
   );
 };
 
