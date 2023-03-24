@@ -6,8 +6,8 @@ const LoginForm = () => {
 
         <div className='mainContainer'>
           <title>Incio de Sesion</title>
-        <div className='card'>
-        <Form className='form' 
+        <div className='card' id='cardLogin'>
+        <Form className='form' id='formLogin'
               layout='vertical' >
         <h1 style={{color:'#2B3467'}}>Bienvenido de nuevo </h1>
             <Form.Item name="correo" label="Correo" wrapperCol={{ span: 20}} rules={[{ required: true, message: 'Porfavor ingrese su correo' }]}>
@@ -27,10 +27,7 @@ const LoginForm = () => {
             </Form.Item>
         </Form>
         <div className='gallery'>
-        <div className='pic' id='pic4' />
-        <div className='pic' id='pic3' />
-        <div className='pic' id='pic2' />
-        <div className='pic' id='pic1' />
+        <div className='pic'/>
       </div>
         </div>
         </div>

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import {
-  AppstoreOutlined,
+import {  
   CalendarOutlined,
   HomeOutlined,
-  MenuOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  MenuOutlined,  
   UserOutlined,
   UserSwitchOutlined,
   PoweroffOutlined,
@@ -13,8 +10,8 @@ import {
   TeamOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Button, Menu, Image } from 'antd';
-import { icons } from 'antd/es/image/PreviewGroup';
+import { Button, Image, Breadcrumb, Layout, Menu, theme } from 'antd';
+const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -33,7 +30,7 @@ function getItem(
     type,
   } as MenuItem;
 }
-const darkModeIcon = ('https://icons8.com/icon/y5BgSIdWF2fl/night-mode');
+
 const items: MenuItem[] = [
   getItem('Inicio', '1', <HomeOutlined />),
   
@@ -55,7 +52,7 @@ const items: MenuItem[] = [
   ]),
 ];
 
-const MenuApp: React.FC = () => {
+const PruebApp: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapsed = () => {
@@ -63,20 +60,13 @@ const MenuApp: React.FC = () => {
   };
 
   return (
-    <div style={{ width: 256 }}>
-      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
-      <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        theme="dark"
-        inlineCollapsed={collapsed}
-        items={items}
-      />
-    </div>
+    <Layout style={{ minHeight: '100vh' }}>
+    <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <div style={{ height: 32, margin: 16, background: '#2B3467' }} />
+      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+    </Sider>
+  </Layout>
   );
 };
 
-export default MenuApp;
+export default PruebApp;

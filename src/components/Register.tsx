@@ -26,9 +26,10 @@ const RegistroApp: React.FC = () => {
   return (
     //Contenedor principal
     <div className='mainContainer'>         
-    
-    <div className='cardR'>         
-    <Form className='formR'      //Detalles del Formulario
+      <title>Registro</title> 
+    <div className='card'id='cardRegister'>     
+    <Form className='form' id='formRegister'      //Detalles del Formulario
+              
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -38,7 +39,7 @@ const RegistroApp: React.FC = () => {
       //style={{ maxWidth: 600 }}
       {...layout}
       scrollToFirstError
-    >
+    ><h1 style={{color:'#2B3467'}}>Gusto en conocerte! </h1>
       <Form.Item     
         name='nombreUsuario'  //Label usuario
         label='Usuario'
@@ -109,7 +110,10 @@ const RegistroApp: React.FC = () => {
             <Button block type="primary" htmlType="submit">
             Registrarme
             </Button>
-        </Form.Item>   
+        </Form.Item> 
+        <Form.Item  wrapperCol={{ offset: 2}}>
+             ¿Ya tienes una cuenta? <a href=""> Ingresa</a>
+        </Form.Item>  
     </Form>
     </div>
     </div>

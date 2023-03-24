@@ -51,10 +51,18 @@ body {
   overflow: hidden;
   position: relative;
   left: 10px;
+}
+#formLogin{
   height: 400px;
   width: 500px;
-
-
+}
+#formRegister{
+  height: 580px;
+  width: 360px;
+}
+#formCrearGrupo{
+  height: 720px;
+  width: 360px;
 }
 .card{
 margin: auto;
@@ -63,11 +71,20 @@ background: #FCFFE7;
 background-size: cover;
 box-shadow:  12px 12px 24px #b0c1c2;
 display: flex;
-width: 800px;
-height: 464px;
+
             }
-
-
+#cardLogin{
+  width: 800px;
+  height: 464px;
+}
+#cardRegister{
+  width: 800px;
+  height: 540px;
+}
+#cardCrearGrupo{
+  width: 800px;
+  height: 708px;
+}
 .gallery {
   position: relative;
   display: block;
@@ -76,32 +93,7 @@ height: 464px;
   height: 364px;
   top: 40px;
 }
-.cardR{
-  margin: auto;
-  border-radius: 64px;
-  background: #FCFFE7;
-  box-shadow:  12px 12px 24px #b0c1c2;
-  
-                
-  display: flex;
-  width: 800px;
-  height: 540px;
-  }
-  .formR {
-  
-  
-    display: grid;
-    padding: 2.3rem 2.2rem;
-    z-index: 10;
-    overflow: hidden;
-    position: relative;
-    top: 0 px;
-    left: 10px;
-    height: 580px;
-    width: 360px;
-  
-  
-  }
+
 a:link, a:visited {
   color: #2B3467;
 
@@ -160,5 +152,7 @@ a:link, a:visited {
 .ant-select-item-option-content {
   white-space: normal;
   word-break: keep-all;
-
 }
+.ant-menu{
+  background: #2B3467;
+  }

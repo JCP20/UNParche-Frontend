@@ -1,9 +1,9 @@
-import MenuApp from "@/components/SideMenu";
+import PruebApp from "@/components/Pruebap";
 
 export default function Home() {
   
     return ( 
-      <MenuApp/>
+      <PruebApp/>
     
     );
   }

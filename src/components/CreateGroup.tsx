@@ -56,8 +56,8 @@ const CrearGrupoApp: React.FC = () => {
     //Contenedor principal
     <div className='mainContainer'>         
     
-    <div className=''>         
-    <Form className=''      //Detalles del Formulario
+    <div className='card' id='cardCrearGrupo'>         
+    <Form className='form' id='formCrearGrupo'      //Detalles del Formulario
       form={form}
       layout="vertical"
       onFinish={onFinish}
