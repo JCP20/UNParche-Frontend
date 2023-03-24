@@ -26,7 +26,7 @@ const login = () => {
             </Form.Item>
         </Form>
         <div className='gallery'>
-        <div className='pic'/>
+        <div className='pic' id='picLogin'/>
       </div>
         </div>
         </div>

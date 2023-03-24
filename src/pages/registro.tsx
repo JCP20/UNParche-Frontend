@@ -115,6 +115,9 @@ const Registro= () => {
              ¿Ya tienes una cuenta? <a href=""> Ingresa</a>
         </Form.Item>  
     </Form>
+    <div className='gallery'>
+    <div className='pic' id='picRegistro'/>
+    </div>
     </div>
     </div>
   );
