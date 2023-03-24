@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   AppstoreOutlined,
   CalendarOutlined,
@@ -16,14 +16,15 @@ import type { MenuProps } from 'antd';
 import { Button, Menu, Image } from 'antd';
 import { icons } from 'antd/es/image/PreviewGroup';
 
-type MenuItem = Required<MenuProps>['items'][number];
+
+type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
   children?: MenuItem[],
-  type?: 'group',
+  type?: "group"
 ): MenuItem {
   return {
     key,
@@ -35,6 +36,7 @@ function getItem(
 }
 const darkModeIcon = ('https://icons8.com/icon/y5BgSIdWF2fl/night-mode');
 const items: MenuItem[] = [
+
   getItem('Inicio', '1', <HomeOutlined />),
   
   getItem('Mis Grupos', 'sub1', <TeamOutlined />, [
@@ -52,10 +54,11 @@ const items: MenuItem[] = [
     getItem('Cambiar Cuenta', '8',<UserSwitchOutlined />),
     getItem('Configuración', '9',<SettingOutlined/>),
     getItem('Cambiar Aspecto', '10',<Image src="/imagenes/darkModeIcon"/>),
+
   ]),
 ];
 
-const MenuApp: React.FC = () => {
+const SideMenu: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapsed = () => {
@@ -64,12 +67,16 @@ const MenuApp: React.FC = () => {
 
   return (
     <div style={{ width: 256 }}>
-      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
+      <Button
+        type="primary"
+        onClick={toggleCollapsed}
+        style={{ marginBottom: 16 }}
+      >
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </Button>
       <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={["1"]}
+        defaultOpenKeys={["sub1"]}
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}
@@ -79,4 +86,4 @@ const MenuApp: React.FC = () => {
   );
 };
 
-export default MenuApp;
+export default SideMenu;
