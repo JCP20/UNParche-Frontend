@@ -15,7 +15,7 @@ const layout = {
 
 
 //Aplicación de Creación de Grupo
-const CrearGrupo = () => {
+const CrearGrupoApp: React.FC = () => {
     const [fileList, setFileList] = useState<UploadFile[]>([        
       ]);
     
@@ -154,4 +154,4 @@ const CrearGrupo = () => {
   );
 };
 
-export default CrearGrupo;
+export default CrearGrupoApp;

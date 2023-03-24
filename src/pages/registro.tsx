@@ -1,14 +1,16 @@
-import { createUser } from "@/services/auth";
-import { Button, Form, Input, message } from "antd";
+import React from "react";
+import { Button, Form, Input, message, Space } from "antd";
 import { useRouter } from "next/router";
+import { createUser } from "@/services/auth";
 
 const layout = {
   labelCol: { span: 50 },
   wrapperCol: { span: 50 },
 };
 
+//Aplicación de registro
 const Registro = () => {
-  //Declaración de constantes
+  //Declaración de constandes
   const dominio = "@unal.edu.co";
   const [form] = Form.useForm();
   const router = useRouter();
@@ -25,17 +27,18 @@ const Registro = () => {
   };
 
   //Mensaje de error
-  const onFinishFailed = (errors: any) => {
-    console.log(errors);
+  const onFinishFailed = () => {
     message.error("Registro fallido!");
   };
 
   return (
     //Contenedor principal
     <div className="mainContainer">
-      <div className="cardR">
+      <title>Registro</title>
+      <div className="card" id="cardRegister">
         <Form
-          className="formR" //Detalles del Formulario
+          className="form"
+          id="formRegister" //Detalles del Formulario
           form={form}
           layout="vertical"
           onFinish={onFinish}
@@ -46,13 +49,14 @@ const Registro = () => {
           {...layout}
           scrollToFirstError
         >
+          <h1 style={{ color: "#2B3467" }}>Gusto en conocerte! </h1>
           <Form.Item
             name="username" //Label usuario
             label="Usuario"
             rules={[
               {
                 required: true,
-                message: "Por favor ingrese su usuario",
+                message: "Porfavor ingrese su usuario",
               },
             ]}
           >
@@ -64,7 +68,7 @@ const Registro = () => {
             rules={[
               {
                 required: true,
-                message: "Por favor ingrese   su correo",
+                message: "Por favor ingrese su correo",
                 //pattern: new RegExp(*dominio$),
               },
               ({ getFieldValue }) => ({
@@ -91,7 +95,7 @@ const Registro = () => {
                 pattern: new RegExp(
                   "(?=.*[!@#$%^&*/-_])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                 ),
-                message: "Por favor ingrese su contraseña",
+                message: "Porfavor ingrese su contraseña",
               },
             ]}
             hasFeedback
@@ -127,7 +131,13 @@ const Registro = () => {
               Registrarme
             </Button>
           </Form.Item>
+          <Form.Item wrapperCol={{ offset: 2 }}>
+            ¿Ya tienes una cuenta? <a href="/login"> Ingresa</a>
+          </Form.Item>
         </Form>
+        <div className="gallery">
+          <div className="pic" id="picRegistro" />
+        </div>
       </div>
     </div>
   );

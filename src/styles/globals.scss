@@ -1,31 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Poppins";
+  font-family: 'Poppins';
 }
-
 .content {
   max-width: 500px;
   margin: auto;
 }
 
 html,
+
+
 a {
   color: inherit;
   text-decoration: none;
 }
+
 .ant-input:focus {
   border-color: #e98557;
 }
 
-* {
-  font-family: "Poppins";
-}
-
+* { font-family: 'Poppins' }
 body {
-  background: #f6f5f7;
 	display: flex;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
@@ -33,39 +31,61 @@ body {
 }
 
 .mainContainer {
+
+
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center; 
-  background-color: #BAD7E9;
+  background-color:$color-otro;
   background-size: cover;
 
 }
-
 .form {
+
+
   display: grid;
   padding: 2.3rem 2.2rem;
   z-index: 10;
   overflow: hidden;
   position: relative;
   left: 10px;
+}
+#formLogin{
+  top: 20px;
   height: 400px;
   width: 500px;
-
-
+}
+#formRegister{
+  height: 580px;
+  width: 360px;
+}
+#formCrearGrupo{
+  height: 720px;
+  width: 360px;
 }
 .card{
 margin: auto;
-border-radius: 64px;
-background: #FCFFE7;
+border-radius: 24px;
+background: $color-base;
 background-size: cover;
-box-shadow:  12px 12px 24px #b0c1c2;
+box-shadow:  5px 5px 0px #afb9c5,
+             -5px -5px 0px #e9f5ff;
 display: flex;
-width: 800px;
-height: 464px;
+
             }
-
-
+#cardLogin{
+  width: 800px;
+  height: 500px;
+}
+#cardRegister{
+  width: 800px;
+  height: 540px;
+}
+#cardCrearGrupo{
+  width: 800px;
+  height: 708px;
+}
 .gallery {
   position: relative;
   display: block;
@@ -74,34 +94,9 @@ height: 464px;
   height: 364px;
   top: 40px;
 }
-.cardR{
-  margin: auto;
-  border-radius: 64px;
-  background: #FCFFE7;
-  box-shadow:  12px 12px 24px #b0c1c2;
-  
-                
-  display: flex;
-  width: 800px;
-  height: 540px;
-  }
-  .formR {
-  
-  
-    display: grid;
-    padding: 2.3rem 2.2rem;
-    z-index: 10;
-    overflow: hidden;
-    position: relative;
-    top: 0 px;
-    left: 10px;
-    height: 580px;
-    width: 360px;
-  
-  
-  }
+
 a:link, a:visited {
-  color: #2B3467;
+  color: $primary-color;
 
 }
 
@@ -114,12 +109,22 @@ a:link, a:visited {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  -webkit-animation: fade 60s cubic-bezier(.8,0,0,1) infinite;
-  animation: fade 60s cubic-bezier(.8,0,0,1) infinite;
+
 
 }
+#picRegistro{
+  left: 128px;
+  top: 48px;
+  -webkit-animation: fadeRegistro 40s cubic-bezier(1,0,0,1) infinite;
+  animation: fadeRegistro 40s cubic-bezier(1,0,0,1) infinite;
+}
+#picLogin{
+  top: 20px;
+  -webkit-animation: fadeLogin 50s cubic-bezier(1,0,0,1) infinite;
+  animation: fadeLogin 50s cubic-bezier(1,0,0,1) infinite;
+}
 
-@-webkit-keyframes fade {
+@-webkit-keyframes fadeLogin {
   0% {
     background-image: url('/imagenes/Imagen1.png');
   }
@@ -137,7 +142,7 @@ a:link, a:visited {
   }
 }
 
-@keyframes fade {
+@keyframes fadeLogin {
   0% {
     background-image: url('/imagenes/Imagen1.png');
   }
@@ -152,11 +157,43 @@ a:link, a:visited {
   }
   100% {
     background-image: url('/imagenes/Imagen1.png');
+  }
+
+}
+@-webkit-keyframes fadeRegistro {
+    0% {
+      background-image: url('/imagenes/Imagen5.png');
+    }
+    33% {
+      background-image: url('/imagenes/Imagen6.png');
+    }
+    66% {
+      background-image: url('/imagenes/Imagen7.png');
+    }
+    100% {
+      background-image: url('/imagenes/Imagen5.png');
+    }
+}
+
+@keyframes fadeRegistro{
+  0% {
+    background-image: url('/imagenes/Imagen5.png');
+  }
+  33% {
+    background-image: url('/imagenes/Imagen6.png');
+  }
+  66% {
+    background-image: url('/imagenes/Imagen7.png');
+  }
+  100% {
+    background-image: url('/imagenes/Imagen5.png');
   }
 
 }
 .ant-select-item-option-content {
   white-space: normal;
   word-break: keep-all;
-
 }
+.ant-menu{
+  background: $primary-color;
+  }

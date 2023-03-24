@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import {
   AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
+  CalendarOutlined,
+  HomeOutlined,
+  MenuOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PieChartOutlined,
+  UserOutlined,
+  UserSwitchOutlined,
+  PoweroffOutlined,
+  SettingOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Button, Menu } from "antd";
-import Head from "next/head";
+import { Button, Menu, Image } from "antd";
+import { icons } from "antd/es/image/PreviewGroup";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -29,27 +33,23 @@ function getItem(
     type,
   } as MenuItem;
 }
-
+const darkModeIcon = "https://icons8.com/icon/y5BgSIdWF2fl/night-mode";
 const items: MenuItem[] = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("Option 3", "3", <ContainerOutlined />),
+  getItem("Inicio", "1", <HomeOutlined />),
 
-  getItem("Navigation One", "sub1", <MailOutlined />, [
-    getItem("Option 5", "5"),
-    getItem("Option 6", "6"),
-    getItem("Option 7", "7"),
-    getItem("Option 8", "8"),
+  getItem("Mis Grupos", "sub1", <TeamOutlined />, [
+    getItem("Grupo 1", "2"),
+    getItem("Grupo 2", "3"),
+    getItem("Grupo 3", "4"),
   ]),
+  getItem("Calendario", "5", <CalendarOutlined />),
+  getItem("Perfil", "6", <UserOutlined />),
 
-  getItem("Navigation Two", "sub2", <AppstoreOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-
-    getItem("Submenu", "sub3", null, [
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
-    ]),
+  getItem("Más", "sub2", <MenuOutlined />, [
+    getItem("Salir", "7", <PoweroffOutlined />),
+    getItem("Cambiar Cuenta", "8", <UserSwitchOutlined />),
+    getItem("Configuración", "9", <SettingOutlined />),
+    getItem("Cambiar Aspecto", "10", <Image src="/imagenes/darkModeIcon" />),
   ]),
 ];
 

@@ -1,12 +1,10 @@
-import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-
+import { Form, Button, Input, Col, Checkbox, ConfigProvider, Row } from "antd";
 const login = () => {
   return (
     <div className="mainContainer">
       <title>Incio de Sesion</title>
-      <div className="card">
-        <Form className="form" layout="vertical">
+      <div className="card" id="cardLogin">
+        <Form className="form" id="formLogin" layout="vertical">
           <h1 style={{ color: "#2B3467" }}>Bienvenido de nuevo </h1>
           <Form.Item
             name="correo"
@@ -39,14 +37,11 @@ const login = () => {
             </Button>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-            ¿No tienes cuenta? <a href="/registro"> Regístrate</a>
+            ¿No tienes cuenta? <a href=""> Registrate</a>
           </Form.Item>
         </Form>
         <div className="gallery">
-          <div className="pic" id="pic4" />
-          <div className="pic" id="pic3" />
-          <div className="pic" id="pic2" />
-          <div className="pic" id="pic1" />
+          <div className="pic" id="picLogin" />
         </div>
       </div>
     </div>
