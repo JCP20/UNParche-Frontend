@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Button, Menu } from "antd";
+import Head from "next/head";
 
 type MenuItem = Required<MenuProps>["items"][number];
 

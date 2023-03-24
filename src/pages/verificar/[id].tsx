@@ -1,6 +1,7 @@
 import { getUserById } from "@/services/user";
+import { message } from "antd";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 
 const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
   //#region hooks
@@ -8,6 +9,22 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
   //#endregion hooks
 
   const { id } = router.query;
+
+  const verifyUser = async () => {
+    try {
+      // ...
+      // Logica para verificar usuario (Actualizar el verified a true)
+      /// ...
+    } catch (error) {
+      // Manejo de errores
+    }
+  };
+
+  useEffect(() => {
+    if (!isVerified) {
+      verifyUser();
+    }
+  }, []);
 
   return (
     <div className="mainContainerVerification">

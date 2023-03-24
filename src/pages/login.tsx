@@ -39,7 +39,7 @@ const login = () => {
             </Button>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-            ¿No tienes cuenta? <a href=""> Registrate</a>
+            ¿No tienes cuenta? <a href="/registro"> Regístrate</a>
           </Form.Item>
         </Form>
         <div className="gallery">

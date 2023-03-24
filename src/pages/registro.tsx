@@ -1,4 +1,6 @@
+import { createUser } from "@/services/auth";
 import { Button, Form, Input, message } from "antd";
+import { useRouter } from "next/router";
 
 const layout = {
   labelCol: { span: 50 },
@@ -9,14 +11,22 @@ const Registro = () => {
   //Declaración de constantes
   const dominio = "@unal.edu.co";
   const [form] = Form.useForm();
+  const router = useRouter();
 
   //Mensaje de exito
-  const onFinish = () => {
-    message.success("Registro exitoso!");
+  const onFinish = async (values: any) => {
+    try {
+      await createUser(values);
+      message.success("Registro exitoso!");
+      router.push("/");
+    } catch (error: any) {
+      message.error(error.response.data.msg);
+    }
   };
 
   //Mensaje de error
-  const onFinishFailed = () => {
+  const onFinishFailed = (errors: any) => {
+    console.log(errors);
     message.error("Registro fallido!");
   };
 
@@ -37,29 +47,29 @@ const Registro = () => {
           scrollToFirstError
         >
           <Form.Item
-            name="nombreUsuario" //Label usuario
+            name="username" //Label usuario
             label="Usuario"
             rules={[
               {
                 required: true,
-                message: "Porfavor ingrese su usuario",
+                message: "Por favor ingrese su usuario",
               },
             ]}
           >
             <Input placeholder="Escribe tu nombre de usuario" />
           </Form.Item>
           <Form.Item
-            name="correo"
+            name="email"
             label="Correo"
             rules={[
               {
                 required: true,
-                message: "Porfavor ingrese   su correo",
+                message: "Por favor ingrese   su correo",
                 //pattern: new RegExp(*dominio$),
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (getFieldValue("correo").includes("@unal.edu.co")) {
+                  if (getFieldValue("email").includes("@unal.edu.co")) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
@@ -73,7 +83,7 @@ const Registro = () => {
             <Input placeholder="Escribe tu correo" />
           </Form.Item>
           <Form.Item
-            name="contraseña"
+            name="password"
             label="Contraseña"
             rules={[
               {
@@ -81,7 +91,7 @@ const Registro = () => {
                 pattern: new RegExp(
                   "(?=.*[!@#$%^&*/-_])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                 ),
-                message: "Porfavor ingrese su contraseña",
+                message: "Por favor ingrese su contraseña",
               },
             ]}
             hasFeedback
@@ -89,7 +99,7 @@ const Registro = () => {
             <Input.Password placeholder="Escribe tu contraseña" />
           </Form.Item>
           <Form.Item
-            name="confirmarContraseña"
+            name="password_confirmation"
             label="Confirmar Contraseña"
             dependencies={["contraseña"]}
             rules={[
@@ -99,7 +109,7 @@ const Registro = () => {
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue("contraseña") === value) {
+                  if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
@@ -112,7 +122,7 @@ const Registro = () => {
           >
             <Input.Password placeholder="Confirma tu contraseña tu contraseña" />
           </Form.Item>
-          <Form.Item name="botonRegistro">
+          <Form.Item>
             <Button block type="primary" htmlType="submit">
               Registrarme
             </Button>
