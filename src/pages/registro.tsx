@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Form, Input, message, Space } from "antd";
 import { useRouter } from "next/router";
-import { createUser } from "@/services/auth";import Head from "next/head";
+import { createUser } from "@/services/auth";
+import Head from "next/head";
 
 const layout = {
   labelCol: { span: 50 },
@@ -34,7 +35,9 @@ const Registro = () => {
   return (
     //Contenedor principal
     <div className="mainContainer">
+      <Head>
       <title>Registro</title>
+      </Head>
       <div className="card" id="cardRegister">
         <Form
           className="form"
@@ -49,7 +52,7 @@ const Registro = () => {
           {...layout}
           scrollToFirstError
         >
-          <h1 style={{ color: "#2B3467" }}>Gusto en conocerte! </h1>
+          <h1>Gusto en conocerte!</h1>
           <Form.Item
             name="username" //Label usuario
             label="Usuario"
