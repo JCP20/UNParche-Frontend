@@ -20,22 +20,22 @@ const login = () => {
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked" >
             <Checkbox> Recuerdame</Checkbox>
-            </Form.Item>
-            <Form.Item  >
-            <Button type="primary" htmlType="submit" block>Ingresar</Button>
-            </Form.Item>
-            <Form.Item  wrapperCol={{ offset: 4, span: 16 }}>
-             ¿No tienes cuenta? <a href=""> Registrate</a>
-            </Form.Item>
+          </Form.Item>
+          <Form.Item wrapperCol={{ span: 20 }}>
+            <Button type="primary" htmlType="submit" block>
+              Ingresar
+            </Button>
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+            ¿No tienes cuenta? <a href="/registro"> Registrate</a>
+          </Form.Item>
         </Form>
-        <div className='gallery'>
-        <div className='pic' id='picLogin'/>
+        <div className="gallery">
+          <div className="pic" id="picLogin" />
+        </div>
       </div>
-        </div>
-        </div>
+    </div>
+  );
+};
 
-    );
-
-  };
-  
-  export default login;
+export default login;
