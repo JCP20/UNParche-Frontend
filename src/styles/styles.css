@@ -30,6 +30,13 @@ a {
   font-size: 16px;
   cursor: pointer;
 }
+
+  @media (hover :hover){
+    button:hover{
+      background: #ee6272;
+      color: #080808
+    }
+}
 .imgCont{
   display:flex;
   justify-content:center;
