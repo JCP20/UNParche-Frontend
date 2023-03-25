@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, message, Space } from 'antd';
-
+import Head from "next/head";
 
 const layout = {
   labelCol: { span: 50 },
@@ -26,7 +26,9 @@ const Registro= () => {
   return (
     //Contenedor principal
     <div className='mainContainer'>         
-      <title>Registro</title> 
+      <Head>
+        <title>Registro</title>
+      </Head>
     <div className='card'id='cardRegister'>     
     <Form className='form' id='formRegister'      //Detalles del Formulario
               
@@ -111,7 +113,7 @@ const Registro= () => {
             Registrarme
             </Button>
         </Form.Item> 
-        <Form.Item  wrapperCol={{ offset: 2}}>
+        <Form.Item  wrapperCol={{ offset: 4}}>
              ¿Ya tienes una cuenta? <a href=""> Ingresa</a>
         </Form.Item>  
     </Form>

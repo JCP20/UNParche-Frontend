@@ -25,7 +25,7 @@ a {
 * { font-family: 'Poppins' }
 body {
 	display: flex;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Roboto', 'Poppins';
 	height: 100vh;
   min-height: fit-content;
 }
@@ -50,20 +50,21 @@ body {
   overflow: hidden;
   position: relative;
   left: 10px;
+  width: 400px;
 }
 #formLogin{
-  top: 20px;
-  height: 400px;
-  width: 500px;
+  top: 12px;
+  height: 472px;
+  
 }
 #formRegister{
   height: 580px;
-  width: 360px;
 }
 #formCrearGrupo{
   height: 720px;
   width: 360px;
 }
+
 .card{
 margin: auto;
 border-radius: 24px;
@@ -72,18 +73,16 @@ background-size: cover;
 box-shadow:  5px 5px 0px #afb9c5,
              -5px -5px 0px #e9f5ff;
 display: flex;
-
+width: 800px;
             }
+
 #cardLogin{
-  width: 800px;
   height: 500px;
 }
 #cardRegister{
-  width: 800px;
   height: 540px;
 }
 #cardCrearGrupo{
-  width: 800px;
   height: 708px;
 }
 .gallery {
@@ -109,19 +108,19 @@ a:link, a:visited {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  left: 80px;
 
 
 }
 #picRegistro{
-  left: 128px;
   top: 48px;
-  -webkit-animation: fadeRegistro 40s cubic-bezier(1,0,0,1) infinite;
-  animation: fadeRegistro 40s cubic-bezier(1,0,0,1) infinite;
+  -webkit-animation: fadeRegistro 40s cubic-bezier(.9,0,0,1) infinite;
+  animation: fadeRegistro 40s cubic-bezier(.9,0,0,1) infinite;
 }
 #picLogin{
   top: 20px;
-  -webkit-animation: fadeLogin 50s cubic-bezier(1,0,0,1) infinite;
-  animation: fadeLogin 50s cubic-bezier(1,0,0,1) infinite;
+  -webkit-animation: fadeLogin 50s cubic-bezier(.9,0,0,1) infinite;
+  animation: fadeLogin 50s cubic-bezier(.9,0,0,1) infinite;
 }
 
 @-webkit-keyframes fadeLogin {
