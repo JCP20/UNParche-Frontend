@@ -1,5 +1,5 @@
 import React from 'react'
-import grp from "../components/group_box"
+import group_box from "../components/group_box"
 const profile = () => {
   return (
     <div>

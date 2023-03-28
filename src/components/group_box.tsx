@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, Space } from 'antd';
-const grp: React.FC = () => (
+
+const grp: React.FC = () => {
+
+  return(
  <div>
     <Button type="primary">Primary Button</Button>
     <Button>Default Button</Button>
@@ -9,5 +12,8 @@ const grp: React.FC = () => (
     <Button type="link">Link Button</Button>
     </div>
 );
+
+  };
+
 
 export default grp;
