@@ -1,9 +1,9 @@
 import React from 'react'
-import Box from "../components/image_box"
+import grp from "../components/group_box"
 const profile = () => {
   return (
     <div>
-        <Box/>
+        Hola
         </div>
       
   )

@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   const handleFinish = (values: any) => {
-    console.log(values);
+    console.log("hola");
   };
 
   return (
@@ -37,7 +37,11 @@ export default function Home() {
       </Head>
       <main>
         <p>Hola mundo</p>
+
+       
       </main>
     </>
+     
   );
+ 
 }
