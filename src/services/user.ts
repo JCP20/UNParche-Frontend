@@ -1,5 +1,5 @@
 import { backendApi } from "@/api/config";
-import { IUser } from "@/types";
+import { IUser } from "@/interfaces/user";
 
 export const getUserById = async (id: string): Promise<IUser | null> => {
   try {
