@@ -56,16 +56,8 @@ const Registro= () => {
         rules={[{
             required: true,
             message:'Porfavor ingrese   su correo',
-            //pattern: new RegExp(*dominio$),
-
-            }, ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (getFieldValue('correo').includes("@unal.edu.co")) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('El correo debe pertenece a @unal.edu.co'));
-              },
-            }),
+            pattern: new RegExp("[a-z]+(@unal.edu.co)$"),
+            },
           ]}
           hasFeedback
         >

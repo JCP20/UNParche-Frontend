@@ -5,7 +5,7 @@ const LoginForm = () => {
     return (
 
         <div className='mainContainer'>
-          <title>Incio de Sesion</title>
+          <title>Inicio de Sesion</title>
         <div className='card' id='cardLogin'>
         <Form className='form' id='formLogin'
               layout='vertical' >
