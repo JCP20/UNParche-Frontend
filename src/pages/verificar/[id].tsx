@@ -1,22 +1,31 @@
+import { AuthContext } from "@/context/auth/AuthContext";
+import { IUser } from "@/interfaces/user";
+import { verifyEmailFn } from "@/services/auth";
 import { getUserById } from "@/services/user";
 import { message } from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
-  //#region hooks
   const router = useRouter();
-  //#endregion hooks
+  const { login } = useContext(AuthContext);
 
   const { id } = router.query;
 
   const verifyUser = async () => {
     try {
-      // ...
-      // Logica para verificar usuario (Actualizar el verified a true)
-      /// ...
+      const resp = await verifyEmailFn(
+        id as string,
+        { verified: true } as IUser
+      );
+
+      if (resp?.status === 200) {
+        setTimeout(() => {
+          login(resp.data.token, resp.data.id, resp.data.username);
+        }, 5000);
+      }
     } catch (error) {
-      // Manejo de errores
+      message.error("Error al verificar usuario");
     }
   };
 
@@ -29,10 +38,8 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
   return (
     <div className="mainContainerVerification">
       <div className="cardInfo">
-        <h1>Verificar usuario</h1>
-        {/* <CheckCircleOutlined /> */}
-        <p>Id: {id}</p>
-        <p>Verificado: {isVerified ? "Si" : "No"}</p>
+        <h1>Te has verificado correctamente!</h1>
+        <p>Seras redirigido en 5 segundos</p>
       </div>
     </div>
   );
@@ -43,7 +50,17 @@ export default verificarUsuario;
 export async function getServerSideProps(context: any) {
   const { id } = context.query;
   const resp = await getUserById(id);
+
   if (resp) {
+    if (resp.verified) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+
     return {
       props: { isVerified: resp.verified },
     };

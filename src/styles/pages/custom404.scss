@@ -1,0 +1,24 @@
+.mainContainer404 {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #f6f6f6;
+
+  .text404 {
+    font-size: 11rem;
+    font-weight: 700;
+    color: $color-boton;
+  }
+
+  .linkReturn {
+    color: $darker-primary-boton;
+    transition: 0.5 ease-in-out;
+
+    &:hover {
+      color: $color-boton;
+    }
+  }
+}
