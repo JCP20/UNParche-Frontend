@@ -13,14 +13,13 @@ const layout = {
 const Registro = () => {
   const [form] = Form.useForm();
 
-  const { login } = useContext(AuthContext);
-
   //Mensaje de exito
   const onFinish = async (values: any) => {
     try {
       const resp = await createUser(values);
-      login(resp.data.token, resp.data.id, resp.data.username);
-      message.success("Registro exitoso!");
+      if (resp.status === 201) {
+        message.success("Por favor revisa tu correo para verificar tu cuenta!");
+      }
     } catch (error: any) {
       message.error(error.response.data.msg);
     }
