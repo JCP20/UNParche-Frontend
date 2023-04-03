@@ -2,12 +2,26 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins';
 }
-
-html,
+.workmenu{
+  background-color:#2B3467 ;
+  height: 110vh;
+  margin-top: 0px;
+  width: 7%;
+}
+.general{
+  background-color: #FCffe7;
+  display: block;
+  margin-left: 0px;
+  height: 110vh;
+  width: 100vw;
+  background-size:100% 100%;
+  align-items: center;
+  justify-content: center;
+}
 body {
-  background: #f6f5f7;
+  background: #fdffef;
 	display: flex;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
@@ -19,4 +33,246 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.buttonver {
+  height: 40px;
+  width: 256px;
+  border: none;
+  border-radius: 4px;
+  background-color: #F4132E;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.imgCont{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.logo{
+  margin-left:auto;
+  margin-right:auto;
+  float:right;    
+}
+.textveri {
+  font-family: "Poppins";
+  font-size: 32px;
+  font-weight: 600;
+  color: #330;
+  justify-content:center;
+  text-align:CENTER;
+}
+.verification-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 350px;
+  height: 400px;
+  padding: 24px;
+  background-color: #f6efa6;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border-color:#9D2503;
+}
+
+.containerveri {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: fit-content;
+  height: 120vh;
+  width: 100vw;
+  background-color: #90AACE;
+  border:1px solid black;
+  background-image: url('/Fondo.png');
+  background-size:100% 100%;
+}
+
+.botón{
+  color:#2B3467;
+  background-color: green;
+
+  margin-left: 100%;
+  margin-top: 200px;
+}
+.icon_perfil{
+
+  background-color: #BAD7E9;
+  position: absolute;
+  top: "150px"; 
+  left: "100px"; 
+
+}
+
+.icon_pais{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  color: #BAD7E9;
+  position: absolute;
+  box-shadow:  0px 0px 10px rgba(0, 0, 0, 0.5) ;
+  width: 780px;
+
+}
+.name{
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 50;
+  left: 115px;
+  color: rgb(7, 7, 5);
+  position: absolute;
+  top: 250px;
+  
+}
+.email{
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 50;
+  left: 115px;
+  color: rgb(7, 7, 5);
+  position: absolute;
+  top: 300px;
+
+}
+.name-input{
+  background-color: #BAD7E9;
+  font-size: 20px;
+  font-family: "Poppins";
+  font-weight: 50;
+  border-radius: 8px;
+  border-style: hidden;
+  width: 450px;
+
+}
+.name-input:focus{
+  outline: none !important;
+}
+.sidebar{
+  background-color: #2B3467;
+  position: fixed;
+  width: 60px;
+  height: 120vh;
+}
+.grupos-a-cargo-title{
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 50;
+  left: 115px;
+  color: rgb(7, 7, 5);
+  position: absolute;
+  top: 380px;
+}
+.grupos-a-cargo{
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  box-shadow:  0px 0px 5px rgba(0, 0, 0, 0.5) ;
+  background-color: #FCffe7;
+}
+
+.icono-grupos-a-cargo{
+  display: block;
+  justify-content: center;
+  top:20px;
+  left:0px;  
+  z-index: 1;
+  background-color: #6e7392;
+}
+.grupo-a-cargo-text{
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 50;
+  left: 100px;
+  color: rgb(7, 7, 5);
+  position: absolute;
+  top: 60px;
+
+}
+.relleno-grupos{
+  width: 100%;
+  height: 33%;
+  background-color: #90AACE;
+  position: absolute;
+  top:0px;
+  left:0px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.boton-link{
+  font-size: 20px;
+  color:#2B3467;
+  top: 50px;
+  left:-10px
+}
+.boton-link:hover {
+  color: red; /* Cambia el color del texto en el hover */
+}
+.crear-grupo{
+  position: absolute;
+  font-size: 20px;
+  color:#2B3467;
+  top: 630px;
+  left:100px
+}
+.boton-continuar{
+  position: absolute;
+  top: 420px;
+  left: 580px;
+  height: 200px;
+  width: 70px;
+  background-color: #BAD7E9;
+} 
+.line{
+  background-color: rgb(161, 143, 143);
+  position: fixed;
+  width: 1px;
+  height: 120vh;
+  left: 700px;
+}
+.grupos{
+  position: absolute;
+  left: 750px;
+  height: 100px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow:  0px 0px 10px rgba(0, 0, 0, 0.3) ;
+}
+.icono-grupos{
+  background-color: #2B3467;
+  position: absolute;
+  top:25%;
+}
+.grupos-text{
+  font-size: 20px;
+  font-family: "Poppins";
+  position: absolute;
+  top:35%;
+  left: 120px
+}
+.boton-grupos{
+  position: absolute;
+  top:30%;
+  left:300px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background-image: url('/icons8-flecha-derecha-larga-64.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+}
+.grupos-2-text{
+  position: absolute;
+  top: 70px;
+  left: 750px;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 50;
 }
