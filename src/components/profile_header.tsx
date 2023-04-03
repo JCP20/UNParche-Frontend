@@ -32,7 +32,7 @@ const Profileheader = (props: propsProfile) => {
             <Avatar className="icon_pais" shape="square"  size={200} icon={<PictureOutlined />} style={{ top: "70px", left: "100px", zIndex: "1" , width:"530px", height:"150px"}} />
           </div>
         </div>
-        <h2 className='name' onClick={handleNameClick} onBlur={handleNameBlur}>
+        <h2 className='name'  font-family='Poppins, sans-serif' onClick={handleNameClick} onBlur={handleNameBlur}>
           Nombre :&nbsp;&nbsp;
           {editingName ?
             <input className="name-input" type="text" value={newName} onChange={handleNameChange} autoFocus />

@@ -23,10 +23,9 @@
 body {
   background: #fdffef;
 	display: flex;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	height: 100vh;
 	margin: -20px 0 50px;
-
   min-height: fit-content;
 }
 
@@ -92,13 +91,6 @@ a {
   background-size:100% 100%;
 }
 
-.botón{
-  color:#2B3467;
-  background-color: green;
-
-  margin-left: 100%;
-  margin-top: 200px;
-}
 .icon_perfil{
 
   background-color: #BAD7E9;
@@ -119,7 +111,7 @@ a {
 
 }
 .name{
-  font-family: "Poppins";
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   font-weight: 50;
   left: 115px;
@@ -129,7 +121,7 @@ a {
   
 }
 .email{
-  font-family: "Poppins";
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   font-weight: 50;
   left: 115px;
@@ -139,13 +131,14 @@ a {
 
 }
 .name-input{
+  font-family: 'Poppins', sans-serif;
   background-color: #BAD7E9;
   font-size: 20px;
-  font-family: "Poppins";
   font-weight: 50;
   border-radius: 8px;
   border-style: hidden;
   width: 450px;
+  
 
 }
 .name-input:focus{
@@ -158,13 +151,13 @@ a {
   height: 120vh;
 }
 .grupos-a-cargo-title{
-  font-family: "Poppins";
   font-size: 20px;
   font-weight: 50;
   left: 115px;
   color: rgb(7, 7, 5);
   position: absolute;
   top: 380px;
+  font-family: 'Poppins', sans-serif;
 }
 .grupos-a-cargo{
   width: 200px;
@@ -183,14 +176,13 @@ a {
   background-color: #6e7392;
 }
 .grupo-a-cargo-text{
-  font-family: "Poppins";
   font-size: 20px;
   font-weight: 50;
   left: 100px;
   color: rgb(7, 7, 5);
   position: absolute;
   top: 60px;
-
+	font-family: 'Poppins', sans-serif;
 }
 .relleno-grupos{
   width: 100%;
@@ -206,17 +198,19 @@ a {
   font-size: 20px;
   color:#2B3467;
   top: 50px;
-  left:-10px
-}
-.boton-link:hover {
-  color: red; /* Cambia el color del texto en el hover */
+  left:-10px;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 100;
 }
 .crear-grupo{
   position: absolute;
   font-size: 20px;
   color:#2B3467;
   top: 630px;
-  left:100px
+  left:100px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+
 }
 .boton-continuar{
   position: absolute;
@@ -248,10 +242,11 @@ a {
 }
 .grupos-text{
   font-size: 20px;
-  font-family: "Poppins";
+  font-family: 'Poppins', sans-serif;
   position: absolute;
   top:35%;
-  left: 120px
+  left: 120px;
+  font-weight: 100;
 }
 .boton-grupos{
   position: absolute;
@@ -272,7 +267,8 @@ a {
   position: absolute;
   top: 70px;
   left: 750px;
-  font-family: "Poppins";
   font-size: 20px;
   font-weight: 50;
+  font-family: 'Poppins', sans-serif;
+
 }
