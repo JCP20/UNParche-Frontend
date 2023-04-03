@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap");
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 .content {
   max-width: 500px;
@@ -11,8 +11,6 @@
 }
 
 html,
-
-
 a {
   color: inherit;
   text-decoration: none;
@@ -22,68 +20,38 @@ a {
   border-color: #e98557;
 }
 
-* { font-family: 'Poppins' }
 body {
-	display: flex;
-	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
+  display: flex;
+  font-family: "Roboto", "Poppins";
+  height: 100vh;
   min-height: fit-content;
 }
 
-.mainContainer {
-
-
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center; 
-  background-color:$color-otro;
-  background-size: cover;
-
-}
 .form {
-
-
   display: grid;
   padding: 2.3rem 2.2rem;
   z-index: 10;
   overflow: hidden;
   position: relative;
   left: 10px;
+  width: 400px;
 }
-#formLogin{
-  top: 20px;
-  height: 400px;
-  width: 500px;
-}
-#formRegister{
+
+#formRegister {
   height: 580px;
-  width: 360px;
 }
-#formCrearGrupo{
+#formCrearGrupo {
   height: 720px;
   width: 360px;
 }
-.card{
-margin: auto;
-border-radius: 24px;
-background: $color-base;
-background-size: cover;
-box-shadow:  5px 5px 0px #afb9c5,
-             -5px -5px 0px #e9f5ff;
-display: flex;
 
-            }
-#cardLogin{
-  width: 800px;
+#cardLogin {
   height: 500px;
 }
-#cardRegister{
-  width: 800px;
+#cardRegister {
   height: 540px;
 }
-#cardCrearGrupo{
-  width: 800px;
+#cardCrearGrupo {
   height: 708px;
 }
 .gallery {
@@ -95,13 +63,12 @@ display: flex;
   top: 40px;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
   color: $primary-color;
-
 }
 
 .pic {
-
   position: absolute;
   width: 100%;
   height: 100%;
@@ -109,91 +76,87 @@ a:link, a:visited {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-
+  left: 80px;
 }
-#picRegistro{
-  left: 128px;
+#picRegistro {
   top: 48px;
-  -webkit-animation: fadeRegistro 40s cubic-bezier(1,0,0,1) infinite;
-  animation: fadeRegistro 40s cubic-bezier(1,0,0,1) infinite;
+  -webkit-animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
+  animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
 }
-#picLogin{
+#picLogin {
   top: 20px;
-  -webkit-animation: fadeLogin 50s cubic-bezier(1,0,0,1) infinite;
-  animation: fadeLogin 50s cubic-bezier(1,0,0,1) infinite;
+  -webkit-animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
+  animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
 }
 
 @-webkit-keyframes fadeLogin {
   0% {
-    background-image: url('/imagenes/Imagen1.png');
+    background-image: url("/imagenes/Imagen1.png");
   }
   25% {
-    background-image: url('/imagenes/Imagen2.png');
+    background-image: url("/imagenes/Imagen2.png");
   }
   50% {
-    background-image: url('/imagenes/Imagen3.png');
+    background-image: url("/imagenes/Imagen3.png");
   }
   75% {
-    background-image: url('/imagenes/Imagen4.png');
+    background-image: url("/imagenes/Imagen4.png");
   }
   100% {
-    background-image: url('/imagenes/Imagen1.png');
+    background-image: url("/imagenes/Imagen1.png");
   }
 }
 
 @keyframes fadeLogin {
   0% {
-    background-image: url('/imagenes/Imagen1.png');
+    background-image: url("/imagenes/Imagen1.png");
   }
   25% {
-    background-image: url('/imagenes/Imagen2.png');
+    background-image: url("/imagenes/Imagen2.png");
   }
   50% {
-    background-image: url('/imagenes/Imagen3.png');
+    background-image: url("/imagenes/Imagen3.png");
   }
   75% {
-    background-image: url('/imagenes/Imagen4.png');
+    background-image: url("/imagenes/Imagen4.png");
   }
   100% {
-    background-image: url('/imagenes/Imagen1.png');
+    background-image: url("/imagenes/Imagen1.png");
   }
-
 }
 @-webkit-keyframes fadeRegistro {
-    0% {
-      background-image: url('/imagenes/Imagen5.png');
-    }
-    33% {
-      background-image: url('/imagenes/Imagen6.png');
-    }
-    66% {
-      background-image: url('/imagenes/Imagen7.png');
-    }
-    100% {
-      background-image: url('/imagenes/Imagen5.png');
-    }
-}
-
-@keyframes fadeRegistro{
   0% {
-    background-image: url('/imagenes/Imagen5.png');
+    background-image: url("/imagenes/Imagen5.png");
   }
   33% {
-    background-image: url('/imagenes/Imagen6.png');
+    background-image: url("/imagenes/Imagen6.png");
   }
   66% {
-    background-image: url('/imagenes/Imagen7.png');
+    background-image: url("/imagenes/Imagen7.png");
   }
   100% {
-    background-image: url('/imagenes/Imagen5.png');
+    background-image: url("/imagenes/Imagen5.png");
   }
+}
 
+@keyframes fadeRegistro {
+  0% {
+    background-image: url("/imagenes/Imagen5.png");
+  }
+  33% {
+    background-image: url("/imagenes/Imagen6.png");
+  }
+  66% {
+    background-image: url("/imagenes/Imagen7.png");
+  }
+  100% {
+    background-image: url("/imagenes/Imagen5.png");
+  }
 }
 .ant-select-item-option-content {
   white-space: normal;
   word-break: keep-all;
 }
-.ant-menu{
+.ant-menu {
   background: $primary-color;
-  }
+}
