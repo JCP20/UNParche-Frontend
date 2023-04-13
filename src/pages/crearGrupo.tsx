@@ -54,6 +54,7 @@ const CrearGrupo = () => {
   
   return (
     //Contenedor principal
+    <div className="containerLogin">
     <div className='mainContainer'>         
     
     <div className='card' id='cardCrearGrupo'>         
@@ -129,7 +130,7 @@ const CrearGrupo = () => {
     <Form.Item label="Descripción">
           <TextArea rows={2} />
     </Form.Item>
-    <Form.Item label="Upload" valuePropName="fileList">
+    <Form.Item label="Imagen de perfil" valuePropName="fileList">
     <ImgCrop rotationSlider>
       <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -149,6 +150,7 @@ const CrearGrupo = () => {
             </Button>
     </Form.Item>       
     </Form>
+    </div>
     </div>
     </div>
   );

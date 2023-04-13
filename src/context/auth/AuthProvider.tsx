@@ -56,7 +56,7 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     // Don't check token on an array of defined public routes
-    const publicRoutes = ["/login", "/registro", "/verificar/[id]", "/404"];
+    const publicRoutes = ["/login", "/registro", "/verificar/[id]", "/prueba","/crearGrupo", "/404"];
 
     if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();

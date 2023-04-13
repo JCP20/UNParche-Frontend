@@ -1,7 +1,10 @@
+import SideMenu from "@/components/SideMenu";
+
 export default function Home() {
+  
   return (
     <>
-      <p>Pantalla principal</p>
+      <p>SideMenu</p>
     </>
   );
 }
