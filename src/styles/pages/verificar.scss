@@ -1,0 +1,155 @@
+.buttonver {
+  height: 40px;
+  width: 256px;
+  border: none;
+  border-radius: 6px;
+  background-color: $color-boton;
+  color: #ffffffe8;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 0 rgb(255 5 5 / 6%);
+}
+.ant-btn-primary.buttonver:hover {
+  background-color:$darker-primary-boton;
+  color: $color-base;
+}
+.containerveri {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: fit-content;
+  height: 100vh;
+  width: 100vw;
+  background-color: $color-otro;
+  border:1px solid black;
+  /* background-image: url('/5170.jpg');  */
+  background-size:100% 100%;
+}
+.onda{
+  position: absolute;
+  top: 200px;
+  left: -198px;
+  z-index: 0;
+}
+.verification-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+  height: 400px;
+  padding: 24px;
+  background-color: $color-base;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  z-index: 4;
+}
+.textveri {
+  font-family: "Poppins";
+  font-size: 24px;
+  font-weight: 600;
+  justify-content:center;
+  text-align:CENTER;
+}
+.imgCont{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  background-color: transparent;
+}
+.logo{
+  margin-left:auto;
+  margin-right:auto;
+  float:right;  
+  filter: hue-rotate(180deg);  
+  height: 160px;
+  width: 160px;
+}
+.background-circle{
+  background-color: $darker-primary-boton;
+  position: absolute;
+  left: 30px;
+  top: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  animation: upDown2 4s ease-in-out infinite alternate;
+}
+.background-circle2{
+  background-color: $darker-primary-boton;
+  position: absolute;
+  left: 90px;
+  top: 90px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: upDown2 4s ease-in-out infinite alternate;
+}
+.background-circle3{
+  background-color: $color-boton;
+  position: absolute;
+  left: 300px;
+  top: 100px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: upDown 2s ease-in-out infinite alternate;
+}
+.background-circle4{
+  background-color: $color-boton;
+  position: absolute;
+  left: 900px;
+  top: 500px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: upDown2   2s ease-in-out infinite alternate;
+}
+.background-circle5{
+  background-color:$darker-primary-boton;
+  position: absolute;
+  left: 1100px;
+  top: 550px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: upDown2 2s ease-in-out infinite alternate;
+}
+.background-circle6{
+  background-color: $darker-primary-boton;
+  position: absolute;
+  left: 1100px;
+  top: 520px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: upDown2 2s ease-in-out infinite alternate;
+}
+.onda{
+  position: absolute;
+  top: 200px;
+  left: -198px;
+  z-index: 0;
+}
+
+@keyframes upDown {
+  from {
+    transform: translateY(0) ;
+  }
+  to {
+    transform: translateY(30px) ;
+  }
+}
+@keyframes upDown2 {
+  from {
+    transform: translateY(0) ;
+  }
+  to {
+    transform: translateY(20px) ;
+  }
+}

@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap");
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins";
+}
+.content {
+  max-width: 500px;
+  margin: auto;
+}
+
+html,
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ant-input:focus {
+  border-color: #e98557;
+}
+
+body {
+  display: flex;
+  font-family: "Roboto", "Poppins";
+  height: 100vh;
+  min-height: fit-content;
+}
+
+.form {
+  display: grid;
+  padding: 2.3rem 2.2rem;
+  z-index: 10;
+  overflow: hidden;
+  position: relative;
+  left: 10px;
+  width: 400px;
+}
+
+#formRegister {
+  height: 580px;
+}
+#formCrearGrupo {
+  height: 720px;
+  width: 360px;
+}
+
+#cardLogin {
+  height: 500px;
+}
+#cardRegister {
+  height: 540px;
+}
+#cardCrearGrupo {
+  height: 708px;
+}
+.gallery {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 248px;
+  height: 364px;
+  top: 40px;
+}
+
+a:link,
+a:visited {
+  color: $primary-color;
+}
+
+.pic {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: 80px;
+}
+#picRegistro {
+  top: 48px;
+  -webkit-animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
+  animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
+}
+#picLogin {
+  top: 20px;
+  -webkit-animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
+  animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
+}
+
+@-webkit-keyframes fadeLogin {
+  0% {
+    background-image: url("/imagenes/Imagen1.png");
+  }
+  25% {
+    background-image: url("/imagenes/Imagen2.png");
+  }
+  50% {
+    background-image: url("/imagenes/Imagen3.png");
+  }
+  75% {
+    background-image: url("/imagenes/Imagen4.png");
+  }
+  100% {
+    background-image: url("/imagenes/Imagen1.png");
+  }
+}
+
+@keyframes fadeLogin {
+  0% {
+    background-image: url("/imagenes/Imagen1.png");
+  }
+  25% {
+    background-image: url("/imagenes/Imagen2.png");
+  }
+  50% {
+    background-image: url("/imagenes/Imagen3.png");
+  }
+  75% {
+    background-image: url("/imagenes/Imagen4.png");
+  }
+  100% {
+    background-image: url("/imagenes/Imagen1.png");
+  }
+}
+@-webkit-keyframes fadeRegistro {
+  0% {
+    background-image: url("/imagenes/Imagen5.png");
+  }
+  33% {
+    background-image: url("/imagenes/Imagen6.png");
+  }
+  66% {
+    background-image: url("/imagenes/Imagen7.png");
+  }
+  100% {
+    background-image: url("/imagenes/Imagen5.png");
+  }
+}
+
+@keyframes fadeRegistro {
+  0% {
+    background-image: url("/imagenes/Imagen5.png");
+  }
+  33% {
+    background-image: url("/imagenes/Imagen6.png");
+  }
+  66% {
+    background-image: url("/imagenes/Imagen7.png");
+  }
+  100% {
+    background-image: url("/imagenes/Imagen5.png");
+  }
+}
+.ant-select-item-option-content {
+  white-space: normal;
+  word-break: keep-all;
+}
+.ant-menu {
+  background: $primary-color;
+}
