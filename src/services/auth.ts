@@ -10,6 +10,7 @@ export const createUser = async (input: {
   const result = await backendApi.post("/auth/register", input);
   return result;
 };
+
 export const loginUser = async (input: {
   password: string;
   email: string;
