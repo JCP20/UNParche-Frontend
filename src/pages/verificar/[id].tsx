@@ -5,8 +5,8 @@ import { getUserById } from "@/services/user";
 import { message } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import Image from 'next/image';
-import { Button } from 'antd';
+import Image from "next/image";
+import { Button } from "antd";
 
 const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
   const router = useRouter();
@@ -38,34 +38,41 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
   }, []);
 
   return (
-    <div className="containerveri">      
-      <Image className='onda' width={1480}height={300} src="/imagenes/wavesbl2.png" alt=""/>
+    <div className="containerveri">
+      <Image
+        className="onda"
+        width={1480}
+        height={300}
+        src="/imagenes/wavesbl2.png"
+        alt=""
+      />
       <div className="verification-window">
-          <h1 className="textveri">Su correo ha sido verificado correctamente</h1>
-        <div className='imgCont'>
-        <Image
-            className='logo'
+        <h1 className="textveri">Su correo ha sido verificado correctamente</h1>
+        <div className="imgCont">
+          <Image
+            className="logo"
             src="/imagenes/escudo-unscreen.gif"
             alt=""
             width={80}
             height={90}
           />
-          </div>
-          <Button type='primary' className="buttonver" onClick={() => router.replace("/")}>
-            Continuar
-          </Button>
+        </div>
+        <Button
+          type="primary"
+          className="buttonver"
+          onClick={() => router.replace("/")}
+        >
+          Continuar
+        </Button>
       </div>
-      <style jsx>{`
-      `}</style>
-      <div className='background-circle'>
-      </div>
-      <div className='background-circle2'></div>
-      <div className='background-circle3'></div>
-      <div className='background-circle4'></div>
-      <div className='background-circle5'></div>
-      <div className='background-circle6'></div>
+      <style jsx>{``}</style>
+      <div className="background-circle"></div>
+      <div className="background-circle2"></div>
+      <div className="background-circle3"></div>
+      <div className="background-circle4"></div>
+      <div className="background-circle5"></div>
+      <div className="background-circle6"></div>
     </div>
-    
   );
 };
 
