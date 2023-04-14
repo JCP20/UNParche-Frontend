@@ -35,8 +35,6 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const checkAuthToken = async () => {
-    const publicRoutes = ["/login"];
-
     const token = Cookies.get("x-token");
 
     if (!token) {
@@ -53,9 +51,7 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
         setUser(resp.data);
         setIsAuthenticated(true);
 
-        if (publicRoutes.includes(router.pathname)) {
-          router.replace("/");
-        }
+        router.replace("/");
       } else {
         logout();
       }
@@ -64,7 +60,9 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     // Don't check token on an array of defined public routes
-    if (!"/404".includes(router.pathname)) {
+    const publicRoutes = ["/login", "/registro", "/verificar/[id]"];
+
+    if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();
     }
   }, []);

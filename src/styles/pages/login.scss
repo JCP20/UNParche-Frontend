@@ -29,12 +29,6 @@
 
   .diamondsContainer {
     position: absolute;
-    transform: rotate(45deg);
-    background: #eb455f;
-    animation: upDown 2s ease-in-out infinite alternate;
-  }
-
-  .diamond_1 {
     top: 0;
     left: 0;
     width: 100%;
@@ -44,7 +38,7 @@
     .diamond {
       position: absolute;
       transform: rotate(45deg);
-      background: rgba(#eb455f, 0.3);
+      background: #eb455f;
       animation: upDown 2s ease-in-out infinite alternate;
     }
 
