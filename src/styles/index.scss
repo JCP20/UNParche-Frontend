@@ -1,4 +1,4 @@
-//
+// Variables
 @import "./variables.scss";
 // Configuracion general
 @import "./globals.scss";
@@ -7,3 +7,5 @@
 @import "./pages/verificar.scss";
 @import "./pages/login.scss";
 @import "./pages/custom404.scss";
+// Componentes
+@import "./components/layout.scss";

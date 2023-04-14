@@ -21,10 +21,7 @@ a {
 }
 
 body {
-  display: flex;
   font-family: "Roboto", "Poppins";
-  height: 100vh;
-  min-height: fit-content;
 }
 
 .form {
@@ -159,4 +156,16 @@ a:visited {
 }
 .ant-menu {
   background: $primary-color;
+}
+
+.alpha-9 {
+  opacity: 0.9;
+}
+
+.alpha-7 {
+  opacity: 0.7;
+}
+
+.alpha-5 {
+  opacity: 0.5;
 }

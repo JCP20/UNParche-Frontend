@@ -74,10 +74,10 @@ const LoginPage = () => {
         </div>
       </div>
       <div className="diamondsContainer">
-        <div className="diamond diamond_1" />
-        <div className="diamond diamond_2" />
-        <div className="diamond diamond_3" />
-        <div className="diamond diamond_4" />
+        <div className="diamond diamond_1 alpha-9" />
+        <div className="diamond diamond_2 alpha-9" />
+        <div className="diamond diamond_3 alpha-7" />
+        <div className="diamond diamond_4 alpha-5" />
       </div>
     </div>
   );

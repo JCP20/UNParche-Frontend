@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import {  
+import {
   CalendarOutlined,
   HomeOutlined,
-  MenuOutlined,  
-  UserOutlined,
-  UserSwitchOutlined,
+  MenuOutlined,
   PoweroffOutlined,
   SettingOutlined,
   TeamOutlined,
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Button, Image, Breadcrumb, Layout, Menu, theme } from 'antd';
+  UserOutlined,
+  UserSwitchOutlined,
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { Image, Layout, Menu } from "antd";
+import React from "react";
 const { Header, Content, Footer, Sider } = Layout;
 
-type MenuItem = Required<MenuProps>['items'][number];
+type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
   children?: MenuItem[],
-  type?: 'group',
+  type?: "group"
 ): MenuItem {
   return {
     key,
@@ -32,40 +32,53 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('Inicio', '1', <HomeOutlined />),
-  
-  getItem('Mis Grupos', 'sub1', <TeamOutlined />, [
-    getItem('Grupo 1', '2'),
-    getItem('Grupo 2', '3'),
-    getItem('Grupo 3', '4'),
-  ]),    
-  getItem('Calendario', '5', <CalendarOutlined  />), 
-  getItem('Perfil', '6', <UserOutlined  />),
-  
-  
+  getItem("Inicio", "1", <HomeOutlined />),
 
-  getItem('Más', 'sub2', <MenuOutlined />, [
-    getItem('Salir', '7', <PoweroffOutlined />),
-    getItem('Cambiar Cuenta', '8',<UserSwitchOutlined />),
-    getItem('Configuración', '9',<SettingOutlined/>),
-    getItem('Cambiar Aspecto', '10',<Image src="/imagenes/darkModeIcon"/>),
+  getItem("Mis Grupos", "sub1", <TeamOutlined />, [
+    getItem("Grupo 1", "2"),
+    getItem("Grupo 2", "3"),
+    getItem("Grupo 3", "4"),
+  ]),
+  getItem("Calendario", "5", <CalendarOutlined />),
+  getItem("Perfil", "6", <UserOutlined />),
+
+  getItem("Más", "sub2", <MenuOutlined />, [
+    getItem("Salir", "7", <PoweroffOutlined />),
+    getItem("Cambiar Cuenta", "8", <UserSwitchOutlined />),
+    getItem("Configuración", "9", <SettingOutlined />),
+    getItem("Cambiar Aspecto", "10", <Image src="/imagenes/darkModeIcon" />),
   ]),
 ];
 
-const SideMenu: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+interface SideMenuProps {
+  children: JSX.Element;
+}
 
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
-
+const SideMenu: React.FC<SideMenuProps> = ({ children }: SideMenuProps) => {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-    <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-      <div style={{ height: 32, margin: 16, background: '#2B3467' }} />
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-    </Sider>
-  </Layout>
+    <Layout style={{ minHeight: "100vh" }} hasSider>
+      <Sider
+        collapsible
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "sticky",
+          left: 0,
+          top: 0,
+        }}
+      >
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={items}
+        />
+      </Sider>
+
+      <Layout className="site-layout">
+        <Content style={{ margin: 32 }}>{children}</Content>
+      </Layout>
+    </Layout>
   );
 };
 
