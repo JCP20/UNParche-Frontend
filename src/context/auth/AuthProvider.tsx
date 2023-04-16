@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 import { backendApi } from "@/api/config";
 import { IUser } from "@/interfaces/user";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
 interface userAuthTypes {
   id: string;
   username: string;
 }
 
+const privateRoutes = ["/calendar", "/crearGrupo", "/", "/search"];
+
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<userAuthTypes>({} as userAuthTypes);
 
@@ -35,35 +38,53 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const checkAuthToken = async () => {
-    const token = Cookies.get("x-token");
-
-    if (!token) {
-      logout();
-      return;
-    }
-
     try {
+      const token = Cookies.get("x-token");
+
+      if (!token) {
+        logout();
+        return;
+      }
+
       const resp: { ok: boolean; token: string; data: IUser } = (
         await backendApi.get("/auth/renew")
       ).data as { ok: boolean; token: string; data: IUser };
-      console.log(resp);
+
       if (resp.ok) {
         setUser(resp.data);
         setIsAuthenticated(true);
       } else {
         logout();
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     // Don't check token on an array of defined public routes
-    const publicRoutes = ["/login", "/registro", "/verificar/[id]"];
-
-    if (!publicRoutes.includes(router.pathname)) {
+    setIsLoading(true);
+    if (privateRoutes.includes(router.pathname)) {
       checkAuthToken();
     }
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="loadingComponent">
+        <div className="containerNeonLoading">
+          <h2>Cargando...</h2>
+          <p>Por favor, espera un momento</p>
+          <div className="bubbleContainer">
+            <div className="bubble bubble-1" />
+            <div className="bubble bubble-2" />
+            <div className="bubble bubble-3" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>

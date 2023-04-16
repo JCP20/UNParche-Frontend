@@ -22,7 +22,22 @@
       border-radius: 24px;
       background: $color-base;
       display: flex;
+      justify-content: center;
+      align-items: center;
       width: 800px;
+
+      .carrouselContainer {
+        width: 40%;
+        z-index: 100;
+        .carousel-root,
+        .carousel-slider {
+          img {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+          }
+        }
+      }
     }
 
     #formLogin {

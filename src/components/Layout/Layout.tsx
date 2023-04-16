@@ -8,8 +8,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, MenuProps } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
+import Link from "next/link";
+import { useRouter } from "next/router";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -31,14 +33,26 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Inicio", "1", <HomeOutlined />),
+  getItem(
+    "Inicio",
+    "/",
+    <Link href={"/"}>
+      <HomeOutlined />
+    </Link>
+  ),
 
   getItem("Mis Grupos", "sub1", <TeamOutlined />, [
     getItem("Grupo 1", "2"),
     getItem("Grupo 2", "3"),
     getItem("Grupo 3", "4"),
   ]),
-  getItem("Calendario", "5", <CalendarOutlined />),
+  getItem(
+    "Calendario",
+    "/calendar",
+    <Link href={"calendar"}>
+      <CalendarOutlined />
+    </Link>
+  ),
   getItem("Perfil", "6", <UserOutlined />),
 
   getItem("Más", "sub2", <MenuOutlined />, [
@@ -54,6 +68,13 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
 }: MainLayoutProps) => {
+  const [selectedKey, setSelectedKey] = useState<string>("");
+  const router = useRouter();
+
+  useEffect(() => {
+    setSelectedKey(router.pathname);
+  }, [selectedKey]);
+
   return (
     <Layout style={{ minHeight: "100vh", background: "#fff" }} hasSider>
       <Sider
@@ -67,7 +88,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       >
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
+          selectedKeys={[selectedKey]}
           mode="inline"
           items={items}
         />

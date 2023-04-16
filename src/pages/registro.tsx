@@ -1,13 +1,18 @@
-import { AuthContext } from "@/context/auth/AuthContext";
+import CarouselCustom from "@/components/CarouselCustom";
 import { createUser } from "@/services/auth";
 import { Button, Form, Input, message } from "antd";
 import Head from "next/head";
-import { useContext } from "react";
 
 const layout = {
   labelCol: { span: 50 },
   wrapperCol: { span: 50 },
 };
+
+const imagesRegistro = [
+  "/imagenes/Imagen5.png",
+  "/imagenes/Imagen6.png",
+  "/imagenes/Imagen7.png",
+];
 
 //Aplicación de registro
 const Registro = () => {
@@ -36,7 +41,7 @@ const Registro = () => {
         <title>Registro</title>
       </Head>
       <div className="mainContainer">
-        <div className="card" id="cardRegister">
+        <div className="card">
           <Form
             className="form"
             id="formRegister" //Detalles del Formulario
@@ -136,8 +141,8 @@ const Registro = () => {
               ¿Ya tienes una cuenta? <a href="/login"> Ingresa</a>
             </Form.Item>
           </Form>
-          <div className="gallery">
-            <div className="pic" id="picRegistro" />
+          <div className="carrouselContainer">
+            <CarouselCustom images={imagesRegistro} />
           </div>
         </div>
       </div>

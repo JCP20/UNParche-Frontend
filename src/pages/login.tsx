@@ -1,9 +1,17 @@
+import CarouselCustom from "@/components/CarouselCustom";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { loginUser } from "@/services/auth";
 import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import Head from "next/head";
 import Image from "next/image";
 import { useContext } from "react";
+
+const imagesLogin = [
+  "/imagenes/Imagen1.png",
+  "/imagenes/Imagen2.png",
+  "/imagenes/Imagen3.png",
+  "/imagenes/Imagen4.png",
+];
 
 const LoginPage = () => {
   const { login } = useContext(AuthContext);
@@ -36,7 +44,7 @@ const LoginPage = () => {
         <div className="diamond diamond_4 alpha-5" />
       </div>
       <div className="mainContainer">
-        <div className="card" id="cardLogin">
+        <div className="card">
           <Form
             className="form"
             id="formLogin"
@@ -76,9 +84,12 @@ const LoginPage = () => {
               ¿No tienes cuenta? <a href="/registro"> Regístrate</a>
             </Form.Item>
           </Form>
-          <div className="gallery">
-            <div className="pic" id="picLogin" />
+          <div className="carrouselContainer">
+            <CarouselCustom images={imagesLogin} />
           </div>
+          {/* <div className="gallery">
+            <div className="pic" id="picLogin" />
+          </div> */}
         </div>
       </div>
     </div>

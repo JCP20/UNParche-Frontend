@@ -11,11 +11,13 @@
     font-size: 11rem;
     font-weight: 700;
     color: $color-boton;
+    margin: 20px;
   }
 
   .linkReturn {
     color: $darker-primary-boton;
     transition: 0.5 ease-in-out;
+    font-weight: bold;
 
     &:hover {
       color: $color-boton;
