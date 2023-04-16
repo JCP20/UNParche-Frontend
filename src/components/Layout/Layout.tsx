@@ -6,11 +6,10 @@ import {
   SettingOutlined,
   TeamOutlined,
   UserOutlined,
-  UserSwitchOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Image, Layout, Menu } from "antd";
+import { Layout, Menu, MenuProps } from "antd";
 import React from "react";
+import SearchBar from "./SearchBar";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -44,21 +43,20 @@ const items: MenuItem[] = [
 
   getItem("Más", "sub2", <MenuOutlined />, [
     getItem("Salir", "7", <PoweroffOutlined />),
-    getItem("Cambiar Cuenta", "8", <UserSwitchOutlined />),
     getItem("Configuración", "9", <SettingOutlined />),
-    getItem("Cambiar Aspecto", "10", <Image src="/imagenes/darkModeIcon" />),
   ]),
 ];
 
-interface SideMenuProps {
+interface MainLayoutProps {
   children: JSX.Element;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ children }: SideMenuProps) => {
+const MainLayout: React.FC<MainLayoutProps> = ({
+  children,
+}: MainLayoutProps) => {
   return (
-    <Layout style={{ minHeight: "100vh" }} hasSider>
+    <Layout style={{ minHeight: "100vh", background: "#fff" }} hasSider>
       <Sider
-        collapsible
         style={{
           overflow: "auto",
           height: "100vh",
@@ -74,12 +72,26 @@ const SideMenu: React.FC<SideMenuProps> = ({ children }: SideMenuProps) => {
           items={items}
         />
       </Sider>
-
-      <Layout className="site-layout">
-        <Content style={{ margin: 32 }}>{children}</Content>
+      <Layout className="mainLayoutContainer">
+        <Content className="contentContainer">{children}</Content>
+        <Content
+          className="searchBarContainer"
+          style={{
+            overflow: "auto",
+            height: "100vh",
+            position: "sticky",
+            top: 0,
+          }}
+        >
+          <SearchBar />
+          <div className="additionalInfo">
+            <p>Política de cookies</p>
+            <p>© 2023 UnParche, Inc.</p>
+          </div>
+        </Content>
       </Layout>
     </Layout>
   );
 };
 
-export default SideMenu;
+export default MainLayout;

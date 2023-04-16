@@ -3,11 +3,13 @@ import "@/styles/index.scss";
 import { ConfigProvider } from "antd";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import esEs from "antd/locale/es_ES";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <ConfigProvider
+        locale={esEs}
         theme={{
           token: {
             colorPrimary: "#EB455F",

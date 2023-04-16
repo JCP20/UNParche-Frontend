@@ -18,7 +18,7 @@ const SearchBar = () => {
 
   return (
     <Input.Search
-      placeholder="input search text"
+      placeholder="Buscar"
       onChange={onChange}
       onSearch={onSearch}
       enterButton

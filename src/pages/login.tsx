@@ -2,6 +2,7 @@ import { AuthContext } from "@/context/auth/AuthContext";
 import { loginUser } from "@/services/auth";
 import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import Head from "next/head";
+import Image from "next/image";
 import { useContext } from "react";
 
 const LoginPage = () => {
@@ -27,6 +28,13 @@ const LoginPage = () => {
       <Head>
         <title>Inicio de Sesión</title>
       </Head>
+      <Image fill src="/imagenes/wavesbl2.png" alt="" />
+      <div className="diamondsContainer">
+        <div className="diamond diamond_1 alpha-9" />
+        <div className="diamond diamond_2 alpha-9" />
+        <div className="diamond diamond_3 alpha-7" />
+        <div className="diamond diamond_4 alpha-5" />
+      </div>
       <div className="mainContainer">
         <div className="card" id="cardLogin">
           <Form
@@ -72,12 +80,6 @@ const LoginPage = () => {
             <div className="pic" id="picLogin" />
           </div>
         </div>
-      </div>
-      <div className="diamondsContainer">
-        <div className="diamond diamond_1 alpha-9" />
-        <div className="diamond diamond_2 alpha-9" />
-        <div className="diamond diamond_3 alpha-7" />
-        <div className="diamond diamond_4 alpha-5" />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import SideMenu from "@/components/SideMenu";
+import SideMenu from "@/components/Layout/Layout";
 import { Button, Form, Select } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";

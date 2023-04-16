@@ -1,1 +1,33 @@
+.siderContainer {
+  overflow: "auto";
+  height: 100vh;
+  position: "sticky";
+  left: 0;
+  top: 0;
+}
 
+.mainLayoutContainer {
+  display: "flex";
+  flex-direction: row;
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: #2b3467;
+  }
+
+  .contentContainer {
+    width: 70%;
+    padding: 20px;
+  }
+
+  .searchBarContainer {
+    width: 30%;
+    padding: 20px;
+
+    .additionalInfo {
+      margin-top: 20px;
+      color: #999;
+    }
+  }
+}

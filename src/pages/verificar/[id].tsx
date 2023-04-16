@@ -65,7 +65,6 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
           Continuar
         </Button>
       </div>
-      <style jsx>{``}</style>
       <div className="background-circle"></div>
       <div className="background-circle2"></div>
       <div className="background-circle3"></div>

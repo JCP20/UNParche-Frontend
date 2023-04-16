@@ -46,12 +46,10 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
       const resp: { ok: boolean; token: string; data: IUser } = (
         await backendApi.get("/auth/renew")
       ).data as { ok: boolean; token: string; data: IUser };
-
+      console.log(resp);
       if (resp.ok) {
         setUser(resp.data);
         setIsAuthenticated(true);
-
-        router.replace("/");
       } else {
         logout();
       }
