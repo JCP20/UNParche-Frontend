@@ -8,8 +8,13 @@ export const backendApi = axios.create({
 // Add a request interceptor to add the x-token header to all requests
 backendApi.interceptors.request.use((config) => {
   const token = Cookies.get("x-token");
+  const refresh = Cookies.get("x-token-refresh");
+
   if (token) {
     config.headers["x-token"] = token;
+  }
+  if (refresh) {
+    config.headers["x-token-refresh"] = refresh;
   }
   return config;
 });
