@@ -23,7 +23,12 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
       if (resp?.status === 200) {
         setTimeout(() => {
-          login(resp.data.token, resp.data.id, resp.data.username);
+          login(
+            resp.data.token,
+            resp.data.id,
+            resp.data.username,
+            resp.data.refresh
+          );
         }, 5000);
       }
     } catch (error) {
@@ -64,6 +69,7 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
         >
           Continuar
         </Button>
+        <p>Será redirigido en 5 segundos...</p>
       </div>
       <div className="background-circle"></div>
       <div className="background-circle2"></div>

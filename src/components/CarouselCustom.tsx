@@ -16,6 +16,7 @@ const CarouselCustom = ({ images }: CarouselCustomProps) => {
       infiniteLoop={true}
       animationHandler={"fade"}
       swipeable={false}
+      interval={5000}
     >
       {images.map((image, i) => (
         <div key={i}>
