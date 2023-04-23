@@ -9,6 +9,12 @@ const groups = [
   { id: "3", name: "Grupo 3", description: "Hola mundo", foto: "imgen.png" },
   { id: "4", name: "Grupo 4", description: "Hola mundo", foto: "imgen.png" },
 ];
+const datosFalsos2 = [{name: "UQBAR", logo: "/foto_perfil.jpg",description:"Es un grupo de seguridad informática de la Universidad Nacional, desarrollado por y para estudaintes. Líderes en innovación y gerencia de proyectos", members: 32, textmembers:"miembros activos"}, 
+,{name: "SalsUnal", logo: "/foto_fondo.jpg",description:"Grupo de salsa caleña y cubana de la Universidad Nacional de Colombia, sesiones presenciales, múltiples campeones", members: 32, textmembers:"miembros activos"}
+,{name: "Salsynal", logo: "/foto_fondo.jpg",description:"Grupo de salsa caleña y cubana de la Universidad Nacional de Colombia, sesiones presenciales, múltiples campeones", members: 32, textmembers:"miembros activos"},
+,{name: "SalsUnal", logo: "/foto_fondo.jpg",description:"Grupo de salsa caleña y cubana de la Universidad Nacional de Colombia, sesiones presenciales, múltiples campeones", members: 32, textmembers:"miembros activos"}
+,{name: "SalsUnal", logo: "/foto_fondo.jpg",description:"Grupo de salsa caleña y cubana de la Universidad Nacional de Colombia, sesiones presenciales, múltiples campeones", members: 32, textmembers:"miembros activos"}
+]
 
 const exampleCategories = [{ label: "Hola", value: "hola" }];
 
@@ -28,7 +34,7 @@ const Search = () => {
   };
 
   return (
-    <SideMenu>
+    <SideMenu notShowSearch>
       <>
         <div className="filters">
           <Form onFinish={onFinish}>

@@ -11,10 +11,10 @@ interface PropsGroups{
 const Profilegroups = (props: PropsGroups) => {
     const { name, logo } = props;
     return(
-        <Card className='grupos'style={{top:props.top, left: props.left} }>
+        <Card className='grupos' style={{top:props.top, left: props.left} }>
         <Avatar className='icono-grupos' src={props.logo}> </Avatar>
         <p className='grupos-text'>{name}</p>
-        <Button className='boton-grupos' type='default'>
+        <Button className='card-groups-button' type='default'>Ir
         </Button>
         </Card>
     )

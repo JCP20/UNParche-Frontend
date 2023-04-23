@@ -19,6 +19,7 @@ const LoginPage = () => {
   const onFinish = async (values: any) => {
     try {
       const resp = await loginUser(values);
+      console.log(resp)
       message.success("Login exitoso!");
       login(resp.data.token, resp.data.id, resp.data.username);
     } catch (error: any) {

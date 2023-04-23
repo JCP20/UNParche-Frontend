@@ -63,10 +63,12 @@ const items: MenuItem[] = [
 
 interface MainLayoutProps {
   children: JSX.Element;
+  notShowSearch?: Boolean;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
+  notShowSearch
 }: MainLayoutProps) => {
   const [selectedKey, setSelectedKey] = useState<string>("");
   const router = useRouter();
@@ -95,7 +97,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       </Sider>
       <Layout className="mainLayoutContainer">
         <Content className="contentContainer">{children}</Content>
-        <Content
+        {!notShowSearch &&         <Content
           className="searchBarContainer"
           style={{
             overflow: "auto",
@@ -109,7 +111,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             <p>Política de cookies</p>
             <p>© 2023 UnParche, Inc.</p>
           </div>
-        </Content>
+        </Content>}
+
       </Layout>
     </Layout>
   );
