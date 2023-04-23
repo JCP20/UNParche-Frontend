@@ -41,10 +41,13 @@ const items: MenuItem[] = [
     </Link>
   ),
 
-  getItem("Mis Grupos", "sub1", <TeamOutlined />, [
-    getItem("Grupo 1", "2"),
-    getItem("Grupo 2", "3"),
-    getItem("Grupo 3", "4"),
+  getItem("Mis Grupos","/grupo",
+       
+      <TeamOutlined />,
+[
+    getItem("Grupo 1","/grupo", <Link href={"grupo"}></Link>),
+    getItem("Grupo 2","/grupo", <Link href={"grupo"}></Link>),
+    getItem("Grupo 3","/grupo", <Link href={"grupo"}></Link>),
   ]),
   getItem(
     "Calendario",
@@ -76,7 +79,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   }, [selectedKey]);
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "#fff" }} hasSider>
+    <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>
       <Sider
         style={{
           overflow: "auto",

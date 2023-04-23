@@ -58,7 +58,7 @@
     .diamond {
       position: absolute;
       transform: rotate(45deg);
-      background: #eb455f;
+      background: $primary-color;
       animation: upDown 2s ease-in-out infinite alternate;
     }
 
