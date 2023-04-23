@@ -1,14 +1,14 @@
 .buttonver {
-  height: 40px;
-  width: 256px;
+  height: 2.5rem;
+  width: 16rem;
   border: none;
-  border-radius: 6px;
+  border-radius:0.375rem;
   background-color: $color-boton;
   color: #ffffffe8;
-  font-size: 16px;
+  font-size:1rem;
   cursor: pointer;
   outline: none;
-  box-shadow: 0 2px 0 rgb(255 5 5 / 6%);
+  box-shadow: 0 0.125rem 0 rgb(255 5 5 / 6%);
 }
 .ant-btn-primary.buttonver:hover {
   background-color:$darker-primary-boton;
@@ -22,14 +22,14 @@
   height: 100vh;
   width: 100vw;
   background-color: $color-otro;
-  border:1px solid black;
+  border: 0.0625rem solid black;
   /* background-image: url('/5170.jpg');  */
   background-size:100% 100%;
 }
 .onda{
   position: absolute;
-  top: 200px;
-  left: -198px;
+  top: 12.5rem;
+  left: -12.375rem;
   z-index: 0;
 }
 .verification-window {
@@ -37,17 +37,17 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
-  height: 400px;
-  padding: 24px;
+  width: 21.87rem;
+  height: 40021.875rem;
+  padding:1.5rem;
   background-color: $color-base;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
+  border-radius:1rem;
   z-index: 4;
 }
 .textveri {
   font-family: "Poppins";
-  font-size: 24px;
+  font-size:1.5rem;
   font-weight: 600;
   justify-content:center;
   text-align:CENTER;
@@ -63,36 +63,36 @@
   margin-right:auto;
   float:right;  
   filter: hue-rotate(180deg);  
-  height: 160px;
-  width: 160px;
+  height: 10rem;
+  width: 10rem;
 }
 .background-circle{
   background-color: $darker-primary-boton;
   position: absolute;
-  left: 30px;
-  top: 20px;
-  width: 80px;
-  height: 80px;
+  left: 1.875rem;
+  top: 1.25rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   animation: upDown2 4s ease-in-out infinite alternate;
 }
 .background-circle2{
   background-color: $darker-primary-boton;
   position: absolute;
-  left: 90px;
-  top: 90px;
-  width: 50px;
-  height: 50px;
+  left: 5.625rem;
+  top: 5.625rem;
+  width: 3.125rem;
+  height: 3.125rem;
   border-radius: 50%;
   animation: upDown2 4s ease-in-out infinite alternate;
 }
 .background-circle3{
   background-color: $color-boton;
   position: absolute;
-  left: 300px;
-  top: 100px;
-  width: 100px;
-  height: 100px;
+  left: 18.75rem;
+  top: 6.25rem;
+  width: 6.25rem;
+  height: 6.25rem;
   border-radius: 50%;
   overflow: hidden;
   animation: upDown 2s ease-in-out infinite alternate;
@@ -100,10 +100,10 @@
 .background-circle4{
   background-color: $color-boton;
   position: absolute;
-  left: 900px;
-  top: 500px;
-  width: 75px;
-  height: 75px;
+  left: 56.25rem;
+  top: 31.25rem;
+  width: 4.6875rem;
+  height: 4.6875rem;
   border-radius: 50%;
   overflow: hidden;
   animation: upDown2   2s ease-in-out infinite alternate;
@@ -111,10 +111,10 @@
 .background-circle5{
   background-color:$darker-primary-boton;
   position: absolute;
-  left: 1100px;
-  top: 550px;
-  width: 90px;
-  height: 90px;
+  left: 68.75rem;
+  top: 34.375rem;
+  width: 5.625rem;
+  height: 5.625rem;
   border-radius: 50%;
   overflow: hidden;
   animation: upDown2 2s ease-in-out infinite alternate;
@@ -122,18 +122,18 @@
 .background-circle6{
   background-color: $darker-primary-boton;
   position: absolute;
-  left: 1100px;
-  top: 520px;
-  width: 30px;
-  height: 30px;
+  left: 68.75rem;
+  top: 32.5rem;
+  width: 1.875rem;
+  height: 1.875rem;
   border-radius: 50%;
   overflow: hidden;
   animation: upDown2 2s ease-in-out infinite alternate;
 }
 .onda{
   position: absolute;
-  top: 200px;
-  left: -198px;
+  top: 12.5rem;
+  left: -12.375rem;
   z-index: 0;
 }
 
@@ -142,7 +142,7 @@
     transform: translateY(0) ;
   }
   to {
-    transform: translateY(30px) ;
+    transform: translateY(1.875rem) ;
   }
 }
 @keyframes upDown2 {
@@ -150,6 +150,6 @@
     transform: translateY(0) ;
   }
   to {
-    transform: translateY(20px) ;
+    transform: translateY(1.25rem) ;
   }
 }

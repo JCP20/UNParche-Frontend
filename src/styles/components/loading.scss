@@ -30,6 +30,7 @@
 
     .bubbleContainer {
       display: flex;
+
       .bubble {
         width: 1.3rem;
         height: 1.3rem;
@@ -60,10 +61,12 @@
     opacity: 0.5;
     transform: translateY(0);
   }
+
   50% {
     opacity: 1;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 0.5;
     transform: translateY(0);

@@ -63,8 +63,9 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     // Don't check token on an array of defined public routes
-    setIsLoading(true);
-    if (privateRoutes.includes(router.pathname)) {
+    const publicRoutes = ["/login", "/registro", "/verificar/[id]", "/prueba","/crearGrupo", "/404"];
+
+    if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();
     }
     setIsLoading(false);
