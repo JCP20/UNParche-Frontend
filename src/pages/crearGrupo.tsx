@@ -1,6 +1,7 @@
 import CrearEventoApp from '@/components/CreateEvent'
 import CrearGrupoApp from '@/components/CreateGroup'
-import { createGroupFn } from '@/services/groups'
+import { createEventFn } from '@/services/events'
+import { createGroupFn, updateGroupFn } from '@/services/groups'
 import React from 'react'
 
 
@@ -9,8 +10,10 @@ const crearGrupo = () => {
 
     <div>      
 
-      < CrearGrupoApp service={createGroupFn} />
-      < CrearEventoApp service={createGroupFn} />
+      < CrearGrupoApp service ={createGroupFn} initialValues ={"Crear Grupo"} />
+      < CrearGrupoApp service ={updateGroupFn} initialValues ={"Editar Grupo"} />
+
+      < CrearEventoApp service={createEventFn} initialValues ={"Crear Grupo"}/>
       
 
     </div>

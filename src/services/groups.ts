@@ -17,7 +17,7 @@ export const createGroupFn = async (values:any): Promise<any| null> => {
     return null;
   } 
 };
-export const updateGroupFn = async (values:any, id: string): Promise<any| null> => {
+export const updateGroupFn = async ({values, id}:{values:any, id:string}): Promise<any| null> => {
   try {
     const { data } = await backendApi.post(`/groups/update/${id}`,values);
     return data.data as IGroup[];
