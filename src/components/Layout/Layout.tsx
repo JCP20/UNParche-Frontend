@@ -55,10 +55,12 @@ const items: MenuItem[] = [
 
 interface MainLayoutProps {
   children: JSX.Element;
+  notShowHeader?: boolean;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
+  notShowHeader,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
 
@@ -97,6 +99,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       </Sider>
       <Layout className="mainLayoutContainer">
         <Content className="contentContainer">{children}</Content>
+
         <Content
           className="searchBarContainer"
           style={{
@@ -106,7 +109,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             top: 0,
           }}
         >
-          <SearchBar />
+          {!notShowHeader && <SearchBar />}
           <div className="additionalInfo">
             <p>Política de cookies</p>
             <p>© 2023 UnParche, Inc.</p>
