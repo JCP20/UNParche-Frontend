@@ -31,30 +31,32 @@
 .groups-boton-1{
   background-color:#FCffe7;
   color:black;
-  position: absolute;
+  position:relative;
   width: 12rem;
   top:1.5rem;
   height:4rem;
   font-size: 1rem;
-  left:53rem;
+  left:40rem;
 }
 .groups-boton-2{
   background-color:#FCffe7;
   color:black;
-  position:absolute;
+  position: relative;
   width: 12rem;
   top:1.5rem;
   height:4rem;
   font-size: 1rem;
-  left:65rem;
+  left:40rem;
 }
 .selector-groups .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
   background-color:#eb455f ;
   color: white;
+  border-color: transparent; /* Agrega esta regla */
 }
 .selector-groups .ant-radio-button-wrapper:hover {
   background-color: #eb8c9a;
   color: #FCffe7;
+  border-color: transparent; /* Agrega esta regla */
 }
 
 .card-groups-button{

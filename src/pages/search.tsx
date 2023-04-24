@@ -2,6 +2,7 @@ import SideMenu from "@/components/Layout/Layout";
 import { Button, Form, Select } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import SearchGroupsCard from "@/components/search/SearchGroupsCard";
 
 const groups = [
   { id: "1", name: "Grupo 1", description: "Hola mundo", foto: "imgen.png" },
@@ -51,7 +52,8 @@ const Search = () => {
             </Form.Item>
           </Form>
         </div>
-        <div>Página de búsqueda avanzada</div>
+        <p style={{fontSize:20}}> Busquedas recientes</p>
+        <div><SearchGroupsCard name="Uqbar"logo="/imagenes/foto_fondo.jpg"description="Grupo estudantil de seguridad informática Unal"members={34}textmembers="miembros activos"></SearchGroupsCard></div>
         <p>{router.query.q}</p>
         {groups.map((group) => (
           <div key={group.id}></div>

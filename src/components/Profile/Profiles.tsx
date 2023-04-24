@@ -20,7 +20,6 @@ const Profileheader2 = () => {
         {datosFalsos.map(e => <Profileheaderr name={e.name} email={e.email} photo={e.photo} secondary_photo={e.secondary_photo}/>)}
         
       </div>
-    
         {vista === '1' && gruposfalsos1.map(e => <Profilegroups  name={e.name} logo={e.logo} top={e.top} left={e.left}/>)}
         {vista === '2' && gruposfalsos2.map(e => <Profilegroups  name={e.name} logo={e.logo} top={e.top} left={e.left}/>)}
       <div className="two">  
@@ -28,12 +27,6 @@ const Profileheader2 = () => {
           <Radio.Button className="groups-boton-1" value="1">Grupos que administro</Radio.Button>
           <Radio.Button className="groups-boton-2" value="2">Grupos a los que pertenezco</Radio.Button>
         </Radio.Group>    
-      
-
-        <br />
-        <br />
-        
-        
       </div>
     </div>
   );
