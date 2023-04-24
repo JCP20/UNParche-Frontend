@@ -27,14 +27,17 @@ const items: MenuItem[] = [
     </Link>
   ),
 
-  getItem("Mis Grupos","/grupo",
-       
-      <TeamOutlined />,
-[
-    getItem("Grupo 1","/grupo", <Link href={"grupo"}></Link>),
-    getItem("Grupo 2","/grupo", <Link href={"grupo"}></Link>),
-    getItem("Grupo 3","/grupo", <Link href={"grupo"}></Link>),
-  ]),
+  getItem(
+    "Mis Grupos",
+    "/grupo",
+
+    <TeamOutlined />,
+    [
+      getItem("Grupo 1", "/grupo", <Link href={"grupo"}></Link>),
+      getItem("Grupo 2", "/grupo", <Link href={"grupo"}></Link>),
+      getItem("Grupo 3", "/grupo", <Link href={"grupo"}></Link>),
+    ]
+  ),
   getItem(
     "Calendario",
     "/calendar",
@@ -75,6 +78,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   return (
     <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>
       <Sider
+        collapsible
         style={{
           overflow: "auto",
           height: "100vh",
