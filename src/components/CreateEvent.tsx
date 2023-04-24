@@ -21,6 +21,7 @@ interface NewFormProps {
 
 const CrearEventoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
     const { service } = props;
+    const {initialValues} = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {

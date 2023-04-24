@@ -17,6 +17,8 @@ interface NewFormProps {
 
 const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
   const {service} = props;
+  const {initialValues} = props;
+  const {nombreBotton} = initialValues;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -71,7 +73,7 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Nuevo Grupo
+        {initialValues}
       </Button>
       <Modal title="Creación de Grupo" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <div className="mainContainer">
