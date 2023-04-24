@@ -3,7 +3,7 @@
   width: 100vw;
   background: $color-otro;
 
-  .mainContainer {
+  .mainContainerLogin {
     position: absolute;
     top: 0;
     left: 0;
@@ -11,6 +11,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     z-index: 2;
 
     h1 {
@@ -18,16 +19,32 @@
     }
 
     .card {
-      margin: auto;
+      min-height: 60%;
+      min-width: 54%;
       border-radius: 1.5rem;
       background: $color-base;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50rem;
+      padding: 2rem;
+
+      .formLogin {
+        width: 50%;
+      }
+
+      .createAccountInfo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > p {
+          margin: 0;
+        }
+      }
 
       .carrouselContainer {
-        width: 40%;
+        width: 50%;
+        margin: auto;
         z-index: 100;
         .carousel-root,
         .carousel-slider {
@@ -38,11 +55,6 @@
           }
         }
       }
-    }
-
-    #formLogin {
-      top: 0.75rem;
-      height: 29.5rem;
     }
   }
 
@@ -58,7 +70,7 @@
     .diamond {
       position: absolute;
       transform: rotate(45deg);
-      background: $primary-color;
+      background-color: $primary-color;
     }
 
     .diamond_1 {
@@ -70,10 +82,10 @@
     }
 
     .diamond_2 {
-      right: 3.75rem;
-      bottom: -5, 625rem;
-      width: 15rem;
-      height: 15rem;
+      bottom: 5rem;
+      right: 3rem;
+      width: 11rem;
+      height: 11rem;
       animation: upDown 2.3s ease-in-out infinite alternate;
     }
 
@@ -92,6 +104,16 @@
       height: 3.75rem;
       animation: upDown 1.4s ease-in-out infinite alternate;
     }
+  }
+}
+
+.url {
+  color: $color-boton;
+  text-decoration: none;
+  margin-left: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 

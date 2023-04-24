@@ -1,4 +1,13 @@
-import { Button, Modal, Cascader, Form, Input, Radio, Upload, message } from "antd";
+import {
+  Button,
+  Modal,
+  Cascader,
+  Form,
+  Input,
+  Radio,
+  Upload,
+  message,
+} from "antd";
 import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import React, { useState } from "react";
@@ -10,15 +19,13 @@ const layout = {
   wrapperCol: { span: 50 },
 };
 interface NewFormProps {
-  initialValues?: any
-  service: (value: any)=> void
+  initialValues?: any;
+  service: (value: any) => void;
 }
 
-
-const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
-  const {service} = props;
-  const {initialValues} = props;
-  const {nombreBotton} = initialValues;
+const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
+  const { service } = props;
+  const { initialValues } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -29,10 +36,9 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
     setIsModalOpen(false);
   };
 
-  
   const handleCancel = () => {
     setIsModalOpen(false);
-  };  
+  };
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
@@ -60,7 +66,7 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
 
   //Mensaje de exito
   const onFinish = async (value: any) => {
-    await service(value) ;
+    await service(value);
     message.success("Registro exitoso!");
   };
 
@@ -69,15 +75,20 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
     message.error("Registro fallido!");
   };
 
-
   return (
     <>
       <Button type="primary" onClick={showModal}>
         {initialValues}
       </Button>
-      <Modal title="Creación de Grupo" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        title="Creación de Grupo"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        centered
+      >
         <div className="mainContainer">
-          <div className="card" id="cardCrearGrupo">
+          <div className="card">
             <Form
               className="form"
               id="formCrearGrupo" //Detalles del Formulario
@@ -114,33 +125,32 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
                   options={[
                     {
                       value: "Arte",
-                      label: "Arte",                      
-                    },      
+                      label: "Arte",
+                    },
                     {
                       value: "Deporte",
-                      label: "Deporte",                      
-                    },    
+                      label: "Deporte",
+                    },
                     {
                       value: "Religión",
-                      label: "Religión",                      
-                    },      
+                      label: "Religión",
+                    },
                     {
                       value: "Investigación",
-                      label: "Investigación",                      
-                    },      
+                      label: "Investigación",
+                    },
                     {
                       value: "Semillero",
-                      label: "Semillero",                      
-                    },  
+                      label: "Semillero",
+                    },
                     {
                       value: "Videojuegos",
-                      label: "Videojuegos",                      
+                      label: "Videojuegos",
                     },
                     {
                       value: "Otro",
-                      label: "Otro",                      
-                    },       
-
+                      label: "Otro",
+                    },
                   ]}
                 />
               </Form.Item>
@@ -159,16 +169,10 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props:NewFormProps) => {
                     {fileList.length < 5 && "+ Upload"}
                   </Upload>
                 </ImgCrop>
-              </Form.Item>       
-              <Form.Item name="botonCrearGrupo">
-            <Button block type="primary" htmlType="submit">
-              Crear Grupo
-            </Button>
-          </Form.Item>       
+              </Form.Item>
             </Form>
           </div>
         </div>
-        
       </Modal>
     </>
   );

@@ -24,35 +24,10 @@ body {
   font-family: "Roboto", "Poppins";
 }
 
-.form {
-  display: grid;
-  padding: 2.3rem 2.2rem;
-  z-index: 10;
-  overflow: hidden;
-  position: relative;
-  left: 0.625rem;
-  width: 25rem;
-}
-.container123 {
-  display: flex; /* or inline-flex */  
-  flex-direction: row;
-  width:"80REM"
+.formRegister {
+  padding: 1rem;
 }
 
-#formRegister {
-  height: 36.25rem;
-}
-#formCrearGrupo {
-  height: 45rem;
-  width: 22.55rem;
-}
-
-#cardRegister {
-  height: 33.75rem;
-}
-#cardCrearGrupo {
-  height: 44.25rem;
-}
 .gallery {
   position: relative;
   display: block;
@@ -77,85 +52,12 @@ a:visited {
   background-repeat: no-repeat;
   left: 5rem;
 }
-#picRegistro {
-  top: 3rem;
-  -webkit-animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
-  animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
-}
-#picLogin {
-  top: 1.25rem;
-  -webkit-animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
-  animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
-}
 
-@-webkit-keyframes fadeLogin {
-  0% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-  25% {
-    background-image: url("/imagenes/Imagen2.png");
-  }
-  50% {
-    background-image: url("/imagenes/Imagen3.png");
-  }
-  75% {
-    background-image: url("/imagenes/Imagen4.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-}
-
-@keyframes fadeLogin {
-  0% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-  25% {
-    background-image: url("/imagenes/Imagen2.png");
-  }
-  50% {
-    background-image: url("/imagenes/Imagen3.png");
-  }
-  75% {
-    background-image: url("/imagenes/Imagen4.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-}
-@-webkit-keyframes fadeRegistro {
-  0% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-  33% {
-    background-image: url("/imagenes/Imagen6.png");
-  }
-  66% {
-    background-image: url("/imagenes/Imagen7.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-}
-
-@keyframes fadeRegistro {
-  0% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-  33% {
-    background-image: url("/imagenes/Imagen6.png");
-  }
-  66% {
-    background-image: url("/imagenes/Imagen7.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-}
 .ant-select-item-option-content {
   white-space: normal;
   word-break: keep-all;
 }
+
 .ant-menu {
   background: $primary-color;
 }
@@ -192,3 +94,8 @@ a:visited {
   background: #555;
 }
 
+.shadow {
+  -webkit-box-shadow: 3px 3px 19px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 19px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 19px -11px rgba(0, 0, 0, 0.75);
+}
