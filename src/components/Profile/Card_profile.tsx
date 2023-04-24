@@ -13,12 +13,9 @@ const CardProfile = () => {
   return (
 
         <div>
-            <Button className='button-calendar' type='primary'>
-                <Avatar className='calendar-icon' src="/calendar.jpg"></Avatar> 
-                <p className='textveri'>Mi Calendario</p>
-            </Button>
+
             <Button className='button-create-groups' type='primary'>
-            <Avatar className='groups-create-icon' src="/connection.png"></Avatar> 
+            <Avatar className='groups-create-icon' src="/imagenes/foto_perfil.jpg"></Avatar> 
                 <p className='textveri'>Crear grupo</p>
             </Button>
             

@@ -2,6 +2,7 @@
 @import "./variables.scss";
 // Configuracion general
 @import "./globals.scss";
+@import "./antdCustom.scss";
 // Paginas
 @import "./pages/registro.scss";
 @import "./pages/verificar.scss";
@@ -11,6 +12,7 @@
 @import "./pages/calendar.scss";
 @import "./pages/search.scss";
 @import "./pages/profile.scss";
+@import "./pages/grupo.scss";
 // Componentes
 @import "./components/layout.scss";
 @import "./components/loading.scss";

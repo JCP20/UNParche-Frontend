@@ -1,78 +1,159 @@
+
 .wrapper2 {
-    display: grid;
-    grid-template-columns: 7rem 4fr 3fr;
-    height: 100vh;
-    width: 100vw;
-    grid-column-gap: 0.6rem;
-    grid-row-gap: 1em;
-  }
-  .one {
-    grid-column: 1/3;
-    grid-row: 1/6;
+  display: grid;
+  grid-template-columns:  6fr 8fr;
+  height: 100%;
+  width: 100%;
+  grid-column-gap: 0.6rem;
+  grid-row-gap: 1em;
+}
+.one {
+  grid-column: 0.6 / 2;
+  grid-row: 1/6;
+
+}
+.two {
+  grid-column: 2 / 3;
+  grid-row: 1 / 4;
+
+}
+
+.button-create-groups{
+  background-color: #eb455f;
+  height: 14rem;
+  width: 14rem;
+  top: 26rem;
+  position: absolute;
+  left:15rem; 
+}
+
+
+.groups-boton-1{
+  background-color:#FCffe7;
+  color:black;
+  position: absolute;
+  width: 12rem;
+  top:1.5rem;
+  height:4rem;
+  font-size: 1rem;
+  left:53rem;
+}
+.groups-boton-2{
+  background-color:#FCffe7;
+  color:black;
+  position:absolute;
+  width: 12rem;
+  top:1.5rem;
+  height:4rem;
+  font-size: 1rem;
+  left:65rem;
+}
+.selector-groups .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background-color:#eb455f ;
+  color: white;
+}
+.selector-groups .ant-radio-button-wrapper:hover {
+  background-color: #eb8c9a;
+  color: #FCffe7;
+}
+
+.card-groups-button{
+  position: absolute;
+  left: 20rem;
+  top:35%;
+  width: 3rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: #eb455f;
+  color: #ffffffe8;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+
+}
+.ant-btn-default.card-groups-button:hover {
+  background-color:#eb8c9a;
+  color: #FCffe7;
+}
+.grupos{
+  position: absolute;
+  height: 6.25rem;
+  width: 26.25rem;
+  border-radius: 0.5rem;
+  box-shadow:  0 0 0.6rem rgba(0, 0, 0, 0.3) ;
+}
+
+.grupos-text{
+  font-size: 1.5rem;
+  position: absolute;
+  top:35%;
+  left: 7.5rem
+}
+.line{
+  background-color: rgb(161, 143, 143);
+  position: fixed;
+  width: 0.1rem;
+  height: 120vh;
+  left: 49rem;
+  top:0rem;
+}
+.icon_perfil{
+
+  background-color: #BAD7E9;
+  position: absolute;
+  top: 9rem; 
+  left: 16rem; 
+
+}
+.icon_pais{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  color: #BAD7E9;
+  position: absolute;
+  box-shadow:  0 0 1rem rgba(0, 0, 0, 0.5) ;
+  width: 49rem;
+
+}
+
+.namepr{
+  font-family: "Poppins";
+  font-size: 1.25rem;
+  font-weight: 50;
+  left: 15rem;
+  color: rgb(7, 7, 5);
+  position: absolute;
+  top: 17rem;
   
-  }
-  .two {
-    grid-column: 3 / 4;
-    grid-row: 1 / 6;
-  }
-.calendar-icon{
-    filter: hue-rotate(20deg);
-    height: 8rem;
-    width: 8rem;
-  }
-  .groups-create-icon{
-    filter: hue-rotate(580deg);
-    height: 8rem;
-    width:8rem;
-  }
-  
-  .groups-boton-1{
-    background-color: #eb455f;
-    color:#FCffe7;
-    width: 12rem;
-    top:3rem;
-    height:4rem;
-    font-size: 1rem;
-    left:4rem;
-  }
-  .selector-groups .ant-radio-button-wrapper:hover {
-    background-color: #eb8c9a;
-    color: #FCffe7;
-  }
-  
-  .card-groups-button{
-    position: absolute;
-    left: 20rem;
-    top:35%;
-    width: 3rem;
-    border: none;
-    border-radius: 1rem;
-    background-color: #eb455f;
-    color: #ffffffe8;
-    font-size: 1rem;
-    cursor: pointer;
-    outline: none;
-  
-  }
-  .ant-btn-default.card-groups-button:hover {
-    background-color:#eb8c9a;
-    color: #FCffe7;
-  }
-  .button-calendar{
-    background-color: #eb455f;
-    height: 14rem;
-    width: 14rem;
-    top: 28rem;
-    position: absolute;
-    left:9rem; 
-  }
-  .button-create-group{
-    background-color: #eb455f;
-    height: 14rem;
-    width: 14rem;
-    top: 28rem;
-    position: absolute;
-    left:26rem; 
-  }
-  
-  
+}
+.email{
+  font-family: "Poppins";
+  font-size: 1.25rem;
+  font-weight: 50;
+  left: 15rem;
+  color: rgb(7, 7, 5);
+  position: absolute;
+  top: 20rem;
+
+}
+.name-input{
+  background-color: #BAD7E9;
+  font-size: 1.25rem;
+  font-family: "Poppins";
+  font-weight: 50;
+  border-radius: 1rem;
+  border-style: hidden;
+  width: 28rem;
+
+}
+.name-input:focus{
+  outline: none ;
+}
+.icono-grupos{
+  position: absolute;
+  top:25%;
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 3.5rem;
+}
+

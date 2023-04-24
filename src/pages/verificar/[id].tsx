@@ -23,7 +23,12 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
       if (resp?.status === 200) {
         setTimeout(() => {
-          login(resp.data.token, resp.data.id, resp.data.username);
+          login(
+            resp.data.token,
+            resp.data.id,
+            resp.data.username,
+            resp.data.refresh
+          );
         }, 5000);
       }
     } catch (error) {
@@ -47,26 +52,26 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
 export default verificarUsuario;
 
-// export async function getServerSideProps(context: any) {
-//   const { id } = context.query;
-//   const resp = await getUserById(id);
+ export async function getServerSideProps(context: any) {
+   const { id } = context.query;
+   const resp = await getUserById(id);
 
-//   if (resp) {
-//     if (resp.verified) {
-//       return {
-//         redirect: {
-//           destination: "/",
-//           permanent: false,
-//         },
-//       };
-//     }
+   if (resp) {
+     if (resp.verified) {
+       return {
+         redirect: {
+           destination: "/",
+           permanent: false,
+         },
+       };
+     }
 
-//     return {
-//       props: { isVerified: resp.verified },
-//     };
-//   } else {
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
+     return {
+       props: { isVerified: resp.verified },
+     };
+   } else {
+     return {
+       notFound: true,
+     };
+   }
+ }

@@ -2,7 +2,7 @@ import { Form, Button, Input, Col, Checkbox, ConfigProvider, Row } from "antd";
 const LoginForm = () => {
   return (
     <div className="mainContainer">
-      <title>Inicio de Sesion</title>
+      <title>Inicio de Sesión</title>
       <div className="card">
         <Form className="form" id="formLogin" layout="vertical">
           <h1 style={{ color: "#2B3467" }}>Bienvenido de nuevo </h1>

@@ -8,29 +8,15 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, MenuProps } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { AuthContext } from "@/context/auth/AuthContext";
+import { getItem } from "./utils";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: "group"
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
 
 const items: MenuItem[] = [
   getItem(
@@ -41,10 +27,13 @@ const items: MenuItem[] = [
     </Link>
   ),
 
-  getItem("Mis Grupos", "sub1", <TeamOutlined />, [
-    getItem("Grupo 1", "2"),
-    getItem("Grupo 2", "3"),
-    getItem("Grupo 3", "4"),
+  getItem("Mis Grupos","/grupo",
+       
+      <TeamOutlined />,
+[
+    getItem("Grupo 1","/grupo", <Link href={"grupo"}></Link>),
+    getItem("Grupo 2","/grupo", <Link href={"grupo"}></Link>),
+    getItem("Grupo 3","/grupo", <Link href={"grupo"}></Link>),
   ]),
   getItem(
     "Calendario",
@@ -56,7 +45,7 @@ const items: MenuItem[] = [
   getItem("Perfil", "6", <UserOutlined />),
 
   getItem("Más", "sub2", <MenuOutlined />, [
-    getItem("Salir", "7", <PoweroffOutlined />),
+    getItem("Salir", "logout", <PoweroffOutlined />),
     getItem("Configuración", "9", <SettingOutlined />),
   ]),
 ];
@@ -70,6 +59,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   notShowSearch
 }: MainLayoutProps) => {
+  const { logout } = useContext(AuthContext);
+
   const [selectedKey, setSelectedKey] = useState<string>("");
   const router = useRouter();
 
@@ -77,8 +68,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     setSelectedKey(router.pathname);
   }, [selectedKey]);
 
+  const handleOnClick = (e: any) => {
+    if (e.key === "logout") {
+      logout();
+    }
+  };
+
   return (
-    <Layout style={{ minHeight: "100vh", background: "#fff" }} hasSider>
+    <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>
       <Sider
         style={{
           overflow: "auto",
@@ -93,6 +90,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           selectedKeys={[selectedKey]}
           mode="inline"
           items={items}
+          onClick={handleOnClick}
         />
       </Sider>
       <Layout className="mainLayoutContainer">

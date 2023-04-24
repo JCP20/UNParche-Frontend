@@ -19,12 +19,12 @@
 
     .card {
       margin: auto;
-      border-radius: 24px;
+      border-radius: 1.5rem;
       background: $color-base;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 800px;
+      width: 50rem;
 
       .carrouselContainer {
         width: 40%;
@@ -32,8 +32,8 @@
         .carousel-root,
         .carousel-slider {
           img {
-            width: 200px;
-            height: 300px;
+            width: 12.5rem;
+            height: 18.75rem;
             object-fit: cover;
           }
         }
@@ -41,8 +41,8 @@
     }
 
     #formLogin {
-      top: 12px;
-      height: 472px;
+      top: 0.75rem;
+      height: 29.5rem;
     }
   }
 
@@ -58,39 +58,38 @@
     .diamond {
       position: absolute;
       transform: rotate(45deg);
-      background: #eb455f;
-      animation: upDown 2s ease-in-out infinite alternate;
+      background: $primary-color;
     }
 
     .diamond_1 {
       top: 0;
       left: 0;
-      width: 200px;
-      height: 200px;
+      width: 12.5rem;
+      height: 12.5rem;
       animation: upDown 2s ease-in-out infinite alternate;
     }
 
     .diamond_2 {
-      right: 60px;
-      bottom: -90px;
-      width: 240px;
-      height: 240px;
+      right: 3.75rem;
+      bottom: -5, 625rem;
+      width: 15rem;
+      height: 15rem;
       animation: upDown 2.3s ease-in-out infinite alternate;
     }
 
     .diamond_3 {
-      top: 200px;
-      left: 200px;
-      width: 100px;
-      height: 100px;
+      top: 12.5rem;
+      left: 12.5rem;
+      width: 6.25rem;
+      height: 6.25rem;
       animation: upDown 1.6s ease-in-out infinite alternate;
     }
 
     .diamond_4 {
-      left: 100px;
-      top: 300px;
-      width: 60px;
-      height: 60px;
+      left: 6.25rem;
+      top: 18.75rem;
+      width: 3.75rem;
+      height: 3.75rem;
       animation: upDown 1.4s ease-in-out infinite alternate;
     }
   }
@@ -101,6 +100,6 @@
     transform: translateY(0) rotate(45deg);
   }
   to {
-    transform: translateY(30px) rotate(45deg);
+    transform: translateY(1.875rem) rotate(45deg);
   }
 }
