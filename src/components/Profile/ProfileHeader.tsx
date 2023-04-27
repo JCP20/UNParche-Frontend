@@ -12,7 +12,7 @@ interface propsProfile {
 
 
 
-const Profileheaderr = (props: propsProfile) => {
+const ProfileHeader = (props: propsProfile) => {
   const { name, email } = props;
   const [newName, setNewName] = useState(props.name);
   const [editingName, setEditingName] = useState(false);
@@ -63,4 +63,4 @@ const Profileheaderr = (props: propsProfile) => {
     );
   };
     
-  export default Profileheaderr;
+  export default ProfileHeader;

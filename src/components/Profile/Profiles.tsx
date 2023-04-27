@@ -1,10 +1,9 @@
-import Profileheaderr from "./Profile_header";
-import CardProfile from "./Card_profile";
 import React, { useState } from 'react';
-import { Radio, Select, Space } from 'antd';
-import Profilegroups from "./Profile_groups";
+import { Radio } from 'antd';
+import ProfileHeader from "./ProfileHeader";
+import ProfileGroups from "./ProfileGroups";
 
-const Profileheader2 = () => {
+const Profile = () => {
   const [vista, setVista] = useState('1');
   const handleChange = (e) => {
     setVista(e.target.value);
@@ -17,11 +16,11 @@ const Profileheader2 = () => {
   return (
     <div className="wrapper">
       <div className="one">
-        {datosFalsos.map(e => <Profileheaderr name={e.name} email={e.email} photo={e.photo} secondary_photo={e.secondary_photo}/>)}
+        {datosFalsos.map(e => <ProfileHeader name={e.name} email={e.email} photo={e.photo} secondary_photo={e.secondary_photo}/>)}
         
       </div>
-        {vista === '1' && gruposfalsos1.map(e => <Profilegroups  name={e.name} logo={e.logo} top={e.top} left={e.left}/>)}
-        {vista === '2' && gruposfalsos2.map(e => <Profilegroups  name={e.name} logo={e.logo} top={e.top} left={e.left}/>)}
+        {vista === '1' && gruposfalsos1.map(e => <ProfileGroups  name={e.name} logo={e.logo} top={e.top} left={e.left}/>)}
+        {vista === '2' && gruposfalsos2.map(e => <ProfileGroups  name={e.name} logo={e.logo} top={e.top} left={e.left}/>)}
       <div className="two">  
       <Radio.Group className="selector-groups" onChange={handleChange} value={vista}>
           <Radio.Button className="groups-boton-1" value="1">Grupos que administro</Radio.Button>
@@ -32,4 +31,4 @@ const Profileheader2 = () => {
   );
 }
 
-export default Profileheader2;
+export default Profile;

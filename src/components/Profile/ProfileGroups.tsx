@@ -8,7 +8,7 @@ interface PropsGroups{
     left: string;
 }
 
-const Profilegroups = (props: PropsGroups) => {
+const ProfileGroups = (props: PropsGroups) => {
     const { name, logo } = props;
     return(
         <Card className='grupos' style={{top:props.top, left: props.left} }>
@@ -20,4 +20,4 @@ const Profilegroups = (props: PropsGroups) => {
     )
     }
 
-export default Profilegroups;
+export default ProfileGroups;

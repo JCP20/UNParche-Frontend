@@ -10,3 +10,5 @@ const verification = () => {
 );
 }
 export default verification
+
+//mover la barra de búsqueda al centro, y asi poder mostrarla como prdetermiado
