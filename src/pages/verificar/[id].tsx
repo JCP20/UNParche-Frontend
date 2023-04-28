@@ -23,7 +23,12 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
       if (resp?.status === 200) {
         setTimeout(() => {
-          login(resp.data.token, resp.data.id, resp.data.username);
+          login(
+            resp.data.token,
+            resp.data.id,
+            resp.data.username,
+            resp.data.refresh
+          );
         }, 5000);
       }
     } catch (error) {
@@ -64,13 +69,18 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
         >
           Continuar
         </Button>
+        <p className="verification-redirect_text">
+          Serás redirigido en 5 segundos...
+        </p>
       </div>
-      <div className="background-circle"></div>
-      <div className="background-circle2"></div>
-      <div className="background-circle3"></div>
-      <div className="background-circle4"></div>
-      <div className="background-circle5"></div>
-      <div className="background-circle6"></div>
+      <div className="circlesContainer">
+        <div className="background-circle circle-1"></div>
+        <div className="background-circle circle-2"></div>
+        <div className="background-circle circle-3"></div>
+        <div className="background-circle circle-4"></div>
+        <div className="background-circle circle-5"></div>
+        <div className="background-circle circle-6"></div>
+      </div>
     </div>
   );
 };

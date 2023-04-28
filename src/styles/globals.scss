@@ -6,7 +6,7 @@
   font-family: "Poppins";
 }
 .content {
-  max-width: 500px;
+  max-width: 31.25rem;
   margin: auto;
 }
 
@@ -24,37 +24,17 @@ body {
   font-family: "Roboto", "Poppins";
 }
 
-.form {
-  display: grid;
-  padding: 2.3rem 2.2rem;
-  z-index: 10;
-  overflow: hidden;
-  position: relative;
-  left: 10px;
-  width: 400px;
+.formRegister {
+  padding: 1rem;
 }
 
-#formRegister {
-  height: 580px;
-}
-#formCrearGrupo {
-  height: 720px;
-  width: 360px;
-}
-
-#cardRegister {
-  height: 540px;
-}
-#cardCrearGrupo {
-  height: 708px;
-}
 .gallery {
   position: relative;
   display: block;
   width: 100%;
-  max-width: 248px;
-  height: 364px;
-  top: 40px;
+  max-width: 15.5rem;
+  height: 22.75rem;
+  top: 2.5rem;
 }
 
 a:link,
@@ -70,87 +50,14 @@ a:visited {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  left: 80px;
-}
-#picRegistro {
-  top: 48px;
-  -webkit-animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
-  animation: fadeRegistro 40s cubic-bezier(0.9, 0, 0, 1) infinite;
-}
-#picLogin {
-  top: 20px;
-  -webkit-animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
-  animation: fadeLogin 50s cubic-bezier(0.9, 0, 0, 1) infinite;
+  left: 5rem;
 }
 
-@-webkit-keyframes fadeLogin {
-  0% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-  25% {
-    background-image: url("/imagenes/Imagen2.png");
-  }
-  50% {
-    background-image: url("/imagenes/Imagen3.png");
-  }
-  75% {
-    background-image: url("/imagenes/Imagen4.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-}
-
-@keyframes fadeLogin {
-  0% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-  25% {
-    background-image: url("/imagenes/Imagen2.png");
-  }
-  50% {
-    background-image: url("/imagenes/Imagen3.png");
-  }
-  75% {
-    background-image: url("/imagenes/Imagen4.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen1.png");
-  }
-}
-@-webkit-keyframes fadeRegistro {
-  0% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-  33% {
-    background-image: url("/imagenes/Imagen6.png");
-  }
-  66% {
-    background-image: url("/imagenes/Imagen7.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-}
-
-@keyframes fadeRegistro {
-  0% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-  33% {
-    background-image: url("/imagenes/Imagen6.png");
-  }
-  66% {
-    background-image: url("/imagenes/Imagen7.png");
-  }
-  100% {
-    background-image: url("/imagenes/Imagen5.png");
-  }
-}
 .ant-select-item-option-content {
   white-space: normal;
   word-break: keep-all;
 }
+
 .ant-menu {
   background: $primary-color;
 }
@@ -169,7 +76,7 @@ a:visited {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0.625rem;
 }
 
 /* Track */
@@ -187,3 +94,8 @@ a:visited {
   background: #555;
 }
 
+.shadow {
+  -webkit-box-shadow: 3px 3px 19px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 19px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 19px -11px rgba(0, 0, 0, 0.75);
+}

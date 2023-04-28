@@ -7,31 +7,30 @@ import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
-  console.log(value.format('YYYY-MM-DD'), mode);
+  console.log(value.format("YYYY-MM-DD"), mode);
 };
 const pdata = [
   {
-    title: 'Pepito',
+    title: "Pepito",
   },
   {
-    title: 'Ana Maria',
+    title: "Ana Maria",
   },
   {
-    title: 'Juan',
+    title: "Juan",
   },
   {
-    title: 'Jose',
+    title: "Jose",
   },
 ];
 
 const data = Array.from({ length: 23 }).map((_, i) => ({
-  href: 'https://ant.design',
+  href: "https://ant.design",
   title: `Publicacion ${i}`,
   avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-  description:
-    'Evento en la concha Acústica ',
+  description: "Evento en la concha Acústica ",
   content:
-  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 }));
 
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
@@ -41,20 +40,15 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
   </Space>
 );
 
-
 const { Meta } = Card;
-
-
-
 
 const onChange = (key: string) => {
   console.log(key);
 };
 
-const items: TabsProps['items'] = [
-  
+const items: TabsProps["items"] = [
   {
-    key: '1',
+    key: "1",
     label: `Posts`,
     children: <div>
       <List
@@ -95,35 +89,43 @@ const items: TabsProps['items'] = [
   </div>
   },
   {
-    key: '2',
+    key: "2",
     label: `Eventos`,
-    children: <div><Button type="primary">Nuevo Evento</Button>
-    <div>
-     <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-    </div>
-    </div>
+    children: (
+      <div>
+        <Button type="primary">Nuevo Evento</Button>
+        <div>
+          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+        </div>
+      </div>
+    ),
   },
   {
-    key: '3',
+    key: "3",
     label: `Admins`,
-    children: <div>
-     <List
-    itemLayout="horizontal"
-    dataSource={pdata}
-    renderItem={(item, index) => (
-      <List.Item>
-        <List.Item.Meta
-          avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-          title={<a href="https://ant.design">{item.title}</a>}
-          description="@unal.edu.co"
+    children: (
+      <div>
+        <List
+          itemLayout="horizontal"
+          dataSource={pdata}
+          renderItem={(item, index) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={
+                  <Avatar
+                    src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
+                  />
+                }
+                title={<a href="https://ant.design">{item.title}</a>}
+                description="@unal.edu.co"
+              />
+            </List.Item>
+          )}
         />
-      </List.Item>
-    )}
-  />
-    </div>}
+      </div>
+    ),
+  },
 ];
-
-
 
 const Grupo: React.FC = () => {
 

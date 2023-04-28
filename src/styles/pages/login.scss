@@ -3,7 +3,7 @@
   width: 100vw;
   background: $color-otro;
 
-  .mainContainer {
+  .mainContainerLogin {
     position: absolute;
     top: 0;
     left: 0;
@@ -11,6 +11,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     z-index: 2;
 
     h1 {
@@ -18,31 +19,42 @@
     }
 
     .card {
-      margin: auto;
-      border-radius: 24px;
+      min-height: 60%;
+      min-width: 54%;
+      border-radius: 1.5rem;
       background: $color-base;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 800px;
+      padding: 2rem;
+
+      .formLogin {
+        width: 50%;
+      }
+
+      .createAccountInfo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > p {
+          margin: 0;
+        }
+      }
 
       .carrouselContainer {
-        width: 40%;
+        width: 50%;
+        margin: auto;
         z-index: 100;
         .carousel-root,
         .carousel-slider {
           img {
-            width: 200px;
-            height: 300px;
+            width: 12.5rem;
+            height: 18.75rem;
             object-fit: cover;
           }
         }
       }
-    }
-
-    #formLogin {
-      top: 12px;
-      height: 472px;
     }
   }
 
@@ -58,41 +70,50 @@
     .diamond {
       position: absolute;
       transform: rotate(45deg);
-      background: $primary-color;
-      animation: upDown 2s ease-in-out infinite alternate;
+      background-color: $primary-color;
     }
 
     .diamond_1 {
       top: 0;
       left: 0;
-      width: 200px;
-      height: 200px;
+      width: 12.5rem;
+      height: 12.5rem;
       animation: upDown 2s ease-in-out infinite alternate;
     }
 
     .diamond_2 {
-      right: 60px;
-      bottom: -90px;
-      width: 240px;
-      height: 240px;
+      bottom: 5rem;
+      right: 3rem;
+      width: 11rem;
+      height: 11rem;
       animation: upDown 2.3s ease-in-out infinite alternate;
     }
 
     .diamond_3 {
-      top: 200px;
-      left: 200px;
-      width: 100px;
-      height: 100px;
+      top: 12.5rem;
+      left: 12.5rem;
+      width: 6.25rem;
+      height: 6.25rem;
       animation: upDown 1.6s ease-in-out infinite alternate;
     }
 
     .diamond_4 {
-      left: 100px;
-      top: 300px;
-      width: 60px;
-      height: 60px;
+      left: 6.25rem;
+      top: 18.75rem;
+      width: 3.75rem;
+      height: 3.75rem;
       animation: upDown 1.4s ease-in-out infinite alternate;
     }
+  }
+}
+
+.url {
+  color: $color-boton;
+  text-decoration: none;
+  margin-left: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -101,6 +122,6 @@
     transform: translateY(0) rotate(45deg);
   }
   to {
-    transform: translateY(30px) rotate(45deg);
+    transform: translateY(1.875rem) rotate(45deg);
   }
 }

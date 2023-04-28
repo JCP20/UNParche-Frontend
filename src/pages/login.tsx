@@ -4,6 +4,7 @@ import { loginUser } from "@/services/auth";
 import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useContext } from "react";
 
 const imagesLogin = [
@@ -19,16 +20,24 @@ const LoginPage = () => {
   const onFinish = async (values: any) => {
     try {
       const resp = await loginUser(values);
-      message.success("Login exitoso!");
-      login(resp.data.token, resp.data.id, resp.data.username);
+      if (resp.status === 200) {
+        message.success("Login exitoso!");
+        login(
+          resp.data.token,
+          resp.data.id,
+          resp.data.username,
+          resp.data.refresh
+        );
+      }
     } catch (error: any) {
       Modal.error({ content: error.response.data.msg });
     }
   };
   const onFinishFailed = () => {
     Modal.error({
-      title: "Inicio de sesion fallido",
-      content: "Respira profundamente e intentalo de nuevo",
+      title: "Inicio de sesión fallido",
+      content: "Respira profundamente e inténtalo de nuevo",
+      cancelButtonProps: { style: { display: "none" } },
     });
   };
   return (
@@ -43,11 +52,10 @@ const LoginPage = () => {
         <div className="diamond diamond_3 alpha-7" />
         <div className="diamond diamond_4 alpha-5" />
       </div>
-      <div className="mainContainer">
-        <div className="card">
+      <div className="mainContainerLogin">
+        <div className="card shadow">
           <Form
-            className="form"
-            id="formLogin"
+            className="formLogin"
             layout="vertical"
             wrapperCol={{ span: 24 }}
             onFinish={onFinish}
@@ -73,16 +81,19 @@ const LoginPage = () => {
               <Input.Password />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox> Recuerdame</Checkbox>
+              <Checkbox>Recuerdame</Checkbox>
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                Ingresar
+                Iniciar sesión
               </Button>
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-              ¿No tienes cuenta? <a href="/registro"> Regístrate</a>
-            </Form.Item>
+            <div className="createAccountInfo">
+              <p>¿No tienes cuenta?</p>
+              <Link href="/register" className="url">
+                Regístrate
+              </Link>
+            </div>
           </Form>
           <div className="carrouselContainer">
             <CarouselCustom images={imagesLogin} />

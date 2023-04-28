@@ -4,8 +4,8 @@
   .feedElement {
     display: flex;
     background-color: #fff;
-    border-radius: 5px;
-    padding: 20px;
+    border-radius: 0.3125rem;
+    padding: 1.25rem;
 
     .feedText {
       width: 60%;
@@ -13,9 +13,9 @@
       flex-direction: column;
       justify-content: space-evenly;
       .feedText-title {
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: 12px;
+        margin-bottom: 0.75rem;
       }
     }
 
@@ -26,6 +26,6 @@
   }
 
   .feedElement:not(:first-child) {
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
 }

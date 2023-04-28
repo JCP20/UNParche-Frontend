@@ -2,6 +2,7 @@
 @import "./variables.scss";
 // Configuracion general
 @import "./globals.scss";
+@import "./antdCustom.scss";
 // Paginas
 @import "./pages/registro.scss";
 @import "./pages/verificar.scss";
@@ -13,3 +14,4 @@
 // Componentes
 @import "./components/layout.scss";
 @import "./components/loading.scss";
+@import "./components/formEvent.scss";

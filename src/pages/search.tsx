@@ -10,11 +10,14 @@ const groups = [
   { id: "4", name: "Grupo 4", description: "Hola mundo", foto: "imgen.png" },
 ];
 
-const exampleCategories = [{ label: "Hola", value: "hola" }];
+const exampleCategories = [
+  { label: "Deportes", value: "deportes" },
+  { label: "Música", value: "musica" },
+  { label: "Cine", value: "cine" },
+  { label: "Literatura", value: "literatura" },
+];
 
 const Search = () => {
-  const router = useRouter();
-
   useEffect(() => {
     // Pediríamos información al back para mostrar grupos según el nombre
 
@@ -28,15 +31,14 @@ const Search = () => {
   };
 
   return (
-    <SideMenu>
+    <SideMenu notShowHeader>
       <>
+        <h2>Resultados de la búsqueda</h2>
         <div className="filters">
           <Form onFinish={onFinish}>
+            <h3>Categorías:</h3>
             <Form.Item name="category">
-              <Select mode="multiple" options={exampleCategories} />
-            </Form.Item>
-            <Form.Item name="category">
-              <Select mode="multiple" options={exampleCategories} />
+              <Select mode="multiple" options={exampleCategories} allowClear />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
@@ -45,8 +47,7 @@ const Search = () => {
             </Form.Item>
           </Form>
         </div>
-        <div>Página de búsqueda avanzada</div>
-        <p>{router.query.q}</p>
+
         {groups.map((group) => (
           <div key={group.id}></div>
         ))}

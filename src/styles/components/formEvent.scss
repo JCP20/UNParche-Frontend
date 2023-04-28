@@ -1,0 +1,16 @@
+.containerFormEvent {
+  display: flex;
+  justify-content: center;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+
+    width: 44%;
+    margin: 0 3%;
+
+    .previewElement {
+      margin: 1rem 0;
+    }
+  }
+}

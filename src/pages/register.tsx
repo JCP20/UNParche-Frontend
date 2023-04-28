@@ -1,7 +1,9 @@
 import CarouselCustom from "@/components/CarouselCustom";
 import { createUser } from "@/services/auth";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, Modal, message } from "antd";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
 const layout = {
   labelCol: { span: 50 },
@@ -21,36 +23,44 @@ const Registro = () => {
   //Mensaje de exito
   const onFinish = async (values: any) => {
     try {
+      message.loading({
+        content: "Espera un momento porfavor...",
+        key: "creating",
+      });
       const resp = await createUser(values);
       if (resp.status === 201) {
-        message.success("Por favor revisa tu correo para verificar tu cuenta!");
+        message.destroy("creating");
+        Modal.confirm({
+          title: "Registro exitoso!",
+          content: "Verifica tu correo para continuar",
+        });
       }
     } catch (error: any) {
-      message.error(error.response.data.msg);
+      message.error({ content: error.response.data.msg, key: "creating" });
     }
   };
 
-  //Mensaje de error
-  const onFinishFailed = () => {
-    message.error("Registro fallido!");
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
-    <div className="containerLogin">
+    <div className="containerRegister">
       <Head>
         <title>Registro</title>
       </Head>
-      <div className="mainContainer">
-        <div className="card">
+      <Image fill src="/imagenes/wavesbl2.png" alt="" />
+      <div className="mainContainerRegister">
+        <div className="card shadow">
           <Form
-            className="form"
-            id="formRegister" //Detalles del Formulario
+            className="formRegister"
+            //Detalles del Formulario
             form={form}
             layout="vertical"
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             name="wrap"
             labelAlign="left"
+            onFinishFailed={onFinishFailed}
             //style={{ maxWidth: 600 }}
             {...layout}
             scrollToFirstError
@@ -98,13 +108,9 @@ const Registro = () => {
               rules={[
                 {
                   required: true,
-                  pattern: new RegExp(
-                    "(?=.*[!@#$%^&*/-_])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
-                  ),
                   message: "Porfavor ingrese su contraseña",
                 },
               ]}
-              hasFeedback
             >
               <Input.Password placeholder="Escribe tu contraseña" />
             </Form.Item>
@@ -137,8 +143,11 @@ const Registro = () => {
                 Registrarme
               </Button>
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 4 }}>
-              ¿Ya tienes una cuenta? <a href="/login"> Ingresa</a>
+            <Form.Item>
+              ¿Ya tienes una cuenta?
+              <Link href="/login" className="url">
+                Ingresa
+              </Link>
             </Form.Item>
           </Form>
           <div className="carrouselContainer">
