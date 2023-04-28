@@ -1,7 +1,8 @@
 import React from 'react';
 import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
 import { EditOutlined, EllipsisOutlined, SettingOutlined,LikeOutlined, MessageOutlined, StarOutlined,AntDesignOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Card, TabsProps, Tabs, Button, Calendar,List, Space, Tooltip ,Row,Col} from 'antd';
+import { Avatar, Card, TabsProps, Tabs, Button, Calendar,List, Space, Tooltip ,Layout} from 'antd';
+const { Header, Content, Footer, Sider } = Layout;
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 dayjs.locale("es-mx");
@@ -55,7 +56,7 @@ const items: TabsProps['items'] = [
   {
     key: '1',
     label: `Posts`,
-    children: <div><Button type="primary">Nueva Publicacion</Button>
+    children: <div>
       <List
     itemLayout="vertical"
     size="large"
@@ -129,17 +130,22 @@ const Grupo: React.FC = () => {
 
 
   return ( 
-  <Row>   
-  <Col span={16}>
-  <Tabs
+    <Layout>
+    <Content style={{ height: "100vh"}}>
+    <Layout>
+    <Content style={{ padding: '24px 48px', marginRight: 324}}>
+    <Tabs
         defaultActiveKey="1" type="card" items={items} onChange={onChange}
       />
-   
-  </Col>
-  <Col span={8} style={{ background: '#fcffe7',}}>
-  <Row>
-  <Card
-    style={{ width: 300,position: 'fixed', top:32, left: 980}}
+    </Content>
+    <Sider width={300} style = {{
+          overflow: 'auto',
+          height: "100vh",
+          position: 'fixed',
+          right:'0',
+          padding: '24px  16px'}}>  
+    <Card  
+     style={{height: '92vh'}}
     cover={
       <img
         alt="example"
@@ -147,34 +153,38 @@ const Grupo: React.FC = () => {
       />
     }
     actions={[
-      <SettingOutlined key="setting" />,
       <EditOutlined key="edit" />,
-      <EllipsisOutlined key="ellipsis" />,
+      <Button type="primary">Unirme </Button>,
+
     ]}
   >
-    <Meta
+    <Meta  
       avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
       title="Grupo 1"
-      description="Descripcion del grupo"
+      description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
     />
-  </Card>
-  </Row>
-  <Row >
-      <h1>Miembros </h1> 
-      <Avatar.Group>
+    <Card style={{ marginTop: 48 }}  >
+      <Avatar.Group  maxCount={6}  >
       <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-      <a href="https://ant.design">
         <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-      </a>
-      <Tooltip title="Ant User" placement="top">
+      <Tooltip title="Ant User" >
+        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+      </Tooltip>
+      <Avatar style={{ backgroundColor: '#1890ff' }} icon={<AntDesignOutlined />} />
+      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+      <Tooltip title="Ant User" >
         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
       </Tooltip>
       <Avatar style={{ backgroundColor: '#1890ff' }} icon={<AntDesignOutlined />} />
     </Avatar.Group>
-  </Row>
-  </Col>
+    </Card>
+  </Card>
+   </Sider>
+  </Layout>
+  </Content>
+</Layout>
 
-</Row>
 
   );
 };

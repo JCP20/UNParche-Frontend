@@ -79,7 +79,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   }, [selectedKey]);
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>
+    <Layout style={{ minHeight: "100vh" }} hasSider>
       <Sider
         style={{
           overflow: "auto",
