@@ -31,7 +31,7 @@ const Search = () => {
   };
 
   return (
-    <SideMenu notShowHeader>
+    <SideMenu notShowHeader >
       <>
         <h2>Resultados de la búsqueda</h2>
         <div className="filters">

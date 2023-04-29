@@ -78,7 +78,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>
+    <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>      
+
       <Sider
         collapsible
         style={{
