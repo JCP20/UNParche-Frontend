@@ -1,9 +1,13 @@
 import React from 'react';
 import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
 import { EditOutlined, EllipsisOutlined, SettingOutlined,LikeOutlined, MessageOutlined, StarOutlined,AntDesignOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Card, TabsProps, Tabs, Button, Calendar,List, Space, Tooltip ,Layout} from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import { Avatar, Card, TabsProps, Tabs, Button, Calendar,List, Space, Tooltip ,Layout, Badge, Tag} from 'antd';
+const { Header, Content, Sider } = Layout;
 import type { Dayjs } from "dayjs";
+import FormEvento from "@/components/FormEvent";
+import FormGrupo from "@/components/CreateGroup";
+import { createEventFn } from "@/services/events";
+import { createGroupFn, updateGroupFn } from "@/services/groups";
 import dayjs from "dayjs";
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
@@ -93,7 +97,7 @@ const items: TabsProps["items"] = [
     label: `Eventos`,
     children: (
       <div>
-        <Button type="primary">Nuevo Evento</Button>
+         <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
         <div>
           <Calendar fullscreen={false} onPanelChange={onPanelChange} />
         </div>
@@ -146,6 +150,8 @@ const Grupo: React.FC = () => {
           position: 'fixed',
           right:'0',
           padding: '24px  16px'}}>  
+     <Badge.Ribbon text="Público" color="#2b3467">
+    
     <Card  
      style={{height: '92vh'}}
     cover={
@@ -155,16 +161,19 @@ const Grupo: React.FC = () => {
       />
     }
     actions={[
-      <EditOutlined key="edit" />,
-      <Button type="primary">Unirme </Button>,
+      <FormGrupo service={updateGroupFn} initialValues={"Editar"} />,
+      <Button >Unirme </Button>,
 
     ]}
-  >
+  ><Space direction="vertical" size="middle" style={{ display: 'flex' }}>
     <Meta  
-      avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+     
       title="Grupo 1"
       description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
     />
+     
+      <Tag color="magenta">Religion</Tag>
+    </Space>
     <Card style={{ marginTop: 48 }}  >
       <Avatar.Group  maxCount={6}  >
       <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
@@ -182,6 +191,7 @@ const Grupo: React.FC = () => {
     </Avatar.Group>
     </Card>
   </Card>
+  </Badge.Ribbon>
    </Sider>
   </Layout>
   </Content>
