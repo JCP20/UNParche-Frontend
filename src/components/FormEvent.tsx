@@ -13,9 +13,11 @@ import {
 } from "antd";
 import { TimePicker, Typography } from "antd";
 import dayjs from "dayjs";
+import EventCardApp from "./EventsCard";
 
 const { TextArea } = Input;
 const { Title } = Typography;
+const defaultSrc ="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
 
 const layout = {
   labelCol: { span: 50 },
@@ -36,8 +38,13 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async() => {
+    const values = form.getFieldsValue();
+    values.Fecha = values.Fecha.format("DD/MM/YY")
+    values.Hora = values.Hora.format("h:mm a")    
     setIsModalOpen(false);
+    const resp = await service(values);
+    console.log(resp);
   };
 
   const handleCancel = () => {
@@ -98,7 +105,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
       </Button>
 
       <Modal
-        width={700}
+        width={800}
         centered
         title="Creación de Evento"
         open={isModalOpen}
@@ -170,31 +177,16 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
           <div className="card">
             <h3>Vista previa</h3>
-            <Form className="form" id="formCrearGrupo">
-              <Title level={2}> {nameValue} </Title>
-              <Upload
-                className="previewElement"
-                name="foto2"
-                listType="picture-card"
-                fileList={fileList}
-                disabled={true}
-              >
-                {fileList.length < 1 && "No image"}
-              </Upload>
+            <EventCardApp
+              nombreEvento={nameValue}
+              descripcionEvento={desValue}
+              
+              imagenSrc={defaultSrc}//fileList[0].url}
+              fechaEvento={fechaValue.format("DD/MM/YY")}
+              horaEvento={horaValue.format("h:mm a")} />
 
-              <TextArea className="previewElement" rows={2} value={desValue} />
 
-              <div className="previewElement">
-                <h4>Fecha:</h4>
-                <p>{fechaValue.format("DD/MM/YY")}</p>
-              </div>
-
-              <div className="previewElement">
-                <h4>Hora:</h4>
-                <p>{horaValue.format("h:mm a")}</p>
-              </div>
-            </Form>
-          </div>
+          </div>          
         </div>
       </Modal>
     </>
