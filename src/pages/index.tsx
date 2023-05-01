@@ -44,7 +44,7 @@ const mockData = [
 
 export default function Home() {
   return (
-    <><HeaderApp /><MainLayout>
+    <><MainLayout>
 
 
       <>

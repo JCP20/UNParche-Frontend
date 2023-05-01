@@ -7,6 +7,7 @@ import EventCardApp from "@/components/EventsCard";
 import CellApp from "@/components/modalCalendar";
 import HeaderApp from "@/components/Layout/Header";
 import NotiCardApp from "@/components/NotificationCard";
+import SelectApp from "@/components/SelecCategory";
 
 
 
@@ -19,6 +20,7 @@ const crearGrupo = () => {
       <FormEvento service={createEventFn} initialValues={"Crear Grupo"} />      
       <CellApp/>
       <NotiCardApp/>
+      <SelectApp/>
 
 
     </div>

@@ -40,8 +40,8 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   const handleOk = async() => {
     const values = form.getFieldsValue();
-    values.Fecha = values.Fecha.format("DD/MM/YY")
-    values.Hora = values.Hora.format("h:mm a")    
+    values.datef = values.datef.format("DD/MM/YY")
+    values.schedule = values.schedule.format("h:mm a")    
     setIsModalOpen(false);
     const resp = await service(values);
     console.log(resp);
@@ -75,12 +75,12 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
   //Declaración de constandes
 
   const [form] = Form.useForm();
-  const nameValue = Form.useWatch("nombreEvento", form);
-  const desValue = Form.useWatch("descripcion", form);
+  const nameValue = Form.useWatch("title", form);
+  const desValue = Form.useWatch("description", form);
 
-  var fechaValue = Form.useWatch("Fecha", form);
+  var fechaValue = Form.useWatch("datef", form);
 
-  var horaValue = Form.useWatch("Hora", form);
+  var horaValue = Form.useWatch("schedule", form);
   if (horaValue == undefined) {
     horaValue = dayjs("12:00 a", "h:mm a");
   }
@@ -129,7 +129,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               scrollToFirstError
             >
               <Form.Item
-                name="nombreEvento" //Label usuario
+                name="title" //Label usuario
                 label="Nombre del Evento"
                 rules={[
                   {
@@ -140,7 +140,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               >
                 <Input placeholder="Escribe el nombre de tu evento" />
               </Form.Item>
-              <Form.Item name="descripcion" label="Descripción">
+              <Form.Item name="description" label="Descripción">
                 <TextArea rows={2} />
               </Form.Item>
               <Form.Item label="Imagen del evento" valuePropName="fileList">
@@ -161,10 +161,10 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
                   </Upload>
                 </ImgCrop>
               </Form.Item>
-              <Form.Item name="Fecha" label="Fecha del Evento">
+              <Form.Item name="datef" label="Fecha del Evento">
                 <DatePicker format={"DD/MM/YY"} style={{ width: "100%" }} />
               </Form.Item>
-              <Form.Item name="Hora" label="Hora del Evento">
+              <Form.Item name="schedule" label="Hora del Evento">
                 <TimePicker
                   use12Hours
                   style={{ width: "100%" }}

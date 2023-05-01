@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { getItem } from "./utils";
+import HeaderApp from "./Header";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -78,43 +79,46 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }} hasSider>
-      <Sider
-        collapsible
-        style={{
-          overflow: "auto",
-          height: "100vh",
-          position: "sticky",
-          left: 0,
-          top: 0,
-        }}
-      >
-        <Menu
-          theme="dark"
-          selectedKeys={[selectedKey]}
-          mode="inline"
-          items={items}
-          onClick={handleOnClick}
-        />
-      </Sider>
-      <Layout className="mainLayoutContainer">
-        <Content className="contentContainer">{children}</Content>
-
-        <Content
-          className="searchBarContainer"
+    <Layout>
+      <HeaderApp />
+      <Layout style={{ minHeight: "100vh" }} hasSider>
+        <Sider
+          collapsible
           style={{
             overflow: "auto",
             height: "100vh",
             position: "sticky",
+            left: 0,
             top: 0,
           }}
         >
-          {!notShowHeader && <SearchBar />}
-          <div className="additionalInfo">
-            <p>Política de cookies</p>
-            <p>© 2023 UnParche, Inc.</p>
-          </div>
-        </Content>
+          <Menu
+            theme="dark"
+            selectedKeys={[selectedKey]}
+            mode="inline"
+            items={items}
+            onClick={handleOnClick}
+          />
+        </Sider>
+        <Layout className="mainLayoutContainer">
+          <Content className="contentContainer">{children}</Content>
+
+          <Content
+            className="searchBarContainer"
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "sticky",
+              top: 0,
+            }}
+          >
+            {!notShowHeader && <SearchBar />}
+            <div className="additionalInfo">
+              <p>Política de cookies</p>
+              <p>© 2023 UnParche, Inc.</p>
+            </div>
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   );

@@ -10,7 +10,7 @@ interface userAuthTypes {
   username: string;
 }
 
-const privateRoutes = ["/calendar", "/crearGrupo", "/", "/search"];
+const privateRoutes = ["/calendar",  "/", "/search"];
 
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -17,8 +17,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Input.Search
-      width={100}
+    <Input.Search      
       placeholder="Buscar"
       onChange={onChange}
       onSearch={onSearch}

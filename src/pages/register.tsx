@@ -1,6 +1,6 @@
 import CarouselCustom from "@/components/CarouselCustom";
 import { createUser } from "@/services/auth";
-import { Button, Form, Input, Modal, message } from "antd";
+import { Button, Form, Input, Modal, Select, SelectProps, Space, message } from "antd";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +15,21 @@ const imagesRegistro = [
   "/imagenes/Imagen6.png",
   "/imagenes/Imagen7.png",
 ];
+
+const options: SelectProps['options'] = [];
+const a = ['Arte', 'Deporte', 'Religión', 'Investigación', 'Semillero', 'Videojuegos', 'Otro'];
+
+for (let i = 0; i < 7; i++) {
+  options.push({
+    label: a[i],
+    value: a[i],
+  });
+}
+
+const handleChange = (value: string[]) => {
+  console.log(`selected ${value}`);
+};
+
 
 //Aplicación de registro
 const Registro = () => {
@@ -137,6 +152,20 @@ const Registro = () => {
               hasFeedback
             >
               <Input.Password placeholder="Confirma tu contraseña tu contraseña" />
+            </Form.Item>
+            <Form.Item
+            name="category"
+            label="Selecciona las categorías que te interesan">
+
+              <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Seleccione las categorías de su interes"
+                onChange={handleChange}
+                options={options}
+              />
+
             </Form.Item>
             <Form.Item>
               <Button block type="primary" htmlType="submit">
