@@ -1,5 +1,5 @@
-import { backendApi } from "@/api/config";
 import { IEvent } from "@/interfaces/events";
+import { backendApi } from "./api/config";
 
 export const createEventFn = async (values:any): Promise<any| null> => {
   try {

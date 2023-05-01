@@ -1,9 +1,10 @@
-import { backendApi } from "@/api/config";
+import { backendApi } from "@/services/api/config";
 import { IUser } from "@/interfaces/user";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
+import { logoutUser, renewToken } from "@/services/auth.service";
 
 interface userAuthTypes {
   id: string;
@@ -21,16 +22,10 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const router = useRouter();
 
-  const login = async (
-    token: string,
-    id: string,
-    username: string,
-    refresh: string
-  ) => {
+  const login = async (token: string, id: string, username: string) => {
     try {
       setIsAuthenticated(true);
       Cookies.set("x-token", token);
-      Cookies.set("x-token-refresh", refresh);
       setUser({ id, username });
       router.replace("/");
     } catch (error) {
@@ -38,11 +33,11 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser({} as IUser);
     setIsAuthenticated(false);
     Cookies.remove("x-token");
-    Cookies.remove("x-token-refresh");
+    await logoutUser();
     router.replace("/login");
   };
 
@@ -55,11 +50,10 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
         return;
       }
 
-      const resp = (await backendApi.get("/auth/renew")).data;
+      const resp = await renewToken();
 
-      if (resp.ok) {
-        Cookies.set("x-token", resp.token);
-        Cookies.set("x-token-refresh", resp.refresh);
+      if (resp?.data?.ok) {
+        Cookies.set("x-token", resp.data.token);
         setUser(resp.data);
         setIsAuthenticated(true);
       } else {
