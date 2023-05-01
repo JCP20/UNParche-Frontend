@@ -1,4 +1,3 @@
-import React from "react";
 import MainLayout from "@/components/Layout/Layout";
 import { Image } from "antd";
 

@@ -1,19 +1,20 @@
 import {
   CalendarOutlined,
   HomeOutlined,
-  MenuOutlined,
+  BellOutlined,
   PoweroffOutlined,
-  SettingOutlined,
+  CommentOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, MenuProps } from "antd";
+import { Avatar, Badge, Layout, Menu, MenuProps } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { getItem } from "./utils";
+import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -46,11 +47,9 @@ const items: MenuItem[] = [
     </Link>
   ),
   getItem("Perfil", "6", <UserOutlined />),
+  getItem("Mensajes", "/messages", <CommentOutlined />),
 
-  getItem("Más", "sub2", <MenuOutlined />, [
-    getItem("Salir", "logout", <PoweroffOutlined />),
-    getItem("Configuración", "9", <SettingOutlined />),
-  ]),
+  getItem("Salir", "logout", <PoweroffOutlined />),
 ];
 
 interface MainLayoutProps {
@@ -65,7 +64,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const { logout } = useContext(AuthContext);
 
   const [selectedKey, setSelectedKey] = useState<string>("");
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const router = useRouter();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     setSelectedKey(router.pathname);
@@ -74,19 +75,23 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const handleOnClick = (e: any) => {
     if (e.key === "logout") {
       logout();
+    } else {
+      router.push(`/${e.key}`);
     }
   };
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "$color-base" }} hasSider>
+    <Layout style={{ minHeight: "100vh" }} hasSider>
       <Sider
         collapsible
+        onCollapse={(collapsed) => setIsCollapsed(collapsed)}
+        collapsed={isCollapsed}
         style={{
           overflow: "auto",
           height: "100vh",
           position: "sticky",
-          left: 0,
           top: 0,
+          left: 0,
         }}
       >
         <Menu
@@ -97,24 +102,35 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           onClick={handleOnClick}
         />
       </Sider>
-      <Layout className="mainLayoutContainer">
-        <Content className="contentContainer">{children}</Content>
 
-        <Content
-          className="searchBarContainer"
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "sticky",
-            top: 0,
-          }}
-        >
-          {!notShowHeader && <SearchBar />}
-          <div className="additionalInfo">
-            <p>Política de cookies</p>
-            <p>© 2023 UnParche, Inc.</p>
+      <Layout>
+        <Header className="headerStyle">
+          <div className="logo"></div>
+          <SearchBar className="searchBarHeader" />
+          <div className="userNotify">
+            <p>@{user.username}</p>
+            <Badge dot>
+              <Avatar shape="square" size={"small"} icon={<BellOutlined />} />
+            </Badge>
           </div>
-        </Content>
+        </Header>
+        <Layout style={{ height: "100%", width: "100%" }}>
+          <div className="contentStyle">
+            <Content>{children}</Content>
+            {!notShowHeader && (
+              <Sider
+                style={{
+                  background: "#f6f6f6",
+                  width: "30%",
+                  // padding: "20px",
+                }}
+              >
+                <p>Política de cookies</p>
+                <p>© 2023 UnParche, Inc.</p>
+              </Sider>
+            )}
+          </div>
+        </Layout>
       </Layout>
     </Layout>
   );

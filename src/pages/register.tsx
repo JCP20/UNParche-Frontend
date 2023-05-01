@@ -1,5 +1,5 @@
 import CarouselCustom from "@/components/CarouselCustom";
-import { createUser } from "@/services/auth";
+import { createUser } from "@/services/auth.service";
 import { Button, Form, Input, Modal, message } from "antd";
 import Head from "next/head";
 import Image from "next/image";

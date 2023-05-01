@@ -1,7 +1,7 @@
 import { AuthContext } from "@/context/auth/AuthContext";
 import { IUser } from "@/interfaces/user";
-import { verifyEmailFn } from "@/services/auth";
-import { getUserById } from "@/services/user";
+import { verifyEmailFn } from "@/services/auth.service";
+import { getUserById } from "@/services/user.service";
 import { message } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
@@ -23,12 +23,7 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
       if (resp?.status === 200) {
         setTimeout(() => {
-          login(
-            resp.data.token,
-            resp.data.id,
-            resp.data.username,
-            resp.data.refresh
-          );
+          login(resp.data.token, resp.data.id, resp.data.username);
         }, 5000);
       }
     } catch (error) {
