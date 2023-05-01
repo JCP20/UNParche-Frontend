@@ -16,13 +16,13 @@ export default function App({ Component, pageProps }: AppProps) {
           token: {
             colorPrimary: "#EB455F",
             colorError: "#9D2503",
-            colorBgBase: '#fbfbf7',
+            // colorBgBase: "#fbfbf7",
           },
           components: {
             Layout: {
-              colorBgHeader: '#bad7e9b5' // colorBgBase -3% lightness, i've pre-calculated these values manually, but it'd be smart to use color.js or something like that to manage these manipulations
+              colorBgHeader: "#2b3467", // colorBgBase -3% lightness, i've pre-calculated these values manually, but it'd be smart to use color.js or something like that to manage these manipulations
             },
-          }
+          },
         }}
       >
         <Component {...pageProps} />

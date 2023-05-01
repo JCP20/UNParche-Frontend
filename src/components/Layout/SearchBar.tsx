@@ -20,7 +20,6 @@ const SearchBar = () => {
     <Input.Search      
 
       placeholder="Busca en UnParche"
-
       onChange={onChange}
       onSearch={onSearch}
       enterButton

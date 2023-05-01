@@ -81,11 +81,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-
-    <Layout style={{ minHeight: "100vh" }} hasSider>
-
     <Layout style={{ minHeight: "100vh" }} >
-
       <Sider
         collapsible
         onCollapse={(collapsed) => setIsCollapsed(collapsed)}
@@ -110,7 +106,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <Layout>
         <Header className="headerStyle">
           <div className="logo"></div>
-          <SearchBar className="searchBarHeader" />
+          <SearchBar /*className="searchBarHeader"*/ />
           <div className="userNotify">
             <p>@{user.username}</p>
             <Badge dot>
