@@ -1,29 +1,13 @@
-import React from "react";
-import type { CalendarMode } from "antd/es/calendar/generateCalendar";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-  LikeOutlined,
-  MessageOutlined,
-  StarOutlined,
-  AntDesignOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import {
-  Avatar,
-  Card,
-  TabsProps,
-  Tabs,
-  Button,
-  Calendar,
-  List,
-  Space,
-  Tooltip,
-  Row,
-  Col,
-} from "antd";
+import React from 'react';
+import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
+import { EditOutlined, EllipsisOutlined, SettingOutlined,LikeOutlined, MessageOutlined, StarOutlined,AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Card, TabsProps, Tabs, Button, Calendar,List, Space, Tooltip ,Layout, Badge, Tag} from 'antd';
+const { Header, Content, Sider } = Layout;
 import type { Dayjs } from "dayjs";
+import FormEvento from "@/components/FormEvent";
+import FormGrupo from "@/components/CreateGroup";
+import { createEventFn } from "@/services/events";
+import { createGroupFn, updateGroupFn } from "@/services/groups";
 import dayjs from "dayjs";
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
@@ -70,65 +54,50 @@ const items: TabsProps["items"] = [
   {
     key: "1",
     label: `Posts`,
-    children: (
-      <div>
-        <Button type="primary">Nueva Publicacion</Button>
-        <List
-          itemLayout="vertical"
-          size="large"
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
-            pageSize: 3,
-          }}
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item
-              key={item.title}
-              actions={[
-                <IconText
-                  icon={StarOutlined}
-                  text="156"
-                  key="list-vertical-star-o"
-                />,
-                <IconText
-                  icon={LikeOutlined}
-                  text="156"
-                  key="list-vertical-like-o"
-                />,
-                <IconText
-                  icon={MessageOutlined}
-                  text="2"
-                  key="list-vertical-message"
-                />,
-              ]}
-              extra={
-                <img
-                  width={272}
-                  alt="logo"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                />
-              }
-            >
-              <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={<a href={item.href}>{item.title}</a>}
-                description={item.description}
-              />
-              {item.content}
-            </List.Item>
-          )}
+    children: <div>
+      <List
+    itemLayout="vertical"
+    size="large"
+    pagination={{
+      onChange: (page) => {
+        console.log(page);
+      },
+      pageSize: 3,
+    }}
+    dataSource={data}
+    renderItem={(item) => (
+      <List.Item
+        key={item.title}
+        actions={[
+          <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+          <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+        ]}
+        extra={
+          <img
+            width={272}
+            alt="logo"
+            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+          />
+        }
+      >
+        <List.Item.Meta
+          avatar={<Avatar src={item.avatar} />}
+          title={<a href={item.href}>{item.title}</a>}
+          description={item.description}
         />
-      </div>
-    ),
+        {item.content}
+      </List.Item>
+    )}
+  />
+  </div>
   },
   {
     key: "2",
     label: `Eventos`,
     children: (
       <div>
-        <Button type="primary">Nuevo Evento</Button>
+         <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
         <div>
           <Calendar fullscreen={false} onPanelChange={onPanelChange} />
         </div>
@@ -163,62 +132,72 @@ const items: TabsProps["items"] = [
 ];
 
 const Grupo: React.FC = () => {
-  return (
-    <Row>
-      <Col span={16}>
-        <Tabs
-          defaultActiveKey="1"
-          type="card"
-          items={items}
-          onChange={onChange}
-        />
-      </Col>
-      <Col span={8} style={{ background: "#fcffe7" }}>
-        <Row>
-          <Card
-            style={{ width: 300, position: "fixed", top: 32, left: 980 }}
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={
-                <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
-              }
-              title="Grupo 1"
-              description="Descripcion del grupo"
-            />
-          </Card>
-        </Row>
-        <Row>
-          <h1>Miembros </h1>
-          <Avatar.Group>
-            <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-            <a href="https://ant.design">
-              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-            </a>
-            <Tooltip title="Ant User" placement="top">
-              <Avatar
-                style={{ backgroundColor: "#87d068" }}
-                icon={<UserOutlined />}
-              />
-            </Tooltip>
-            <Avatar
-              style={{ backgroundColor: "#1890ff" }}
-              icon={<AntDesignOutlined />}
-            />
-          </Avatar.Group>
-        </Row>
-      </Col>
-    </Row>
+
+
+
+  return ( 
+    <Layout>
+    <Content style={{ height: "100vh"}}>
+    <Layout>
+    <Content style={{ padding: '24px 48px', marginRight: 324}}>
+    <Tabs
+        defaultActiveKey="1" type="card" items={items} onChange={onChange}
+      />
+    </Content>
+    <Sider width={300} style = {{
+          overflow: 'auto',
+          height: "100vh",
+          position: 'fixed',
+          right:'0',
+          padding: '24px  16px'}}>  
+     <Badge.Ribbon text="Público" color="#2b3467">
+    
+    <Card  
+     style={{height: '92vh'}}
+    cover={
+      <img
+        alt="example"
+        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+      />
+    }
+    actions={[
+      <FormGrupo service={updateGroupFn} initialValues={"Editar"} />,
+      <Button >Unirme </Button>,
+
+    ]}
+  ><Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+    <Meta  
+     
+      title="Grupo 1"
+      description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+    />
+     
+      <Tag color="magenta">Religion</Tag>
+    </Space>
+    <Card style={{ marginTop: 48 }}  >
+      <Avatar.Group  maxCount={6}  >
+      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+      <Tooltip title="Ant User" >
+        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+      </Tooltip>
+      <Avatar style={{ backgroundColor: '#1890ff' }} icon={<AntDesignOutlined />} />
+      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+      <Tooltip title="Ant User" >
+        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+      </Tooltip>
+      <Avatar style={{ backgroundColor: '#1890ff' }} icon={<AntDesignOutlined />} />
+    </Avatar.Group>
+    </Card>
+  </Card>
+  </Badge.Ribbon>
+   </Sider>
+  </Layout>
+  </Content>
+</Layout>
+
+
   );
 };
 

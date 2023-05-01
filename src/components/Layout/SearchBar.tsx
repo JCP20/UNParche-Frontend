@@ -22,7 +22,12 @@ const SearchBar: React.FC<Props> = ({ className }) => {
 
   return (
     <Input.Search
+<<<<<<< HEAD
       placeholder="Busca en UnParche"
+=======
+      width={100}
+      placeholder="Buscar"
+>>>>>>> a7f1c651d3eb3a74ff3f37a37905406d68219722
       onChange={onChange}
       onSearch={onSearch}
       enterButton

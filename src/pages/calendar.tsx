@@ -1,12 +1,15 @@
 import "dayjs/locale/es-mx";
 import type { BadgeProps } from "antd";
-import { Badge, Calendar } from "antd";
+import { Badge, Calendar, Modal } from "antd";
 import type { Dayjs } from "dayjs";
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "../components/Layout/Layout";
 import dayjs from "dayjs";
+import EventCardApp from "@/components/EventsCard";
+
 
 dayjs.locale("es-mx");
+var fecha = '';
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -46,6 +49,21 @@ const getMonthData = (value: Dayjs) => {
 };
 
 const CalendarPage: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = (nn: string ) => {
+    setIsModalOpen(true);
+    fecha =nn;
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
     return num ? (
@@ -75,11 +93,18 @@ const CalendarPage: React.FC = () => {
   return (
     <MainLayout>
       <>
+      <Modal title={"Eventos destacados del día  "+ fecha} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <EventCardApp/>
+      <EventCardApp/>
+      <EventCardApp/>
+      </Modal>
         <h2>Calendario</h2>
         <div className="calendarContainer">
           <Calendar
             dateCellRender={dateCellRender}
             monthCellRender={monthCellRender}
+            onSelect={(e)=>{showModal(e.format("DD/MM/YY"))}}
+            
           />
         </div>
       </>
