@@ -1,6 +1,6 @@
 import CarouselCustom from "@/components/CarouselCustom";
 import { AuthContext } from "@/context/auth/AuthContext";
-import { loginUser } from "@/services/auth";
+import { loginUser } from "@/services/auth.service";
 import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import Head from "next/head";
 import Image from "next/image";
@@ -22,12 +22,7 @@ const LoginPage = () => {
       const resp = await loginUser(values);
       if (resp.status === 200) {
         message.success("Login exitoso!");
-        login(
-          resp.data.token,
-          resp.data.id,
-          resp.data.username,
-          resp.data.refresh
-        );
+        login(resp.data.token, resp.data.id, resp.data.username);
       }
     } catch (error: any) {
       Modal.error({ content: error.response.data.msg });

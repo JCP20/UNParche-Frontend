@@ -1,14 +1,8 @@
 import FormEvento from "@/components/FormEvent";
 import FormGrupo from "@/components/CreateGroup";
-import { createEventFn } from "@/services/events";
-import { createGroupFn, updateGroupFn } from "@/services/groups";
 import React from "react";
-import EventCardApp from "@/components/EventsCard";
-import CellApp from "@/components/modalCalendar";
-import HeaderApp from "@/components/Layout/Header";
-import NotiCardApp from "@/components/NotificationCard";
-
-
+import { createEventFn } from "@/services/events.service";
+import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 
 const crearGrupo = () => {
   return (
