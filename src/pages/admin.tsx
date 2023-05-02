@@ -78,6 +78,36 @@ const genExtra = () => (
 </Popconfirm> 
 );
 
+const contentList: Record<string, React.ReactNode> = {
+  tab1: (
+    <p>
+      {" "}
+      <Popconfirm
+        title="Eliminar Evento"
+        description="¿Estas seguro que quieres eliminar este evento?"
+        onConfirm={confirm}
+        okText="Sí"
+        cancelText="No"
+      >
+        <Button>Eliminar</Button>
+      </Popconfirm>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>{" "}
+      <Card bordered={false}>Bienvenido Equipo UnParche</Card>
+      <FloatButton.BackTop />
+    </p>
+  ),
+  tab2: <p>content2</p>,
+};
 
 const Admin: React.FC = () => {
   const [activeTabKey1, setActiveTabKey1] = useState<string>('tab1');
@@ -90,11 +120,7 @@ const Admin: React.FC = () => {
     setActiveTabKey2(key);
   };
 
-  return ( 
-    <Layout>
-    <Header className="header">
-      <div className="logo" />
-    </Header>
+  return (
     <Layout>
     <Content style={{ padding: '24px 24px',height: "100%"}}>
     <Row gutter={[16, 16]}>
@@ -181,9 +207,6 @@ const Admin: React.FC = () => {
 
     </Content>
   </Layout>
-</Layout>
-
-
   );
 };
 

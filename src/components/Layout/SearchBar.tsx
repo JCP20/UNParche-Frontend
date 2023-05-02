@@ -2,7 +2,11 @@ import { Input } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
 
-const SearchBar = () => {
+type Props = {
+  className?: string;
+};
+
+const SearchBar: React.FC<Props> = ({ className }) => {
   const router = useRouter();
 
   const onSearch = (value: any) => {
@@ -18,11 +22,11 @@ const SearchBar = () => {
 
   return (
     <Input.Search
-      width={100}
-      placeholder="Buscar"
+      placeholder="Busca en UnParche"
       onChange={onChange}
       onSearch={onSearch}
       enterButton
+      className={className}
     />
   );
 };

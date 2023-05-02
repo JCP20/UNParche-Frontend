@@ -1,33 +1,102 @@
-.siderContainer {
-  overflow: "auto";
-  height: 100vh;
-  position: "sticky";
-  left: 0;
+.headerStyle {
+  display: flex;
+
+  align-items: center;
+  align-items: center;
+  width: 100%;
+  position: sticky;
   top: 0;
+  z-index: 100;
+
+  .logo {
+    width: 13%;
+    margin-right: 20%;
+    height: 31px;
+    justify-content: flex-start;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+  }
+
+  .searchBarHeader {
+    width: 33%;
+    margin-right: 13%;
+  }
+
+  .userNotify {
+    width: 20%;
+    height: 75%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    position: relative;
+
+    justify-content: center;
+    cursor: pointer;
+
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 20%;
+      height: 35%;
+      border: 3px solid;
+      transition: all 0.4s ease;
+      border-radius: 2px;
+    }
+
+    &::after {
+      opacity: 0.5;
+      bottom: 0;
+      right: 0;
+      border-top-color: transparent;
+      border-left-color: transparent;
+
+      border-bottom-color: $color-boton;
+      border-right-color: $color-boton;
+    }
+
+    &::before {
+      opacity: 0.5;
+      top: 0;
+      left: 0;
+      border-bottom-color: transparent;
+      border-right-color: transparent;
+      border-top-color: $color-boton;
+      border-left-color: $color-boton;
+    }
+
+    &:hover::after,
+    &:hover::before {
+      width: 100%;
+      height: 100%;
+    }
+
+    > p {
+      margin: 0;
+      color: #fff;
+    }
+
+    .userAvatar {
+      margin-left: 5%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // al
+    }
+    // justify-content: flex-end;
+  }
 }
 
-.mainLayoutContainer {
-  display: "flex";
+.contentStyle {
+  display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
 
-  h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: #2b3467;
-  }
-
-  .contentContainer {
-    width: 70%;
-    padding: 1.25rem;
-  }
-
-  .searchBarContainer {
-    width: 30%;
-    padding: 1.25rem;
-
-    .additionalInfo {
-      margin-top: 1.25rem;
-      color: #999;
-    }
+  > * {
+    padding: 20px;
   }
 }
