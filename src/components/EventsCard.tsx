@@ -4,7 +4,7 @@ import { Card, Modal, Input } from 'antd';
 
 const { Meta } = Card;
 const { TextArea } = Input;
-const defaultSrc ="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+const defaultSrc ="https://www.artmajeur.com/medias/standard/v/i/virtual-dzines/artwork/7112695_sun-l.jpg?v=1585072675"
 var toneColor = '#fddde6';
 //"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
 

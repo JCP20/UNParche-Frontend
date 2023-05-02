@@ -1,68 +1,85 @@
 import React,{ useState } from 'react';
-import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
-import { EditOutlined, EllipsisOutlined, SettingOutlined,LikeOutlined, MessageOutlined,  ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
-import { Col, Card, Row, Tabs, Button, Statistic,Popconfirm,Layout, FloatButton, message} from 'antd';
-const { Header, Content, Sider } = Layout;
-import { createGroupFn, updateGroupFn } from "@/services/groups";
-import dayjs from "dayjs";
+import { Col, Card, Row, Space, Button, Statistic, Popconfirm ,Layout, FloatButton, message, Collapse, Divider, Radio, Input, Form} from 'antd';
+const { Header, Content } = Layout;
+const { Panel } = Collapse;
+const { Meta } = Card;
+import EventCardApp from "@/components/EventsCard";
+import Complaints from '@/components/Complaints';
+const { Search } = Input;
+const onSearch = (value: string) => console.log(value);
+const onFinish = (values: any) => {
+  console.log('Success:', values);
+};
 const confirm = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e);
-    message.success('Click on Yes');
+  console.log(e);
+  message.success('Click on Yes');
+};
+
+const cancel = (e: React.MouseEvent<HTMLElement>) => {
+  console.log(e);
+  message.error('Click on No');
+};
+  const onChange = (key: string) => {
+    console.log(key);
   };
-const tabList = [
-    {
-      key: 'tab1',
-      tab: 'Eventos Denunciados',
-    },
-    {
-      key: 'tab2',
-      tab: 'Grupos',
-    },
-  ];
-  
-  const contentList: Record<string, React.ReactNode> = {
-    tab1: <p>     <Popconfirm
+  const text =
+<div>
+    <Row gutter={[16, 16]}>
+    <Col span={10}>
+    <EventCardApp/>
+    </Col>
+    <Col span={14} >
+    <Space direction="vertical" size="large" style={{ display: 'flex' }}>
+    <Complaints/> 
+    <Popconfirm
     title="Eliminar Evento"
     description="¿Estas seguro que quieres eliminar este evento?"
-    onConfirm={confirm}
+    onConfirm = {confirm}
     okText="Sí"
     cancelText="No"
   >
-    <Button>Eliminar</Button>
-  </Popconfirm>   <Card  bordered={false}>
-    Bienvenido Equipo UnParche 
-  </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
-      </Card>
-      <FloatButton.BackTop />
+    <Button type="primary">Eliminar Evento</Button>
+  </Popconfirm>  
+  </Space>
+  </Col>
+  <FloatButton></FloatButton>
+  <Col span={10}>
+    <EventCardApp/>
+    </Col>
+    <Col span={14}>
+    <Space direction="vertical" size="large" style={{ display: 'flex' }}>
+    <Complaints/>  
+    <Popconfirm
+    title="Eliminar Evento"
+    description="¿Estas seguro que quieres eliminar este evento?"
+    onConfirm = {confirm}
+    okText="Sí"
+    cancelText="No"
+  >
+    <Button type="primary">Eliminar Evento</Button>
+  </Popconfirm>  
+  </Space>
+  </Col>
+  </Row>
+      </div> ;
 
-      </p>,
-    tab2: <p>content2</p>,
-  };
+const genExtra = () => (
+  <Popconfirm
+  title="Eliminar Grupo"
+  description="¿Estas seguro que quieres eliminar este grupo?"
+  onConfirm = {confirm}
+  okText="Sí"
+  cancelText="No"
+  onClick={(event) => {
+    event.stopPropagation();
+  }}
+>
+  <Button>Eliminar Grupo</Button>
+</Popconfirm> 
+);
 
 
-
-const Grupo: React.FC = () => {
+const Admin: React.FC = () => {
   const [activeTabKey1, setActiveTabKey1] = useState<string>('tab1');
   const [activeTabKey2, setActiveTabKey2] = useState<string>('app');
 
@@ -82,9 +99,41 @@ const Grupo: React.FC = () => {
     <Content style={{ padding: '24px 24px',height: "100%"}}>
     <Row gutter={[16, 16]}>
     <Col span={12}>
-      <Card  bordered={false}>
-        Bienvenido Equipo UnParche 
+    <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+      
+    <div className='bienvenida'>
+      <Card  bordered={false}  > 
+        Bienvenido Equipo UnParche  
+          
       </Card>
+      </div>
+      <Col>
+      <Space direction="horizontal" size="middle" style={{ display: 'flex' }}> 
+      <Button type='primary'>Todos</Button>
+      <Form
+       name="basic"
+       onFinish={onFinish}
+       autoComplete="off"
+       layout="inline"
+  >
+    <Form.Item
+      name="filtro"
+    >
+      <Radio.Group defaultValue="a" >
+      <Radio.Button value="a">Eventos</Radio.Button>
+      <Radio.Button value="b">Grupos</Radio.Button>
+      <Radio.Button value="c">Usuarios</Radio.Button>
+    </Radio.Group>
+    </Form.Item>
+    <Form.Item
+      name="search"
+    >
+    <Search placeholder="input search text" onSearch={onSearch} style={{ width: 220}} />
+    </Form.Item>  
+    </Form>
+    </Space>
+      </Col> 
+      </Space>
     </Col>
     <Col span={6}>
       <Card  bordered={false}>
@@ -104,14 +153,32 @@ const Grupo: React.FC = () => {
         />
       </Card>
     </Col>
-    <Card style={{ width: 1600 }} bordered={false} 
-
-     tabList={tabList}
-     activeTabKey={activeTabKey2}
-     onTabChange={onTab2Change}>
-        {contentList[activeTabKey2]}
-      </Card>
+   
   </Row>
+  <Divider plain>Eventos Denunciados</Divider>
+  <Row gutter={[16, 16]}>
+  <Col span={6}>
+  <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+  Dueño del grupo
+  <Card >jucardozope@unal.edu.co </Card>
+  <Button danger>Eliminar Usuario</Button> 
+  </Space>
+  </Col>  
+  <Col span={18}>
+  <Collapse defaultActiveKey={['1']} onChange={onChange}>
+      <Panel header="Grupo 1" key="1" extra={genExtra()}>
+        <p>{text}</p>
+      </Panel>
+      <Panel header="Grupo 2" key="2" extra={genExtra()}>
+        <p>{text}</p>
+      </Panel>
+      <Panel header="Grupo 3" key="3" extra={genExtra()}>
+        <p>{text}</p>
+      </Panel>
+    </Collapse>
+  </Col>
+  </Row>
+
     </Content>
   </Layout>
 </Layout>
@@ -120,4 +187,4 @@ const Grupo: React.FC = () => {
   );
 };
 
-export default Grupo;
+export default Admin;
