@@ -1,13 +1,5 @@
-import {
-  Button,
-  Modal,
-  Cascader,
-  Form,
-  Input,
-  Radio,
-  Upload,
-  message,
-} from "antd";
+import { getGroupByNameFn } from "@/services/groups.service";
+import { Button, Modal, Cascader, Form, Input, Radio, Upload, message } from "antd";
 import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import React, { useState } from "react";
@@ -23,16 +15,22 @@ interface NewFormProps {
   service: (value: any) => void;
 }
 
-const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
+const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { service } = props;
   const { initialValues } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
+  
+  const showModal = async () => {    
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
+    const values = form.getFieldsValue();
+    values.category = values.category[0];
+    values.administrators = ["644409d6659d4bfcb4ccbc01"];
+    console.log(values);
+    const resp = await service(values);
+    console.log(resp);
     setIsModalOpen(false);
   };
 
@@ -81,9 +79,10 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
         {initialValues}
       </Button>
       <Modal
-        title="Creación de Grupo"
+        title={initialValues}
         open={isModalOpen}
         onOk={handleOk}
+        okText={initialValues}
         onCancel={handleCancel}
         centered
       >
@@ -103,7 +102,7 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
               scrollToFirstError
             >
               <Form.Item
-                name="nombreGrupo" //Label usuario
+                name="name"
                 label="Nombre del Grupo"
                 rules={[
                   {
@@ -120,7 +119,7 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
                   <Radio value="Privado"> Privado </Radio>
                 </Radio.Group>
               </Form.Item>
-              <Form.Item label="Categoría">
+              <Form.Item name='category' label="Categoría">
                 <Cascader
                   options={[
                     {
@@ -154,7 +153,7 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
                   ]}
                 />
               </Form.Item>
-              <Form.Item label="Descripción">
+              <Form.Item name='description' label="Descripción">
                 <TextArea rows={2} />
               </Form.Item>
               <Form.Item label="Upload" valuePropName="fileList">
@@ -166,7 +165,7 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
                     onChange={onChange}
                     onPreview={onPreview}
                   >
-                    {fileList.length < 5 && "+ Upload"}
+                    {fileList.length < 1 && "+ Upload"}
                   </Upload>
                 </ImgCrop>
               </Form.Item>
@@ -178,4 +177,4 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   );
 };
 
-export default CrearGrupoApp;
+export default FormGroupApp;

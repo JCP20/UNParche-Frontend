@@ -28,7 +28,7 @@ interface NewFormProps {
   initialValues?: any;
   service: (value: any) => void;
 }
-
+//******************************************************************** */
 const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { service } = props;
   const { initialValues } = props;
@@ -40,9 +40,11 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   const handleOk = async() => {
     const values = form.getFieldsValue();
+    values.id_group = "6451b709de14fbcd063fb109"
     values.datef = values.datef.format("DD/MM/YY")
     values.schedule = values.schedule.format("h:mm a")    
-    setIsModalOpen(false);
+    //setIsModalOpen(false);
+    console.log(values);
     const resp = await service(values);
     console.log(resp);
   };
@@ -111,7 +113,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="Crear"
+        okText="Crear Evento"
       >
         <div className="containerFormEvent">
           <div className="card">
@@ -184,8 +186,6 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               imagenSrc={defaultSrc}//fileList[0].url}
               fechaEvento={fechaValue.format("DD/MM/YY")}
               horaEvento={horaValue.format("h:mm a")} />
-
-
           </div>          
         </div>
       </Modal>

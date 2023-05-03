@@ -2,10 +2,11 @@ import "dayjs/locale/es-mx";
 import type { BadgeProps } from "antd";
 import { Badge, Calendar, Modal } from "antd";
 import type { Dayjs } from "dayjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../components/Layout/Layout";
 import dayjs from "dayjs";
 import EventCardApp from "@/components/EventsCard";
+import { getGroupByNameFn } from "@/services/groups.service";
 
 
 dayjs.locale("es-mx");
@@ -52,6 +53,7 @@ const CalendarPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = (nn: string ) => {
+    
     setIsModalOpen(true);
     fecha =nn;
   };
@@ -89,6 +91,15 @@ const CalendarPage: React.FC = () => {
       </ul>
     );
   };
+  const getData = async () => {
+    const data =  await getGroupByNameFn("/microUN");
+    console.log(data);
+    setCalendarEvents(data);
+  };
+  const [calendarEvents, setCalendarEvents] = useState<any>([])
+  useEffect(() => {
+    getData(); //obtener información
+  }, [])
 
   return (
     <MainLayout>

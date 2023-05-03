@@ -1,5 +1,5 @@
 import MainLayout from "@/components/Layout/Layout";
-import { Image } from "antd";
+import { Image, Layout } from "antd";
 import HeaderApp from "@/components/Layout/Header";
 
 const mockData = [
@@ -42,8 +42,12 @@ const mockData = [
 
 export default function Home() {
   return (
+    <Layout 
+    ><HeaderApp/>
     <MainLayout>
+      
       <>
+      
         <div className="feedElementsContainer">
           {mockData.map((group) => (
             <div className="feedElement" key={group.id}>
@@ -60,5 +64,6 @@ export default function Home() {
         </div>
       </>
     </MainLayout>
+    </Layout>
   );
 }

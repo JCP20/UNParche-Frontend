@@ -27,7 +27,7 @@ import {
 const { Header, Content, Sider } = Layout;
 import type { Dayjs } from "dayjs";
 import FormEvento from "@/components/FormEvent";
-import FormGrupo from "@/components/CreateGroup";
+import FormGrupo from "@/components/FormGroup";
 import { createEventFn } from "@/services/events.service";
 import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 import dayjs from "dayjs";

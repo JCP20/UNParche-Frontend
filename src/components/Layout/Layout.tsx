@@ -104,16 +104,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       </Sider>
 
       <Layout>
-        <Header className="headerStyle">
-          <div className="logo"></div>
-          <SearchBar /*className="searchBarHeader"*/ />
-          <div className="userNotify">
-            <p>@{user.username}</p>
-            <Badge dot>
-              <Avatar shape="square" size={"small"} icon={<BellOutlined />} />
-            </Badge>
-          </div>
-        </Header>
+        
         <Layout style={{ height: "100%", width: "100%" }}>
           <div className="contentStyle">
             <Content>{children}</Content>

@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
           token: {
             colorPrimary: "#EB455F",
             colorError: "#9D2503",
-            // colorBgBase: "#fbfbf7",
+            colorBgBase: "#fbfbf7",
           },
           components: {
             Layout: {

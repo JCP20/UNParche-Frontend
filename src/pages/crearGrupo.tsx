@@ -1,4 +1,4 @@
-import FormGrupo from "@/components/CreateGroup";
+import FormGrupo from "@/components/FormGroup";
 import FormEvento from "@/components/FormEvent";
 
 import HeaderApp from "@/components/Layout/Header";
@@ -17,7 +17,7 @@ const crearGrupo = () => {
       <FormEvento service={createEventFn} initialValues={"Crear Grupo"} />
       <CellApp />
       <NotiCardApp />
-      <SelectApp/>
+      <SelectApp />
     </div>
   );
 };

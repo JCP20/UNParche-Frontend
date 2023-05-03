@@ -14,9 +14,9 @@ const { Header, Content, Footer } = Layout;
 const items: MenuProps['items'] = [
 
     {
-        label: <a href=""> {"Blablablabla"}  </a> ,
+        label: <a href=""> {"Blablablabla"}  </a>,
         key: '1',
-        icon:<UserOutlined/>,
+        icon: <UserOutlined />,
     },
     {
         type: 'divider',
@@ -30,17 +30,17 @@ const items: MenuProps['items'] = [
 const options: MenuProps['items'] = [
 
     {
-        label: <a href="http://localhost:3000/login"> Cerrar Sesión  </a> ,
+        label: <a href="http://localhost:3000/login"> Cerrar Sesión  </a>,
         key: '1',
-        icon:<PoweroffOutlined />,
+        icon: <PoweroffOutlined />,
     },
     {
         type: 'divider',
     },
     {
-        label: <a href=""> Configuración </a> ,
+        label: <a href=""> Configuración </a>,
         key: '2',
-        icon:<SettingOutlined />,
+        icon: <SettingOutlined />,
     },
 ];
 
@@ -56,9 +56,9 @@ const HeaderApp: React.FC = () => {
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
                 <Space size={350} align="center">
                     <img src={logo} alt="App logo" width={150} />
-                    <Space.Compact  direction='vertical'>
-                        <SearchBar />     
-                        <SelectApp/>
+                    <Space.Compact direction='vertical'>
+                        <SearchBar />
+
                     </Space.Compact>
                     <Space>
                         <Dropdown menu={{ items }} trigger={['click']}>
@@ -70,12 +70,12 @@ const HeaderApp: React.FC = () => {
                                 </Space>
                             </a>
                         </Dropdown>
-                        <Dropdown menu={{ items:options }} trigger={['click']}>
+                        <Dropdown menu={{ items: options }} trigger={['click']}>
                             <a onClick={(e) => e.preventDefault()}>
-                            <Avatar shape="square" icon={<UserOutlined />} size='large' />
+                                <Avatar shape="square" icon={<UserOutlined />} size='large' />
                             </a>
                         </Dropdown>
-                        
+
                     </Space>
 
                 </Space>
