@@ -5,6 +5,7 @@ import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 import CellApp from "@/components/ModalCalendar";
 import NotiCardApp from "@/components/NotificationCard";
 import FormEvent from "@/components/FormEvent";
+import { Header } from "antd/es/layout/layout";
 
 const crearGrupo = () => {
   return (

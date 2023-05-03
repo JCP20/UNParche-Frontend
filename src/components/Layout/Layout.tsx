@@ -1,3 +1,4 @@
+
 import {
   CalendarOutlined,
   HomeOutlined,
@@ -6,8 +7,9 @@ import {
   CommentOutlined,
   TeamOutlined,
   UserOutlined,
+  CoffeeOutlined
 } from "@ant-design/icons";
-import { Avatar, Badge, Layout, Menu, MenuProps } from "antd";
+import { Avatar, Badge, ConfigProvider, Layout, Menu, MenuProps, Switch, theme, Space } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
@@ -16,9 +18,10 @@ import { AuthContext } from "@/context/auth/AuthContext";
 import { getItem } from "./utils";
 import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
-
+import HeaderApp from "./Header";
+import { text } from "stream/consumers";
 type MenuItem = Required<MenuProps>["items"][number];
-
+const logo = "/imagenes/logRecort.png"
 const items: MenuItem[] = [
   getItem(
     "Inicio",
@@ -62,12 +65,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   notShowHeader,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
-
   const [selectedKey, setSelectedKey] = useState<string>("");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useContext(AuthContext);
-
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     setSelectedKey(router.pathname);
   }, [selectedKey]);
@@ -123,6 +125,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         )}
       </Layout>
     </Layout>
+    </ConfigProvider>
   );
 };
 
