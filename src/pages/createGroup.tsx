@@ -2,7 +2,7 @@ import FormGrupo from "@/components/CreateGroup";
 import React from "react";
 import { createEventFn } from "@/services/events.service";
 import { createGroupFn, updateGroupFn } from "@/services/groups.service";
-import CellApp from "@/components/modalCalendar";
+import CellApp from "@/components/ModalCalendar";
 import NotiCardApp from "@/components/NotificationCard";
 import FormEvent from "@/components/FormEvent";
 
