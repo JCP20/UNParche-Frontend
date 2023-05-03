@@ -1,3 +1,4 @@
+
 import {
   CalendarOutlined,
   HomeOutlined,
@@ -6,8 +7,9 @@ import {
   CommentOutlined,
   TeamOutlined,
   UserOutlined,
+  CoffeeOutlined
 } from "@ant-design/icons";
-import { Avatar, Badge, Layout, Menu, MenuProps } from "antd";
+import { Avatar, Badge, ConfigProvider, Layout, Menu, MenuProps, Switch, theme, Space } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
@@ -16,9 +18,10 @@ import { AuthContext } from "@/context/auth/AuthContext";
 import { getItem } from "./utils";
 import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
-
+import HeaderApp from "./Header";
+import { text } from "stream/consumers";
 type MenuItem = Required<MenuProps>["items"][number];
-
+const logo = "/imagenes/logRecort.png"
 const items: MenuItem[] = [
   getItem(
     "Inicio",
@@ -62,12 +65,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   notShowHeader,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
-
   const [selectedKey, setSelectedKey] = useState<string>("");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useContext(AuthContext);
-
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     setSelectedKey(router.pathname);
   }, [selectedKey]);
@@ -81,18 +83,32 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-   
+   <ConfigProvider
+   theme={{
+    algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+  }}>
     <Layout style={{ height: "100vh" }} >
-      <Header className="headerStyle">
-          <div className="logo"></div>
-          <SearchBar className="searchBarHeader" />
-          <div className="userNotify">
-            <p>@{user.username}</p>
-            <Badge dot>
-              <Avatar shape="square" size={"small"} icon={<BellOutlined />} />
+    <Header className="headerStyle">
+                <Space size={180} >
+                    <img src={logo} alt="App logo" width={100} />
+                    <SearchBar  /> 
+                    <Switch
+           checkedChildren={<CoffeeOutlined />}
+           unCheckedChildren={<HomeOutlined />}
+           defaultChecked
+           onChange={() => setDarkMode(!darkMode)}
+            />
+                               
+                    </Space>
+                    
+              <div className="userNotify">
+                 <p>@</p>
+              <Badge dot>
+              <Avatar shape="square"  icon={<BellOutlined />} />
             </Badge>
-          </div>
-        </Header>
+            </div>  
+            
+            </Header>
     <Layout >
       <Sider
         collapsible
@@ -106,7 +122,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         }}
       >
         <Menu
-          theme="light"
           selectedKeys={[selectedKey]}
           mode="inline"
           items={items}
@@ -122,6 +137,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     </Layout>
     
     </Layout>
+    </ConfigProvider>
   );
 };
 
