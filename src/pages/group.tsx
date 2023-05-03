@@ -31,6 +31,7 @@ import FormGrupo from "@/components/CreateGroup";
 import { createEventFn } from "@/services/events.service";
 import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 import dayjs from "dayjs";
+import MainLayout from "@/components/Layout/Layout";
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -169,90 +170,67 @@ const items: TabsProps["items"] = [
 
 const Grupo: React.FC = () => {
   return (
-    <Layout>
-      <Content style={{ height: "100vh" }}>
-        <Layout>
-          <Content style={{ padding: "24px 48px", marginRight: 324 }}>
-            <Tabs
-              defaultActiveKey="1"
-              type="card"
-              items={items}
-              onChange={onChange}
+    <MainLayout notShowHeader>
+      <div className="mainContainerGroups">
+        <Tabs
+          style={{ width: "70%", padding: "24px" }}
+          defaultActiveKey="1"
+          type="card"
+          items={items}
+          onChange={onChange}
+        />
+        <Card
+          style={{ height: "100%", width: "30%" }}
+          cover={
+            <img
+              alt="example"
+              src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
             />
-          </Content>
-          <Sider
-            width={300}
-            style={{
-              overflow: "auto",
-              height: "100vh",
-              position: "fixed",
-              right: "0",
-              padding: "24px  16px",
-            }}
-          >
-            <Badge.Ribbon text="Público" color="#2b3467">
-              <Card
-                style={{ height: "92vh" }}
-                cover={
-                  <img
-                    alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  />
-                }
-                actions={[
-                  <FormGrupo
-                    service={updateGroupFn}
-                    initialValues={"Editar"}
-                  />,
-                  <Button>Unirme </Button>,
-                ]}
-              >
-                <Space
-                  direction="vertical"
-                  size="middle"
-                  style={{ display: "flex" }}
-                >
-                  <Meta
-                    title="Grupo 1"
-                    description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-                  />
+          }
+          actions={[
+            <FormGrupo service={updateGroupFn} initialValues={"Editar"} />,
+            <Button>Unirme </Button>,
+          ]}
+        >
+          <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+            <Meta
+              title="Grupo 1"
+              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+            />
 
-                  <Tag color="magenta">Religion</Tag>
-                </Space>
-                <Card style={{ marginTop: 48 }}>
-                  <Avatar.Group maxCount={6}>
-                    <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-                    <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-                    <Tooltip title="Ant User">
-                      <Avatar
-                        style={{ backgroundColor: "#87d068" }}
-                        icon={<UserOutlined />}
-                      />
-                    </Tooltip>
-                    <Avatar
-                      style={{ backgroundColor: "#1890ff" }}
-                      icon={<AntDesignOutlined />}
-                    />
-                    <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-                    <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-                    <Tooltip title="Ant User">
-                      <Avatar
-                        style={{ backgroundColor: "#87d068" }}
-                        icon={<UserOutlined />}
-                      />
-                    </Tooltip>
-                    <Avatar
-                      style={{ backgroundColor: "#1890ff" }}
-                      icon={<AntDesignOutlined />}
-                    />
-                  </Avatar.Group>
-                </Card>
-              </Card>
-            </Badge.Ribbon>
-          </Sider>
-        </Layout>
-      </Content>
-    </Layout>
+            <Tag color="magenta">Religion</Tag>
+          </Space>
+          <Card style={{ marginTop: 48 }}>
+            <Avatar.Group maxCount={6}>
+              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+              <Tooltip title="Ant User">
+                <Avatar
+                  style={{ backgroundColor: "#87d068" }}
+                  icon={<UserOutlined />}
+                />
+              </Tooltip>
+              <Avatar
+                style={{ backgroundColor: "#1890ff" }}
+                icon={<AntDesignOutlined />}
+              />
+              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+              <Tooltip title="Ant User">
+                <Avatar
+                  style={{ backgroundColor: "#87d068" }}
+                  icon={<UserOutlined />}
+                />
+              </Tooltip>
+              <Avatar
+                style={{ backgroundColor: "#1890ff" }}
+                icon={<AntDesignOutlined />}
+              />
+            </Avatar.Group>
+          </Card>
+        </Card>
+      </div>
+    </MainLayout>
   );
 };
 
