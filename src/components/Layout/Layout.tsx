@@ -81,30 +81,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }} hasSider>
-      <Sider
-        collapsible
-        onCollapse={(collapsed) => setIsCollapsed(collapsed)}
-        collapsed={isCollapsed}
-        style={{
-          overflow: "auto",
-          height: "100vh",
-          position: "sticky",
-          top: 0,
-          left: 0,
-        }}
-      >
-        <Menu
-          theme="dark"
-          selectedKeys={[selectedKey]}
-          mode="inline"
-          items={items}
-          onClick={handleOnClick}
-        />
-      </Sider>
-
-      <Layout>
-        <Header className="headerStyle">
+   
+    <Layout style={{ height: "100vh" }} >
+      <Header className="headerStyle">
           <div className="logo"></div>
           <SearchBar className="searchBarHeader" />
           <div className="userNotify">
@@ -114,24 +93,34 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             </Badge>
           </div>
         </Header>
-        <Layout style={{ height: "100%", width: "100%" }}>
-          <div className="contentStyle">
-            <Content>{children}</Content>
-            {!notShowHeader && (
-              <Sider
-                style={{
-                  background: "#f6f6f6",
-                  width: "30%",
-                  // padding: "20px",
-                }}
-              >
-                <p>Política de cookies</p>
-                <p>© 2023 UnParche, Inc.</p>
-              </Sider>
-            )}
-          </div>
-        </Layout>
-      </Layout>
+    <Layout >
+      <Sider
+        collapsible
+        onCollapse={(collapsed) => setIsCollapsed(collapsed)}
+        collapsed={isCollapsed}
+        style={{
+          overflow: "auto",
+          position: "sticky",
+          top: 0,
+          left: 0,
+        }}
+      >
+        <Menu
+          theme="light"
+          selectedKeys={[selectedKey]}
+          mode="inline"
+          items={items}
+          onClick={handleOnClick}
+        />
+      </Sider>
+      <Layout  style={{ overflow: 'scroll' }}>
+      <Content>{children}</Content>
+      </Layout> 
+      <Footer style={{background: '#F4F4F4',width:'15%'}}>
+        <p>Política de cookies</p>
+          <p>© 2023 UnParche, Inc.</p></Footer> 
+    </Layout>
+    
     </Layout>
   );
 };

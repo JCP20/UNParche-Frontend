@@ -46,7 +46,7 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
         <><Card title=  {nombreEvento}
             hoverable            
             extra={<a href="#">nombreGrupo</a>}
-            style={{ width: 350 }}
+            style={{ width: 480 }}
             cover={<img  src={defaultSrc} onDoubleClick={showModal} />}
             actions={[
                 <StarTwoTone key="star"
