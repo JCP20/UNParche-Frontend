@@ -1,12 +1,12 @@
 .headerStyle {
   display: flex;
-
+  background: $primary-color;
   align-items: center;
   align-items: center;
   width: 100%;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1;
 
   .logo {
     width: 13%;
@@ -97,6 +97,6 @@
   height: 100%;
 
   > * {
-    padding: 20px;
+    padding: px;
   }
 }

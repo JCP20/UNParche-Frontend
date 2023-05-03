@@ -81,48 +81,46 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }} >
+   
+    <Layout style={{ height: "100vh" }} >
+      <Header className="headerStyle">
+          <div className="logo"></div>
+          <SearchBar className="searchBarHeader" />
+          <div className="userNotify">
+            <p>@{user.username}</p>
+            <Badge dot>
+              <Avatar shape="square" size={"small"} icon={<BellOutlined />} />
+            </Badge>
+          </div>
+        </Header>
+    <Layout >
       <Sider
         collapsible
         onCollapse={(collapsed) => setIsCollapsed(collapsed)}
         collapsed={isCollapsed}
         style={{
           overflow: "auto",
-          height: "100vh",
           position: "sticky",
           top: 0,
           left: 0,
         }}
       >
         <Menu
-          theme="dark"
+          theme="light"
           selectedKeys={[selectedKey]}
           mode="inline"
           items={items}
           onClick={handleOnClick}
         />
       </Sider>
-
-      <Layout>
-        
-        <Layout style={{ height: "100%", width: "100%" }}>
-          <div className="contentStyle">
-            <Content>{children}</Content>
-            {!notShowHeader && (
-              <Sider
-                style={{
-                  background: "#f6f6f6",
-                  width: "30%",
-                  // padding: "20px",
-                }}
-              >
-                <p>Política de cookies</p>
-                <p>© 2023 UnParche, Inc.</p>
-              </Sider>
-            )}
-          </div>
-        </Layout>
-      </Layout>
+      <Layout  style={{ overflow: 'scroll' }}>
+      <Content>{children}</Content>
+      </Layout> 
+      <Footer style={{background: '#F4F4F4',width:'15%'}}>
+        <p>Política de cookies</p>
+          <p>© 2023 UnParche, Inc.</p></Footer> 
+    </Layout>
+    
     </Layout>
   );
 };
