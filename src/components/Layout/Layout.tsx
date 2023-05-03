@@ -1,4 +1,3 @@
-
 import {
   CalendarOutlined,
   HomeOutlined,
@@ -7,9 +6,19 @@ import {
   CommentOutlined,
   TeamOutlined,
   UserOutlined,
-  CoffeeOutlined
+  CoffeeOutlined,
 } from "@ant-design/icons";
-import { Avatar, Badge, ConfigProvider, Layout, Menu, MenuProps, Switch, theme, Space } from "antd";
+import {
+  Avatar,
+  Badge,
+  ConfigProvider,
+  Layout,
+  Menu,
+  MenuProps,
+  Switch,
+  theme,
+  Space,
+} from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
@@ -21,7 +30,7 @@ const { Header, Content, Footer, Sider } = Layout;
 import HeaderApp from "./Header";
 import { text } from "stream/consumers";
 type MenuItem = Required<MenuProps>["items"][number];
-const logo = "/imagenes/logRecort.png"
+const logo = "/imagenes/logRecort.png";
 const items: MenuItem[] = [
   getItem(
     "Inicio",
@@ -125,7 +134,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         )}
       </Layout>
     </Layout>
-    </ConfigProvider>
   );
 };
 
