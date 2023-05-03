@@ -1,0 +1,127 @@
+.containerRegister {
+  height: 100vh;
+  width: 100vw;
+  background: $color-otro;
+
+  .mainContainerRegister {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+
+    h1 {
+      color: #2b3467;
+    }
+
+    .card {
+      min-height: 60%;
+      min-width: 60%;
+      border-radius: 1.5rem;
+      background: $color-base;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+
+      .formRegister {
+        width: 60%;
+      }
+
+      .createAccountInfo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > p {
+          margin: 0;
+        }
+      }
+
+      .carrouselContainer {
+        width: 40%;
+        margin: auto;
+        z-index: 100;
+        .carousel-root,
+        .carousel-slider {
+          img {
+            width: 12.5rem;
+            height: 18.75rem;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+
+  .diamondsContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+
+    .diamond {
+      position: absolute;
+      transform: rotate(45deg);
+      background-color: $primary-color;
+    }
+
+    .diamond_1 {
+      top: 0;
+      left: 0;
+      width: 12.5rem;
+      height: 12.5rem;
+      animation: upDown 2s ease-in-out infinite alternate;
+    }
+
+    .diamond_2 {
+      bottom: 5rem;
+      right: 3rem;
+      width: 11rem;
+      height: 11rem;
+      animation: upDown 2.3s ease-in-out infinite alternate;
+    }
+
+    .diamond_3 {
+      top: 12.5rem;
+      left: 12.5rem;
+      width: 6.25rem;
+      height: 6.25rem;
+      animation: upDown 1.6s ease-in-out infinite alternate;
+    }
+
+    .diamond_4 {
+      left: 6.25rem;
+      top: 18.75rem;
+      width: 3.75rem;
+      height: 3.75rem;
+      animation: upDown 1.4s ease-in-out infinite alternate;
+    }
+  }
+}
+
+.url {
+  color: $color-boton;
+  text-decoration: none;
+  margin-left: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@keyframes upDown {
+  from {
+    transform: translateY(0) rotate(45deg);
+  }
+  to {
+    transform: translateY(1.875rem) rotate(45deg);
+  }
+}

@@ -1,0 +1,157 @@
+.buttonver {
+  height: 2.5rem;
+  width: 16rem;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: $color-boton;
+  color: #ffffffe8;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0.125rem 0 rgb(255 5 5 / 6%);
+}
+.ant-btn-primary.buttonver:hover {
+  background-color: $darker-primary-boton;
+  color: $color-base;
+}
+.containerveri {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: fit-content;
+  height: 100vh;
+  width: 100vw;
+  background-color: $color-otro;
+  border: 0.0625rem solid black;
+  /* background-image: url('/5170.jpg');  */
+  background-size: 100% 100%;
+}
+.onda {
+  position: absolute;
+  top: 12.5rem;
+  left: -12.375rem;
+  z-index: 0;
+}
+.verification-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1.8rem 1.8rem 0 1.8rem;
+  background-color: $color-base;
+  box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  z-index: 4;
+
+  .verification-redirect_text {
+    margin: 1.5rem 0;
+  }
+
+  .textveri {
+    font-family: "Poppins";
+    font-size: 1.5rem;
+    font-weight: 600;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.imgCont {
+  margin: 2%;
+}
+
+.logo {
+  margin-left: auto;
+  margin-right: auto;
+  float: right;
+  filter: hue-rotate(180deg);
+  height: 10rem;
+  width: 10rem;
+}
+
+.circlesContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+
+  .background-circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: $primary-color;
+  }
+
+  .circle-1 {
+    left: 1.875rem;
+    top: 1.25rem;
+    width: 8rem;
+    height: 8rem;
+    opacity: 0.6;
+    animation: upDown 4s ease-in-out infinite alternate;
+  }
+
+  .circle-2 {
+    left: 9rem;
+    top: 10rem;
+    width: 3rem;
+    height: 3rem;
+    opacity: 0.8;
+    animation: upDown 3s ease-in-out infinite alternate;
+  }
+
+  .circle-3 {
+    left: 12rem;
+    top: 7rem;
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.7;
+    animation: upDown 2s ease-in-out infinite alternate;
+  }
+
+  .circle-4 {
+    right: 7.5rem;
+    bottom: 5rem;
+    width: 4rem;
+    height: 4rem;
+    animation: upDown 3s ease-in-out infinite alternate;
+    opacity: 0.8;
+  }
+
+  .circle-5 {
+    right: 11.25rem;
+    bottom: 2rem;
+    width: 2rem;
+    height: 2rem;
+    animation: upDown 2s ease-in-out infinite alternate;
+    opacity: 0.7;
+  }
+
+  .circle-6 {
+    right: 15rem;
+    bottom: 5rem;
+    width: 6rem;
+    height: 6rem;
+    animation: upDown 3s ease-in-out infinite alternate;
+    opacity: 0.6;
+  }
+}
+
+.onda {
+  position: absolute;
+  top: 12.5rem;
+  left: -12.375rem;
+  z-index: 0;
+}
+
+@keyframes upDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(2rem);
+  }
+}
