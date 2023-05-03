@@ -1,7 +1,9 @@
 import React from "react";
-import MainLayout from "../components/Layout/Layout";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import {
+  EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
   LikeOutlined,
   MessageOutlined,
   StarOutlined,
@@ -167,11 +169,10 @@ const items: TabsProps["items"] = [
 
 const Grupo: React.FC = () => {
   return (
-    <MainLayout>
     <Layout>
       <Content style={{ height: "100vh" }}>
         <Layout>
-          <Content style={{padding: '24px', marginRight: 180 }}>
+          <Content style={{ padding: "24px 48px", marginRight: 324 }}>
             <Tabs
               defaultActiveKey="1"
               type="card"
@@ -186,11 +187,12 @@ const Grupo: React.FC = () => {
               height: "100vh",
               position: "fixed",
               right: "0",
-              padding: "16px  16px",
+              padding: "24px  16px",
             }}
           >
             <Badge.Ribbon text="Público" color="#2b3467">
               <Card
+                style={{ height: "92vh" }}
                 cover={
                   <img
                     alt="example"
@@ -251,7 +253,6 @@ const Grupo: React.FC = () => {
         </Layout>
       </Content>
     </Layout>
-    </MainLayout>
   );
 };
 
