@@ -1,9 +1,7 @@
 import React from "react";
+import MainLayout from "../components/Layout/Layout";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
   LikeOutlined,
   MessageOutlined,
   StarOutlined,
@@ -23,15 +21,17 @@ import {
   Layout,
   Badge,
   Tag,
+  Row,
+  Col
 } from "antd";
 const { Header, Content, Sider } = Layout;
 import type { Dayjs } from "dayjs";
 import FormEvento from "@/components/FormEvent";
 import FormGrupo from "@/components/CreateGroup";
+import EventCardApp from "@/components/EventsCard";
 import { createEventFn } from "@/services/events.service";
 import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 import dayjs from "dayjs";
-import MainLayout from "@/components/Layout/Layout";
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -50,7 +50,6 @@ const pdata = [
     title: "Jose",
   },
 ];
-
 const data = Array.from({ length: 23 }).map((_, i) => ({
   href: "https://ant.design",
   title: `Publicacion ${i}`,
@@ -59,179 +58,157 @@ const data = Array.from({ length: 23 }).map((_, i) => ({
   content:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 }));
-
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
   <Space>
     {React.createElement(icon)}
     {text}
   </Space>
 );
-
 const { Meta } = Card;
-
 const onChange = (key: string) => {
   console.log(key);
 };
-
 const items: TabsProps["items"] = [
   {
     key: "1",
-    label: `Posts`,
+    label: `Eventos`,
     children: (
-      <div>
+        <Row>
+          <Col span={5}>
+          <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
+          </Col>
         <List
-          itemLayout="vertical"
-          size="large"
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
-            pageSize: 3,
-          }}
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item
-              key={item.title}
-              actions={[
-                <IconText
-                  icon={StarOutlined}
-                  text="156"
-                  key="list-vertical-star-o"
-                />,
-                <IconText
-                  icon={LikeOutlined}
-                  text="156"
-                  key="list-vertical-like-o"
-                />,
-                <IconText
-                  icon={MessageOutlined}
-                  text="2"
-                  key="list-vertical-message"
-                />,
-              ]}
-              extra={
-                <img
-                  width={272}
-                  alt="logo"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                />
-              }
-            >
-              <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={<a href={item.href}>{item.title}</a>}
-                description={item.description}
-              />
-              {item.content}
-            </List.Item>
-          )}
-        />
-      </div>
+        itemLayout="vertical"
+        dataSource={pdata}
+        renderItem={(item, index) => (
+        <List.Item >
+        <Space direction="vertical">
+        <EventCardApp></EventCardApp>
+        <Space>
+        <Button>Eliminar</Button>
+        <Button>Editar</Button>
+        </Space>
+        </Space>
+      </List.Item>
+      
+    )}
+  />       
+      </Row>
     ),
   },
   {
     key: "2",
-    label: `Eventos`,
+    label: `Calendario`,
     children: (
       <div>
-        <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
-        <div>
           <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-        </div>
       </div>
     ),
   },
   {
     key: "3",
-    label: `Admins`,
+    label: `Admin`,
     children: (
-      <div>
-        <List
-          itemLayout="horizontal"
-          dataSource={pdata}
-          renderItem={(item, index) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={
-                  <Avatar
-                    src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
-                  />
-                }
-                title={<a href="https://ant.design">{item.title}</a>}
-                description="@unal.edu.co"
-              />
-            </List.Item>
-          )}
+        <Row gutter={16}>
+        <Col span={12}>
+        <Card >
+        <Meta
+          avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+          title="Pepito Perez"
+          description="pepitoperez@unal.edu.co"
         />
-      </div>
+      </Card>
+        </Col>
+        <Col span={12} style={{padding:'24px'}}>        
+        <Button type="primary">Iniciar Chat</Button>
+        </Col>
+       </Row>
     ),
   },
 ];
 
 const Grupo: React.FC = () => {
-  return (
-    <MainLayout notShowHeader>
-      <div className="mainContainerGroups">
-        <Tabs
-          style={{ width: "70%", padding: "24px" }}
-          defaultActiveKey="1"
-          type="card"
-          items={items}
-          onChange={onChange}
-        />
-        <Card
-          style={{ height: "100%", width: "30%" }}
-          cover={
-            <img
-              alt="example"
-              src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            />
-          }
-          actions={[
-            <FormGrupo service={updateGroupFn} initialValues={"Editar"} />,
-            <Button>Unirme </Button>,
-          ]}
-        >
-          <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-            <Meta
-              title="Grupo 1"
-              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-            />
-
-            <Tag color="magenta">Religion</Tag>
-          </Space>
-          <Card style={{ marginTop: 48 }}>
-            <Avatar.Group maxCount={6}>
-              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-              <Tooltip title="Ant User">
-                <Avatar
-                  style={{ backgroundColor: "#87d068" }}
-                  icon={<UserOutlined />}
-                />
-              </Tooltip>
-              <Avatar
-                style={{ backgroundColor: "#1890ff" }}
-                icon={<AntDesignOutlined />}
+    return (
+      <MainLayout notShowHeader>
+          <Layout>
+            <Content style={{padding: '24px', marginRight: 300 }}>
+              <Tabs
+                defaultActiveKey="1"
+                type="card"
+                items={items}
+                onChange={onChange}
               />
-              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-              <Tooltip title="Ant User">
-                <Avatar
-                  style={{ backgroundColor: "#87d068" }}
-                  icon={<UserOutlined />}
-                />
-              </Tooltip>
-              <Avatar
-                style={{ backgroundColor: "#1890ff" }}
-                icon={<AntDesignOutlined />}
-              />
-            </Avatar.Group>
-          </Card>
-        </Card>
-      </div>
-    </MainLayout>
-  );
-};
-
-export default Grupo;
+            </Content>
+            <Sider
+              width={300}
+              style={{
+                overflow: "auto",
+                height: "100vh",
+                position: "fixed",
+                right: "0",
+                padding: "16px  16px",
+              }}
+            >
+              <Badge.Ribbon text="Público" color="#2b3467">
+                <Card
+                  cover={
+                    <img
+                      alt="example"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    />
+                  }
+                  actions={[
+                    <FormGrupo
+                      service={updateGroupFn}
+                      initialValues={"Editar"}
+                    />,
+                    <Button>Unirme </Button>,
+                  ]}
+                >
+                  <Space
+                    direction="vertical"
+                    size="middle"
+                    style={{ display: "flex" }}
+                  >
+                    <Meta
+                      title="Grupo 1"
+                      description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+                    />
+                    <Tag color="magenta">Religion</Tag>
+                  </Space>
+                  <Card style={{ marginTop: 48 }}>
+                    <Avatar.Group maxCount={6}>
+                      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+                      <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+                      <Tooltip title="Ant User">
+                        <Avatar
+                          style={{ backgroundColor: "#87d068" }}
+                          icon={<UserOutlined />}
+                        />
+                      </Tooltip>
+                      <Avatar
+                        style={{ backgroundColor: "#1890ff" }}
+                        icon={<AntDesignOutlined />}
+                      />
+                      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+                      <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+                      <Tooltip title="Ant User">
+                        <Avatar
+                          style={{ backgroundColor: "#87d068" }}
+                          icon={<UserOutlined />}
+                        />
+                      </Tooltip>
+                      <Avatar
+                        style={{ backgroundColor: "#1890ff" }}
+                        icon={<AntDesignOutlined />}
+                      />
+                    </Avatar.Group>
+                  </Card>
+                </Card>
+              </Badge.Ribbon>
+            </Sider>
+          </Layout>
+      </MainLayout>
+    );
+  };
+  export default Grupo;

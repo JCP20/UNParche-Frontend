@@ -42,7 +42,7 @@ const items: MenuItem[] = [
 
   getItem(
     "Mis Grupos",
-    "/grupo",
+    "/gruop",
 
     <TeamOutlined />,
     [
@@ -79,6 +79,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const router = useRouter();
   const { user } = useContext(AuthContext);
   const [darkMode, setDarkMode] = useState(false);
+  
   useEffect(() => {
     setSelectedKey(router.pathname);
   }, [selectedKey]);
@@ -92,6 +93,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
+    <ConfigProvider
+   theme={{
+    algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+  }}>
     <Layout style={{ height: "100vh" }}>
       <Header className="headerStyle">
         <div className="logo"></div>
@@ -102,6 +107,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             <Avatar shape="square" size={"small"} icon={<BellOutlined />} />
           </Badge>
         </div>
+        <Switch
+           checkedChildren={<CoffeeOutlined />}
+           unCheckedChildren={<HomeOutlined />}
+           defaultChecked
+           onChange={() => setDarkMode(!darkMode)}
+            />
+
       </Header>
       <Layout hasSider>
         <Sider
@@ -116,15 +128,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           }}
         >
           <Menu
-            theme="light"
             selectedKeys={[selectedKey]}
             mode="inline"
             items={items}
             onClick={handleOnClick}
           />
         </Sider>
-        <Layout style={{ overflowY: "scroll" }}>
-          <Content>{children}</Content>
+        <Layout style={{ overflowY: "scroll",background: "#0000" }}>
+          <Content >{children}</Content>
         </Layout>
         {!notShowHeader && (
           <Footer style={{ background: "#F4F4F4", width: "15%" }}>
@@ -134,6 +145,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         )}
       </Layout>
     </Layout>
+    </ConfigProvider>
   );
 };
 
