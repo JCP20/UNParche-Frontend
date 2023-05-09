@@ -83,20 +83,24 @@ const Registro = () => {
               label="Correo"
               rules={[
                 {
+                  type: "email",
+                  message: "El correo no es valido",
+                },
+                {
                   required: true,
                   message: "Por favor ingrese su correo",
                   //pattern: new RegExp(*dominio$),
                 },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (getFieldValue("email").includes("@unal.edu.co")) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error("El correo debe pertenece a @unal.edu.co")
-                    );
-                  },
-                }),
+                // ({ getFieldValue }) => ({
+                //   validator(_, value) {
+                //     if (getFieldValue("email").includes("@unal.edu.co")) {
+                //       return Promise.resolve();
+                //     }
+                //     return Promise.reject(
+                //       new Error("El correo debe pertenece a @unal.edu.co")
+                //     );
+                //   },
+                // }),
               ]}
               hasFeedback
             >

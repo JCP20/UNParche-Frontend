@@ -11,7 +11,7 @@ interface userAuthTypes {
   username: string;
 }
 
-const privateRoutes = ["/calendar", "/crearGrupo", "/", "/search"];
+const publicRoutes = ["/login", "/register", "/landing", "/verification/[id]"];
 
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -53,9 +53,9 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
       const resp = await renewToken();
 
       if (resp?.data?.ok) {
-        Cookies.set("x-token", resp.data.token);
-        setUser(resp.data);
         setIsAuthenticated(true);
+        Cookies.set("x-token", resp.data.token);
+        setUser({ id: resp.data.id, username: resp.data.username });
       } else {
         logout();
       }
@@ -71,18 +71,20 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     // Don't check token on public routes
     setIsLoading(true);
     setIsTokenCheckCompleted(false);
-    if (privateRoutes.includes(router.pathname)) {
+    console.log(router.pathname);
+    if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();
     } else {
       setIsLoading(false);
     }
+    // setIsLoading(false);
   }, []);
 
   if (
     isLoading ||
     (!isAuthenticated &&
       isTokenCheckCompleted &&
-      privateRoutes.includes(router.pathname))
+      !publicRoutes.includes(router.pathname))
   ) {
     return (
       <div className="loadingComponent">
