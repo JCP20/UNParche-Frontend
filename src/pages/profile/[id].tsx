@@ -88,12 +88,12 @@ const Profile = () => {
           <img
             className="profileInfo__avatar__image"
             alt="profile"
-            src={userData.photo}
+            src={userData?.photo}
           />
 
           <div className="profileInfo__avatar__user">
-            <h2>@{userData.username}</h2>
-            <p>{userData.email}</p>
+            <h2>@{userData?.username}</h2>
+            <p>{userData?.email}</p>
             {user?.id === router.query.id ? (
               <Button onClick={() => setOpen(true)}>Editar perfil</Button>
             ) : (

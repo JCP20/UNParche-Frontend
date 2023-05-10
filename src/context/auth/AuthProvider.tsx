@@ -1,17 +1,22 @@
-import { backendApi } from "@/services/api/config";
 import { IUser } from "@/interfaces/user";
+import { logoutUser, renewToken } from "@/services/auth.service";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { logoutUser, renewToken } from "@/services/auth.service";
 
 interface userAuthTypes {
   id: string;
   username: string;
 }
 
-const publicRoutes = ["/login", "/register", "/landing", "/verification/[id]"];
+const publicRoutes = [
+  "/login",
+  "/register",
+  "/landing",
+  "/verification/[id]",
+  "/landingPage",
+];
 
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -129,17 +129,21 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               onClick={handleOnClick}
             />
           </Sider>
-          <Layout
-            style={{
-              overflowY: "scroll",
-              background: "#0000",
-              padding: "20px",
-            }}
-          >
-            <Content>{children}</Content>
+          <Layout>
+            <Content
+              style={{
+                overflowY: "auto",
+                background: "#0000",
+                padding: "1rem",
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              {children}
+            </Content>
           </Layout>
           {!notShowHeader && (
-            <Footer style={{ background: "#F4F4F4", width: "15%" }}>
+            <Footer style={{ background: "#F4F4F4", width: "20%" }}>
               <p>Política de cookies</p>
               <p>© 2023 UnParche, Inc.</p>
             </Footer>

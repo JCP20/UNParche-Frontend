@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { Form, Modal, Upload } from "antd";
 import type { RcFile, UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
@@ -8,11 +8,13 @@ import { getBase64 } from "@/utils/images";
 interface UploadPhotoProps {
   name: string;
   label: string;
+  isRequired?: boolean;
 }
 
 const UploadPhoto: React.FC<UploadPhotoProps> = ({
   name,
   label,
+  isRequired,
 }: UploadPhotoProps) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -38,9 +40,14 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({
       <div style={{ marginTop: 8 }}>Subir</div>
     </div>
   );
+
+  const rules = isRequired
+    ? [{ required: true, message: "Por favor sube una imagen" }]
+    : [];
+
   return (
     <>
-      <Form.Item name={name} label={label}>
+      <Form.Item name={name} label={label} rules={rules} hasFeedback>
         <Upload
           accept="image/*"
           listType="picture-card"

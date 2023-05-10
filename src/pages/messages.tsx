@@ -43,7 +43,6 @@ const MessagesPage = () => {
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
-      //@ts-ignore
       setMessages((prev: any) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
