@@ -14,12 +14,10 @@ const ConversationComp = ({
   const [user, setUser] = useState<any>(null);
 
   const getUser = async () => {
-    const friendId = conversation.members.find(
-      (m: any) => m !== currentUser.id
+    const friend = conversation.members.find(
+      (m: any) => m._id !== currentUser.id
     );
-
-    const user = await getUserById(friendId);
-    setUser(user);
+    setUser(friend);
   };
 
   useEffect(() => {
@@ -28,7 +26,7 @@ const ConversationComp = ({
 
   return (
     <>
-      <Avatar className="conversation__image" icon={<UserOutlined />} />
+      <Avatar className="conversation__image" src={user?.photo} />
       <span className="conversation__name">@{user?.username}</span>
     </>
   );

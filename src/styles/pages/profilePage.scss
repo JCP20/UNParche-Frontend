@@ -1,0 +1,107 @@
+.profileInfo__container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .profileInfo__avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 46%;
+    height: 100%;
+    margin-right: 4%;
+    background: #fff;
+
+    .profileInfo__avatar__image {
+      width: 50%;
+      height: auto;
+      border-radius: 50%;
+      margin-bottom: 2rem;
+      object-fit: cover;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .profileInfo__avatar__user {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .profileInfo__details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+
+    .profileInfo__details__interests {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 50%;
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+
+      .profileInfo__details__interests--scroll {
+        overflow-y: auto;
+        width: 60%;
+      }
+    }
+
+    .profileInfo__details__groups {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 50%;
+      width: 100%;
+
+      .profileInfo__details__groups__listContainer {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+          height: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #888;
+          border-radius: 6px;
+        }
+
+        .profileInfo__details__groups__listContainer__item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex: 0 0 calc(33.33% - 1rem);
+          max-width: calc(33.33% - 1rem);
+          background: #fff;
+          border-radius: 8px;
+          margin: 0.5rem;
+          padding: 0.5rem;
+
+          .profileInfo__details__grousp__listContainer__item__image {
+            border-radius: 50%;
+            width: 5rem;
+            height: 5rem;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}

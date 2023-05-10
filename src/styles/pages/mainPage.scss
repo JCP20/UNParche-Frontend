@@ -1,0 +1,14 @@
+.mainContainerIndex {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow-y: auto;
+  row-gap: 2rem;
+
+  .card__index {
+    width: 60%;
+    margin: 1rem auto;
+  }
+}

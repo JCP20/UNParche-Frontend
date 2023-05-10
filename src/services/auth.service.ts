@@ -21,8 +21,8 @@ export const loginUser = async (input: {
       withCredentials: true,
     });
     return result;
-  } catch (error) {
-    throw new Error("Failed to login");
+  } catch (error: any) {
+    return error.response;
   }
 };
 

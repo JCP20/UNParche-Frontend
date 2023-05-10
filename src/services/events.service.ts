@@ -9,6 +9,7 @@ export const createEventFn = async (values: any): Promise<any | null> => {
     return null;
   }
 };
+
 export const updateEventFn = async (
   values: any,
   id: string

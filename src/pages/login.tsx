@@ -23,6 +23,8 @@ const LoginPage = () => {
       if (resp.status === 200) {
         message.success("Login exitoso!");
         login(resp.data.token, resp.data.id, resp.data.username);
+      } else {
+        message.error("Login fallido");
       }
     } catch (error: any) {
       Modal.error({ content: error.response.data.msg });
