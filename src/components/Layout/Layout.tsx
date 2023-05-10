@@ -24,6 +24,7 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth/AuthContext";
+import { GroupsfromAdmin } from "@/services/groups.service";
 import { getItem } from "./utils";
 import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
@@ -49,6 +50,7 @@ const items: MenuItem[] = [
       getItem("Grupo 1", "/group"),
       getItem("Grupo 2", "/group"),
       getItem("Grupo 3", "/group"),
+      
     ]
   ),
   getItem(
@@ -69,6 +71,19 @@ interface MainLayoutProps {
   notShowHeader?: boolean;
 }
 
+const Grupos: React.FC<MainLayoutProps>=() =>{
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    const { user } = useContext(AuthContext);
+    const test =  await GroupsfromAdmin(user.id);
+    console.log(test.data);
+  }, []);
+  return(
+    console.log(data)
+  );
+}
+
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   notShowHeader,
@@ -79,11 +94,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const router = useRouter();
   const { user } = useContext(AuthContext);
   const [darkMode, setDarkMode] = useState(false);
-  
+  const [GroupAdmin, setGroupAdmin] = useState(false);
   useEffect(() => {
     setSelectedKey(router.pathname);
   }, [selectedKey]);
-
   const handleOnClick = (e: any) => {
     if (e.key === "logout") {
       logout();
