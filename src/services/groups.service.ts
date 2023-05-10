@@ -25,20 +25,14 @@ export const createGroupFn = async (values: any): Promise<any | null> => {
     return null;
   }
 };
-export const updateGroupFn = async ({
-  values,
-  id,
-}: {
-  values: any;
-  id: string;
-}): Promise<any | null> => {
+export const updateGroupFn = async ({values,idGroup, idUser}: {values: any; idGroup: string; idUser: string}): Promise<any | null> => {
   try {
-    const { data } = await backendApiPrivate.post(
-      `/groups/update/${id}`,
-      values
+    const { data } = await backendApiPrivate.put(
+      `/groups/update/${idGroup}/${idUser}`, values
     );
     return data.data as IGroup[];
   } catch (error) {
+    console.log(error);
     return null;
   }
 };

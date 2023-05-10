@@ -7,41 +7,22 @@ import MainLayout from "../components/Layout/Layout";
 import dayjs from "dayjs";
 import EventCardApp from "@/components/EventsCard";
 import { getGroupByNameFn } from "@/services/groups.service";
+import { getEventsUserFn } from "@/services/events.service";
 
 
 dayjs.locale("es-mx");
 var fecha = '';
 
-const getListData = (value: Dayjs) => {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-        { type: "error", content: "This is error event." },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: "warning", content: "This is warning event" },
-        { type: "success", content: "This is very long usual event。。...." },
-        { type: "error", content: "This is error event 1." },
-        { type: "error", content: "This is error event 2." },
-        { type: "error", content: "This is error event 3." },
-        { type: "error", content: "This is error event 4." },
-      ];
-      break;
-    default:
+const getListData = (value: Dayjs, datos: any) => {
+  let listData = [];
+  //listData =[{ type: 'success', content: datos[0] }]
+  for (let i = 0; i < datos.length; i++) {
+    listData.push({ type: 'success', content: datos[i] });
   }
   return listData || [];
 };
+
+
 
 const getMonthData = (value: Dayjs) => {
   if (value.month() === 8) {
@@ -52,10 +33,10 @@ const getMonthData = (value: Dayjs) => {
 const CalendarPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = (nn: string ) => {
-    
+  const showModal = (nn: string) => {
+
     setIsModalOpen(true);
-    fecha =nn;
+    fecha = nn;
   };
 
   const handleOk = () => {
@@ -76,27 +57,33 @@ const CalendarPage: React.FC = () => {
     ) : null;
   };
 
-  const dateCellRender = (value: Dayjs) => {
-    const listData = getListData(value);
+  const dateCellRender = (value: Dayjs, datos: any) => {
+    const listData = getListData(value, datos);
+    //console.log(listData);
     return (
       <ul className="events">
         {listData.map((item) => (
+
           <li key={item.content}>
             <Badge
               status={item.type as BadgeProps["status"]}
               text={item.content}
             />
           </li>
-        ))}
+        )
+
+        )}
       </ul>
     );
   };
   const getData = async () => {
-    const data =  await getGroupByNameFn("/microUN");
-    console.log(data);
-    setCalendarEvents(data);
+    const data = await getEventsUserFn("6451b2e42106d973347a5fc8");
+    console.log(data[0].date);
+    const fecha = dayjs(data[0].date, ("DD/MM/YY"));
+    dateCellRender(fecha, data);
+    //setCalendarEvents(data);
   };
-  const [calendarEvents, setCalendarEvents] = useState<any>([])
+  //const [calendarEvents, setCalendarEvents] = useState<any>([])
   useEffect(() => {
     getData(); //obtener información
   }, [])
@@ -104,18 +91,18 @@ const CalendarPage: React.FC = () => {
   return (
     <MainLayout>
       <>
-      <Modal title={"Eventos destacados del día  "+ fecha} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-      <EventCardApp/>
-      <EventCardApp/>
-      <EventCardApp/>
-      </Modal>
+        <Modal title={"Eventos destacados del día  "} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <EventCardApp />
+          <EventCardApp />
+          <EventCardApp />
+        </Modal>
         <h2>Calendario</h2>
         <div className="calendarContainer">
           <Calendar
-            dateCellRender={dateCellRender}
+            //dateCellRender={dateCellRender}
             monthCellRender={monthCellRender}
-            onSelect={(e)=>{showModal(e.format("DD/MM/YY"))}}
-            
+            onSelect={(e) => { showModal(e.format("DD/MM/YY")) }}
+
           />
         </div>
       </>

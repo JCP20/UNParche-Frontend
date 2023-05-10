@@ -7,7 +7,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Badge, Layout, Menu, MenuProps } from "antd";
+import { Avatar, Badge, Layout, Menu, MenuProps, Switch } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
@@ -41,15 +41,16 @@ const items: MenuItem[] = [
   ),
   getItem(
     "Calendario",
-    "/calendar",
-    <Link href={"calendar"}>
+    "/calendarCopy", 
       <CalendarOutlined />
-    </Link>
+    
   ),
   getItem("Perfil", "6", <UserOutlined />),
   getItem("Mensajes", "/messages", <CommentOutlined />),
 
   getItem("Salir", "logout", <PoweroffOutlined />),
+  getItem("Darkmode", "",
+  <Switch />),
 ];
 
 interface MainLayoutProps {
@@ -85,7 +86,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     <Layout style={{ height: "100vh" }} >
       <Header className="headerStyle">
           <div className="logo"></div>
-          <SearchBar className="searchBarHeader" />
+          <SearchBar/>
           <div className="userNotify">
             <p>@{user.username}</p>
             <Badge dot>

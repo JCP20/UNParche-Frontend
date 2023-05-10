@@ -12,26 +12,46 @@ const layout = {
 };
 interface NewFormProps {
   initialValues?: any;
-  service: (value: any) => void;
+  service: (value: any, id?: string, id2?: string) => void;
+
 }
 
 const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { service } = props;
   const { initialValues } = props;
+  const { tittle } = initialValues;
+  const { name } = initialValues;
+  const { category } = initialValues;
+  const { description } = initialValues;
+  const { idGrupo } = initialValues;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const showModal = async () => {    
+
+  const showModal = async () => {
     setIsModalOpen(true);
   };
 
   const handleOk = async () => {
-    const values = form.getFieldsValue();
-    values.category = values.category[0];
-    values.administrators = ["644409d6659d4bfcb4ccbc01"];
-    console.log(values);
-    const resp = await service(values);
-    console.log(resp);
-    setIsModalOpen(false);
+    if (tittle == "Crear Grupo") {
+      const values = form.getFieldsValue();
+      values.category = values.category[0];
+      values.administrators = ["644409d6659d4bfcb4ccbc01"];
+      console.log(values);
+      const resp = await service(values);
+      console.log(resp);
+      setIsModalOpen(false);
+    } else if (tittle == "Editar Grupo") {
+      const values = form.getFieldsValue();
+      values.category = values.category[0];
+      const idGroup = "6458deafa52f2410045b3d66"
+      const idUser = "644409d6659d4bfcb4ccbc01"
+      values.administrators = ["644409d6659d4bfcb4ccbc01"];
+      console.log(values);
+      const resp = await service({values, idGroup, idUser});
+      console.log("Respuesta", resp);
+      setIsModalOpen(false);
+    }
+
   };
 
   const handleCancel = () => {
@@ -66,6 +86,7 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   const onFinish = async (value: any) => {
     await service(value);
     message.success("Registro exitoso!");
+
   };
 
   //Mensaje de error
@@ -76,13 +97,13 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        {initialValues}
+        {tittle}
       </Button>
       <Modal
-        title={initialValues}
+        title={tittle}
         open={isModalOpen}
         onOk={handleOk}
-        okText={initialValues}
+        okText={tittle}
         onCancel={handleCancel}
         centered
       >
@@ -103,6 +124,7 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
             >
               <Form.Item
                 name="name"
+                initialValue={name}
                 label="Nombre del Grupo"
                 rules={[
                   {
@@ -113,13 +135,7 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
               >
                 <Input placeholder="Escribe el nombre de tu grupo" />
               </Form.Item>
-              <Form.Item label="Privacidad">
-                <Radio.Group>
-                  <Radio value="Publico"> Público </Radio>
-                  <Radio value="Privado"> Privado </Radio>
-                </Radio.Group>
-              </Form.Item>
-              <Form.Item name='category' label="Categoría">
+              <Form.Item name='category' label="Categoría" initialValue={category}>
                 <Cascader
                   options={[
                     {
@@ -153,7 +169,7 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
                   ]}
                 />
               </Form.Item>
-              <Form.Item name='description' label="Descripción">
+              <Form.Item name='description' label="Descripción" initialValue={description}>
                 <TextArea rows={2} />
               </Form.Item>
               <Form.Item label="Upload" valuePropName="fileList">
@@ -178,3 +194,4 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
 };
 
 export default FormGroupApp;
+

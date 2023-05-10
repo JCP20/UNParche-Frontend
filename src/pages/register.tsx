@@ -27,7 +27,7 @@ for (let i = 0; i < 7; i++) {
 }
 
 const handleChange = (value: string[]) => {
-  console.log(`selected ${value}`);
+  //console.log(`selected ${value}`);
 };
 
 
@@ -37,12 +37,14 @@ const Registro = () => {
 
   //Mensaje de exito
   const onFinish = async (values: any) => {
+    console.log(values);
     try {
       message.loading({
         content: "Espera un momento porfavor...",
         key: "creating",
       });
       const resp = await createUser(values);
+      
       if (resp.status === 201) {
         message.destroy("creating");
         Modal.confirm({
@@ -123,9 +125,11 @@ const Registro = () => {
               rules={[
                 {
                   required: true,
-                  message: "Porfavor ingrese su contraseña",
+                  message: "La contraseña debe contener 8 caracteres, \n al menos un número y una mayúscula",
+                  pattern: new RegExp("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")
                 },
               ]}
+              hasFeedback
             >
               <Input.Password placeholder="Escribe tu contraseña" />
             </Form.Item>
@@ -154,17 +158,18 @@ const Registro = () => {
               <Input.Password placeholder="Confirma tu contraseña tu contraseña" />
             </Form.Item>
             <Form.Item
-            name="category"
-            label="Selecciona las categorías que te interesan">
+              name="categories"
+              label="Selecciona las categorías que te interesan">
 
               <Select
                 mode="multiple"
                 allowClear
                 style={{ width: '100%' }}
-                placeholder="Seleccione las categorías de su interes"
+                placeholder="Selecciona las categorías de tu interes"
                 onChange={handleChange}
-                options={options}
+                options={options}                
               />
+              
 
             </Form.Item>
             <Form.Item>

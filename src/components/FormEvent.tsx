@@ -7,7 +7,6 @@ import {
   Form,
   Input,
   message,
-  Radio,
   Upload,
   DatePicker,
 } from "antd";
@@ -17,7 +16,7 @@ import EventCardApp from "./EventsCard";
 
 const { TextArea } = Input;
 const { Title } = Typography;
-const defaultSrc ="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+const defaultSrc = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
 
 const layout = {
   labelCol: { span: 50 },
@@ -26,27 +25,45 @@ const layout = {
 
 interface NewFormProps {
   initialValues?: any;
-  service: (value: any) => void;
+  service: (value: any, id?: string) => void;
 }
 //******************************************************************** */
 const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { service } = props;
   const { initialValues } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { formType } = initialValues;
+  const { groupName } = initialValues;
+  const { title } = initialValues;
+  const { date } = initialValues;
+  const { schedule } = initialValues;
+  const { description } = initialValues;
+  const { idEvent } = initialValues;
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async() => {
-    const values = form.getFieldsValue();
-    values.id_group = "6451b709de14fbcd063fb109"
-    values.datef = values.datef.format("DD/MM/YY")
-    values.schedule = values.schedule.format("h:mm a")    
-    //setIsModalOpen(false);
-    console.log(values);
-    const resp = await service(values);
-    console.log(resp);
+  const handleOk = async () => {
+    if (formType == "Crear Evento") {
+      const values = form.getFieldsValue();
+      values.id_group = "6451b709de14fbcd063fb109"
+      values.date = values.datef.format("DD/MM/YY")
+      values.schedule = values.schedule.format("h:mm a")
+      setIsModalOpen(false);
+      const resp = await service(values);
+    } else {
+      const values = form.getFieldsValue();
+      values.id_group = "6451b709de14fbcd063fb109"
+      values.date = values.datef.format("DD/MM/YY")
+      values.schedule = values.schedule.format("h:mm a")
+      setIsModalOpen(false);
+      console.log(idEvent);
+      const resp = await service({ values, idEvent });
+      console.log(resp);
+    }
+
+
   };
 
   const handleCancel = () => {
@@ -103,17 +120,17 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Nuevo Evento
+        {formType}
       </Button>
 
       <Modal
         width={800}
         centered
-        title="Creación de Evento"
+        title={formType}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="Crear Evento"
+        okText={formType}
       >
         <div className="containerFormEvent">
           <div className="card">
@@ -132,6 +149,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
             >
               <Form.Item
                 name="title" //Label usuario
+                initialValue={title}
                 label="Nombre del Evento"
                 rules={[
                   {
@@ -142,7 +160,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               >
                 <Input placeholder="Escribe el nombre de tu evento" />
               </Form.Item>
-              <Form.Item name="description" label="Descripción">
+              <Form.Item name="description" label="Descripción" initialValue={description}>
                 <TextArea rows={2} />
               </Form.Item>
               <Form.Item label="Imagen del evento" valuePropName="fileList">
@@ -163,10 +181,10 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
                   </Upload>
                 </ImgCrop>
               </Form.Item>
-              <Form.Item name="datef" label="Fecha del Evento">
+              <Form.Item name="datef" label="Fecha del Evento" initialValue={date}>
                 <DatePicker format={"DD/MM/YY"} style={{ width: "100%" }} />
               </Form.Item>
-              <Form.Item name="schedule" label="Hora del Evento">
+              <Form.Item name="schedule" label="Hora del Evento" initialValue={schedule}>
                 <TimePicker
                   use12Hours
                   style={{ width: "100%" }}
@@ -182,11 +200,11 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
             <EventCardApp
               nombreEvento={nameValue}
               descripcionEvento={desValue}
-              
+
               imagenSrc={defaultSrc}//fileList[0].url}
               fechaEvento={fechaValue.format("DD/MM/YY")}
               horaEvento={horaValue.format("h:mm a")} />
-          </div>          
+          </div>
         </div>
       </Modal>
     </>

@@ -8,6 +8,8 @@ import ConversationComp from "@/components/Messages/ConversationComp";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { getConversationsFn } from "@/services/messages.service";
 import { io } from "socket.io-client";
+import SearchBar from "@/components/prueba";
+import PruebaApp from "@/components/prueba2";
 
 interface IConversation {
   members: any[];
@@ -66,11 +68,12 @@ const MessagesPage = () => {
   }, [messages]);
 
   return (
-    <MainLayout notShowHeader>
+    <MainLayout notShowHeader>      
       <div className="messagesContainer shadow">
         <div className="messages__chats">
           <div className="messages__header">
             <h2>Chats</h2>
+            <SearchBar/>            
           </div>
 
           <div className="messages__conversations">
@@ -95,6 +98,7 @@ const MessagesPage = () => {
           socket={socket}
         />
       </div>
+      
     </MainLayout>
   );
 };

@@ -9,6 +9,7 @@ const SearchBar = () => {
     // redirección a pagina de busqueda avanzada
     console.log(value);
     router.push(`/search?q=${value}`);
+    console.log(router.query);
   };
 
   const onChange = (data: any) => {
