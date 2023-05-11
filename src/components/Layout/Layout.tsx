@@ -26,63 +26,20 @@ import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { GroupsfromAdmin } from "@/services/groups.service";
 import { getItem } from "./utils";
+const { SubMenu } = Menu;
 import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
 import HeaderApp from "./Header";
 import { text } from "stream/consumers";
 type MenuItem = Required<MenuProps>["items"][number];
 const logo = "/imagenes/logRecort.png";
-const items: MenuItem[] = [
-  getItem(
-    "Inicio",
-    "/",
-    <Link href={"/"}>
-      <HomeOutlined />
-    </Link>
-  ),
 
-  getItem(
-    "Mis Grupos",
-    "/gruop",
-
-    <TeamOutlined />,
-    [
-      getItem("Grupo 1", "/group"),
-      getItem("Grupo 2", "/group"),
-      getItem("Grupo 3", "/group"),
-      
-    ]
-  ),
-  getItem(
-    "Calendario",
-    "/calendar",
-    <Link href={"calendar"}>
-      <CalendarOutlined />
-    </Link>
-  ),
-  getItem("Perfil", "/profile", <UserOutlined />),
-  getItem("Mensajes", "/messages", <CommentOutlined />),
-
-  getItem("Salir", "logout", <PoweroffOutlined />),
-];
 
 interface MainLayoutProps {
   children: JSX.Element;
   notShowHeader?: boolean;
 }
 
-const Grupos: React.FC<MainLayoutProps>=() =>{
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    const { user } = useContext(AuthContext);
-    const test =  await GroupsfromAdmin(user.id);
-    console.log(test.data);
-  }, []);
-  return(
-    console.log(data)
-  );
-}
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
@@ -92,39 +49,64 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const [selectedKey, setSelectedKey] = useState<string>("");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const router = useRouter();
-  const { user } = useContext(AuthContext);
   const [darkMode, setDarkMode] = useState(false);
-
-  const items: MenuItem[] = [
-    getItem(
-      "Inicio",
-      "",
-
-      <HomeOutlined />
-    ),
-
-    getItem(
-      "Mis Grupos",
-      "gruop",
-
-      <TeamOutlined />,
-      [
-        getItem("Grupo 1", "/group"),
-        getItem("Grupo 2", "/group"),
-        getItem("Grupo 3", "/group"),
-      ]
-    ),
-    getItem(
-      "Calendario",
-      "calendar",
-
-      <CalendarOutlined />
-    ),
-    getItem("Perfil", `profile/${user.id}`, <UserOutlined />),
-    getItem("Mensajes", "messages", <CommentOutlined />),
-
-    getItem("Salir", "logout", <PoweroffOutlined />),
+  const { user } = useContext(AuthContext);
+  const [GruposAdmin, setGruposData] = useState<any>();
+  const getGrupos = async () => {
+    const data = await GroupsfromAdmin(user.id);   
+    if(data != null){
+      setGruposData(data);
+    }
+  }; 
+ 
+  const menuGrupos = (data: any) => {
+    return data && data.map((group: any) => {
+      return {
+        key: `group/${group.name}`, 
+        label: group.name
+      };
+    });
+  };
+  
+  useEffect(() => {
+    getGrupos();
+    //console.log(menu) //obtener información
+  }, [])
+  const items: MenuProps['items'] = [
+    {
+      label: 'Inicio',
+      key: '',
+      icon: <HomeOutlined />      ,
+    },
+    {
+      label: 'Mis Grupos',
+      key: 'group',
+      icon:  <TeamOutlined />,
+      children: menuGrupos(GruposAdmin)
+    },
+    {
+      label: 'Calendario',
+      key: 'calendar',
+      icon:  <CalendarOutlined />,
+   
+    },
+    {
+      label:  'Perfil',
+      key: `profile/${user.id}`,
+      icon:  <UserOutlined />,
+    },
+    {
+      label: 'Mensajes',
+      key: 'messages',
+      icon:  <CommentOutlined />,
+    },
+    {
+      label: 'Salir',
+      key: 'logout',
+      icon:  <PoweroffOutlined />,
+    },
   ];
+
 
   useEffect(() => {
     setSelectedKey(router.pathname);
@@ -136,7 +118,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       router.push(`/${e.key}`);
     }
   };
-
   return (
     <ConfigProvider
       theme={{
@@ -169,7 +150,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               left: 0,
             }}
           >
-            <Menu
+           <Menu
               selectedKeys={[selectedKey]}
               mode="inline"
               items={items}

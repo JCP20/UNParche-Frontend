@@ -1,7 +1,8 @@
 export interface IGroup {
-  id: string;
+  _id: string;
+  category: string;
   name: string;
   description: string;
-  users: string[];
+  members: string[];
   photo: string;
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import MainLayout from "../components/Layout/Layout";
+import { useRouter } from "next/router";
+import MainLayout from "@/components/Layout/Layout";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import {
   LikeOutlined,
@@ -32,6 +33,7 @@ import EventCardApp from "@/components/EventsCard";
 import { createEventFn } from "@/services/events.service";
 import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 import dayjs from "dayjs";
+import { useParams } from 'react-router-dom';
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -128,6 +130,9 @@ const items: TabsProps["items"] = [
 ];
 
 const Grupo: React.FC = () => {
+  const router = useRouter();
+  const { name } = router.query;
+  console.log(name)
     return (
       <MainLayout notShowHeader>
           <Layout>
@@ -171,7 +176,7 @@ const Grupo: React.FC = () => {
                     style={{ display: "flex" }}
                   >
                     <Meta
-                      title="Grupo 1"
+                      title= { name }
                       description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
                     />
                     <Tag color="magenta">Religion</Tag>

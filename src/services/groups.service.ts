@@ -9,6 +9,14 @@ export const listAllGroups = async (): Promise<IGroup[] | null> => {
     return null;
   }
 };
+export const GroupsNombre = async (name: string): Promise<IGroup[] | null> => {
+  try {
+    const { data } = await backendApiPrivate.get(`/groups/${name}`);
+    return data.data as IGroup[];
+  } catch (error) {
+    return null;
+  }
+};
 export const GroupsfromAdmin = async (id: string
 ): Promise<IGroup[] | null> => {
   try {
