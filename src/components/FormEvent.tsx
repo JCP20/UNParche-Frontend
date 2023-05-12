@@ -1,39 +1,36 @@
-import ImgCrop from "antd-img-crop";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import { getBase64 } from "@/utils/images";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, DatePicker, Form, Input, Modal, Upload } from "antd";
+import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import React, { useState } from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  message,
-  Radio,
-  Upload,
-  DatePicker,
-} from "antd";
-import { TimePicker, Typography } from "antd";
-import dayjs from "dayjs";
 import EventCardApp from "./EventsCard";
+import { IGroup } from "@/interfaces/groups";
+import dayjs from "dayjs";
 
 const { TextArea } = Input;
-const { Title } = Typography;
-const defaultSrc = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
-
-const layout = {
-  labelCol: { span: 50 },
-  wrapperCol: { span: 50 },
-};
 
 interface NewFormProps {
+  actualGroup: IGroup;
   initialValues?: any;
   style?: React.CSSProperties;
   service: (value: any) => void;
 }
 
 const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service, style, initialValues } = props;
-
+  const { service, style, initialValues, actualGroup } = props;
+  const [previewImage, setPreviewImage] = useState("");
+  const [formData, setFormData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [form] = Form.useForm();
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -41,62 +38,48 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   const handleOk = async () => {
     const values = form.getFieldsValue();
-    values.Fecha = values.Fecha.format("DD/MM/YY");
-    values.Hora = values.Hora.format("h:mm a");
-    setIsModalOpen(false);
+
+    if (values.photo) {
+      const { photo } = values;
+      const base64Photo = await getBase64(photo.file.originFileObj as RcFile);
+      values.photo = base64Photo;
+    }
+
+    values.group = actualGroup._id;
+
+    values.date = dayjs(values.date).toISOString();
+
+    console.log(values);
+
     const resp = await service(values);
+
     console.log(resp);
+    // setIsModalOpen(false);
+  };
+
+  const handleChange = async (value: any) => {
+    setFileList(value.fileList);
+
+    if (!value.file.url && !value.file.preview) {
+      value.file.preview = await getBase64(value.file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(value.file.url || (value.file.preview as string));
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Subir</div>
+    </div>
+  );
 
-  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as RcFile);
-        reader.onload = () => resolve(reader.result as string);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-
-  //Declaración de constandes
-
-  const [form] = Form.useForm();
-  const nameValue = Form.useWatch("nombreEvento", form);
-  const desValue = Form.useWatch("descripcion", form);
-
-  var fechaValue = Form.useWatch("Fecha", form);
-
-  var horaValue = Form.useWatch("Hora", form);
-  if (horaValue == undefined) {
-    horaValue = dayjs("12:00 a", "h:mm a");
-  }
-  if (fechaValue == undefined) {
-    fechaValue = dayjs();
-  }
-
-  //Mensaje de exito
-  const onFinish = () => {
-    message.success("Envento creado exitosamente!");
-  };
-
-  //Mensaje de error
-  const onFinishFailed = () => {
-    message.error("Creación de evento fallida!");
+  const handleOnFieldsChange = (_: any, allValues: any) => {
+    setFormData(allValues);
   };
 
   return (
@@ -118,19 +101,15 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
           <div className="card">
             <h3>Información</h3>
             <Form
-              className="form"
-              id="formCrearGrupo" //Detalles del Formulario
               form={form}
               layout="vertical"
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               name="wrap"
               labelAlign="left"
-              {...layout}
+              onValuesChange={handleOnFieldsChange}
               scrollToFirstError
             >
               <Form.Item
-                name="nombreEvento" //Label usuario
+                name="title"
                 label="Nombre del Evento"
                 rules={[
                   {
@@ -141,50 +120,41 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               >
                 <Input placeholder="Escribe el nombre de tu evento" />
               </Form.Item>
-              <Form.Item name="descripcion" label="Descripción">
-                <TextArea rows={2} />
+              <Form.Item
+                name="description"
+                label="Descripción"
+                rules={[{ required: true, message: "Descripción requerida" }]}
+              >
+                <TextArea />
               </Form.Item>
-              <Form.Item label="Imagen del evento" valuePropName="fileList">
-                <ImgCrop rotationSlider>
-                  <Upload
-                    name="foto"
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    listType="picture-card"
-                    fileList={fileList}
-                    onChange={onChange}
-                    onPreview={onPreview}
-                    beforeUpload={(file) => {
-                      console.log("aaa");
-                      return true;
-                    }}
-                  >
-                    {fileList.length < 1 && "+ Upload"}
-                  </Upload>
-                </ImgCrop>
+
+              <Form.Item
+                label="Imagen del evento"
+                name="photo"
+                rules={[{ required: true, message: "Imagen requerida" }]}
+              >
+                <Upload
+                  listType="picture-card"
+                  fileList={fileList}
+                  onChange={handleChange}
+                  onPreview={handlePreview}
+                >
+                  {fileList.length >= 1 ? null : uploadButton}
+                </Upload>
               </Form.Item>
-              <Form.Item name="Fecha" label="Fecha del Evento">
-                <DatePicker format={"DD/MM/YY"} style={{ width: "100%" }} />
-              </Form.Item>
-              <Form.Item name="Hora" label="Hora del Evento">
-                <TimePicker
-                  use12Hours
-                  style={{ width: "100%" }}
-                  format="h:mm a"
-                  defaultValue={dayjs("12:00 a", "h:mm a")}
-                />
+              <Form.Item
+                name="date"
+                label="Fecha del Evento"
+                rules={[{ required: true, message: "Fecha requerida" }]}
+              >
+                <DatePicker showTime format="DD/MM/YYYY, hh:mm a" />
               </Form.Item>
             </Form>
           </div>
 
           <div className="card">
             <h3>Vista previa</h3>
-            <EventCardApp
-              nombreEvento={nameValue}
-              descripcionEvento={desValue}
-              imagenSrc={defaultSrc} //fileList[0].url}
-              fechaEvento={fechaValue.format("DD/MM/YY")}
-              horaEvento={horaValue.format("h:mm a")}
-            />
+            <EventCardApp eventData={formData} imagenSrc={previewImage} />
           </div>
         </div>
       </Modal>

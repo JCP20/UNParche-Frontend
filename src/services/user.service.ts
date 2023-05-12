@@ -6,8 +6,8 @@ export const getUserById = async (id: string): Promise<IUser | null> => {
   try {
     const { data } = await backendApiPrivate.get(`/users/${id}`);
     return data.data as IUser;
-  } catch (error) {
-    return null;
+  } catch (error: any) {
+    return error.response;
   }
 };
 
@@ -18,7 +18,7 @@ export const updateUserFn = async (
   try {
     const resp = await backendApiPrivate.put(`/users/${id}`, input);
     return resp;
-  } catch (error) {
-    return null;
+  } catch (error: any) {
+    return error.response;
   }
 };

@@ -1,7 +1,7 @@
 import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
 import { createGroupFn, getGroupsByUserFn } from "@/services/groups.service";
-import { Layout, Menu, Tooltip, theme } from "antd";
+import { Layout, Menu, Spin, Tooltip, theme } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import CrearGrupo from "../CreateGroup";
@@ -43,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   const getData = async () => {
     const res = await getGroupsByUserFn(user.id);
-    if (res.ok) {
+    if (res?.ok) {
       setGroups(res.data);
     }
   };
@@ -59,7 +59,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   return (
     <Layout style={{ height: "100vh" }}>
       <Header className="headerStyle">
-        <div className="logo"></div>
+        <div className="logoLayout">
+          <img src="/imagenes/logRecort.png" />
+        </div>
         <SearchBar className="searchBarHeader" />
         <Tooltip placement="bottom" title={"Ir a mi perfil"}>
           <div

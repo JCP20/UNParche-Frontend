@@ -23,6 +23,7 @@ export const GroupsfromAdmin = async (): Promise<IGroup[] | null> => {
 };
 export const createGroupFn = async (values: any): Promise<any> => {
   try {
+    console.log(values);
     const { data } = await backendApiPrivate.post(`/groups/`, values);
     return data;
   } catch (error: any) {
@@ -58,7 +59,7 @@ export const getGroupsByUserFn = async (id: string): Promise<any | null> => {
 
 export const getGroupById = async (id: string): Promise<any | null> => {
   try {
-    const { data } = await backendApiPrivate.get(`/groups/${id}`);
+    const { data } = await backendApiPrivate.get(`/groups/profile/${id}`);
     return data as IGroup;
   } catch (error: any) {
     return error.response;

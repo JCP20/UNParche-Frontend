@@ -1,17 +1,13 @@
 import CarouselCustom from "@/components/CarouselCustom";
+import { availableCategories } from "@/components/Categories";
 import UploadPhoto from "@/components/UploadPhoto";
 import { createUser } from "@/services/auth.service";
 import { getBase64 } from "@/utils/images";
-import { Button, Form, Input, Modal, message } from "antd";
+import { Button, Form, Input, Modal, Select, message } from "antd";
 import { RcFile } from "antd/es/upload";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-
-const layout = {
-  labelCol: { span: 50 },
-  wrapperCol: { span: 50 },
-};
 
 const imagesRegistro = [
   "/imagenes/Imagen5.png",
@@ -74,7 +70,6 @@ const Registro = () => {
                 labelAlign="left"
                 onFinishFailed={onFinishFailed}
                 //style={{ maxWidth: 600 }}
-                {...layout}
                 scrollToFirstError
               >
                 <Form.Item
@@ -123,7 +118,7 @@ const Registro = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Porfavor ingrese su contraseña",
+                      message: "Por favor ingrese su contraseña",
                     },
                   ]}
                 >
@@ -154,6 +149,24 @@ const Registro = () => {
                   <Input.Password placeholder="Confirma tu contraseña tu contraseña" />
                 </Form.Item>
                 <UploadPhoto isRequired name="photo" label="Foto de perfil" />
+                <Form.Item
+                  name="preferredCategories"
+                  label="Intereses"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Por favor ingrese algún interés",
+                    },
+                  ]}
+                >
+                  <Select placeholder="¿Qué te interesa?">
+                    {availableCategories.map((category) => (
+                      <Select.Option key={category} value={category}>
+                        {category}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
                 <Form.Item>
                   <Button block type="primary" htmlType="submit">
                     Registrarme

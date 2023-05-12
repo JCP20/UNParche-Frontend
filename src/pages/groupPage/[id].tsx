@@ -1,65 +1,34 @@
-import EventCardApp from "@/components/EventsCard";
-import FormEvento from "@/components/FormEvent";
-import { createEventFn } from "@/services/events.service";
-import { CalendarOutlined, UserOutlined } from "@ant-design/icons";
-import {
-  Avatar,
-  Button,
-  Calendar,
-  Card,
-  Image,
-  List,
-  Skeleton,
-  Tabs,
-  TabsProps,
-  Tag,
-} from "antd";
-import type { CalendarMode } from "antd/es/calendar/generateCalendar";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import MainLayout from "../../components/Layout/Layout";
-import { getGroupById } from "@/services/groups.service";
+import { TabItemsGroup } from "@/components/Group/TabsItems";
+import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
+import { IUser } from "@/interfaces/user";
+import { createEventFn, getEventsByGroupFn } from "@/services/events.service";
+import { getGroupById, getGroupsByUserFn } from "@/services/groups.service";
+import { UserOutlined } from "@ant-design/icons";
+import { Button, Image, Tabs, Tag } from "antd";
 import { useRouter } from "next/router";
-
-dayjs.locale("es-mx");
-const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
-  console.log(value.format("YYYY-MM-DD"), mode);
-};
-
-const data = [
-  {
-    src: "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1",
-    name: "Pepito Perez",
-    email: "pepitoperez@unal.edu.co",
-  },
-];
-
-const pdata = [
-  {
-    title: "Pepito",
-  },
-  {
-    title: "Ana Maria",
-  },
-  {
-    title: "Juan",
-  },
-  {
-    title: "Jose",
-  },
-];
+import { useContext, useEffect, useState } from "react";
+import MainLayout from "../../components/Layout/Layout";
+import { IEvent } from "@/interfaces/events";
 
 const Grupo = () => {
   const [group, setGroup] = useState<IGroup>({} as IGroup);
+  const [events, setEvents] = useState<IEvent[]>([]); // TODO: Change to IEvent[
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { user } = useContext(AuthContext);
   const router = useRouter();
 
   const getData = async () => {
     const resp = await getGroupById(router.query.id as string);
+
     if (resp.ok) {
+      const events = await getEventsByGroupFn(resp.data._id);
+      setEvents(events);
+
       setGroup(resp.data);
+      setIsAdmin(
+        resp.data.administrators?.some((admin: IUser) => admin._id === user?.id)
+      );
     } else {
       // redirect to 404
       router.replace("/404");
@@ -70,78 +39,7 @@ const Grupo = () => {
     getData();
   }, [router.query.id]);
 
-  const items: TabsProps["items"] = [
-    {
-      key: "1",
-      label: `Eventos`,
-      children: (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <FormEvento
-            style={{ width: "50%", margin: "1rem auto" }}
-            service={createEventFn}
-            initialValues={"Crear Evento"}
-          />
-          <List
-            itemLayout="vertical"
-            dataSource={pdata}
-            renderItem={(item, index) => (
-              <List.Item>
-                <EventCardApp />
-              </List.Item>
-            )}
-          />
-        </div>
-      ),
-    },
-    {
-      key: "2",
-      label: `Calendario`,
-      children: (
-        <div>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-        </div>
-      ),
-    },
-    {
-      key: "3",
-      label: `Admin`,
-      children: (
-        <div id="scrollableDiv">
-          <InfiniteScroll
-            dataLength={data.length}
-            next={() => console.log("next")}
-            hasMore={false}
-            loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-            scrollableTarget="scrollableDiv"
-          >
-            <List
-              bordered
-              className="list__admin"
-              dataSource={data}
-              renderItem={(item) => (
-                <List.Item
-                  key={item.email}
-                  actions={[<Button type="primary">Iniciar Chat</Button>]}
-                >
-                  <List.Item.Meta
-                    avatar={<Avatar src={item.src} />}
-                    title={item.name}
-                    description={item.email}
-                  />
-                </List.Item>
-              )}
-            />
-          </InfiniteScroll>
-        </div>
-      ),
-    },
-  ];
+  // console.log(events);
 
   return (
     <MainLayout>
@@ -170,17 +68,33 @@ const Grupo = () => {
               </Tag>
               <Tag color="blue">{group?.category}</Tag>
             </div>
-            <Button className="group__info__details__btn" type="primary">
-              Unirme
-            </Button>
-            <Button className="group__info__details__btn" danger>
-              Borrar grupo
-            </Button>
+            {isAdmin ? (
+              <>
+                <Button className="group__info__details__btn" type="primary">
+                  Editar información
+                </Button>
+                <Button className="group__info__details__btn" danger>
+                  Borrar grupo
+                </Button>
+              </>
+            ) : (
+              <Button className="group__info__details__btn" type="primary">
+                Unirme
+              </Button>
+            )}
           </div>
         </div>
 
         <div className="group__feed">
-          <Tabs type="card" items={items} />
+          <Tabs
+            type="card"
+            items={TabItemsGroup({
+              createEventService: createEventFn,
+              events: events,
+              group: group,
+              isAdmin,
+            })}
+          />
         </div>
       </div>
     </MainLayout>

@@ -86,19 +86,26 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          flex: 0 0 calc(33.33% - 1rem);
-          max-width: calc(33.33% - 1rem);
+          flex: 0 0 calc(50% - 1rem);
+          max-width: calc(50% - 1rem);
           background: #fff;
           border-radius: 8px;
           margin: 0.5rem;
-          padding: 0.5rem;
+          padding: 1rem;
 
-          .profileInfo__details__grousp__listContainer__item__image {
+          .profileInfo__details__groups__listContainer__item__image {
             border-radius: 50%;
             width: 5rem;
             height: 5rem;
             object-fit: cover;
             margin-bottom: 0.5rem;
+          }
+
+          .profileInfo__details__groups__listContainer__item__description {
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
           }
         }
       }

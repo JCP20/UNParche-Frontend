@@ -3,6 +3,7 @@ import ModalProfile from "@/components/Profile/ModalProfile";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
+import { getGroupsByUserFn } from "@/services/groups.service";
 import { newConversationFn } from "@/services/messages.service";
 import { getUserById, updateUserFn } from "@/services/user.service";
 import { getBase64 } from "@/utils/images";
@@ -13,20 +14,10 @@ import { RcFile } from "antd/es/upload";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
-const data = [
-  "Deportes",
-  "Música",
-  "Tecnología",
-  "Cocina",
-  "Idiomas",
-  "Arte",
-  "Ciencia",
-  "Historia",
-];
-
 const Profile = () => {
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState({} as IUser);
+  const [userGroups, setUserGroups] = useState([] as IGroup[]);
 
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -66,6 +57,13 @@ const Profile = () => {
 
   const getData = async () => {
     const res = await getUserById(router.query.id as string);
+
+    const userGroups = await getGroupsByUserFn(router.query.id as string);
+
+    if (userGroups?.ok) {
+      setUserGroups(userGroups.data);
+    }
+
     if (res) {
       setUserData(res);
     }
@@ -119,20 +117,23 @@ const Profile = () => {
           </div>
           <div className="profileInfo__details__groups">
             <h2>Grupos</h2>
-            {userData?.groups?.length === 0 ? (
+            {userGroups?.length === 0 ? (
               <>Aún no hay grupos</>
             ) : (
               <div className="profileInfo__details__groups__listContainer">
-                {(userData?.groups as IGroup[])?.map((group) => (
+                {(userGroups as IGroup[])?.map((group) => (
                   <div
-                    key={group.id}
+                    key={group?._id}
                     className="profileInfo__details__groups__listContainer__item"
                   >
+                    <h3>{group?.name}</h3>
                     <img
-                      className="profileInfo__details__grousp__listContainer__item__image"
-                      src={group.photo}
+                      className="profileInfo__details__groups__listContainer__item__image"
+                      src={group?.photo}
                     />
-                    <p>{group.description}</p>
+                    <p className="profileInfo__details__groups__listContainer__item__description">
+                      {group?.description}
+                    </p>
                   </div>
                 ))}
               </div>

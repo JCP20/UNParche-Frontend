@@ -1,33 +1,23 @@
-import React, { useState } from "react";
 import {
-  ShareAltOutlined,
   ExclamationOutlined,
+  ShareAltOutlined,
   StarTwoTone,
   setTwoToneColor,
 } from "@ant-design/icons";
-import { Card, Modal, Input } from "antd";
+import { Card, Image, Input, Modal } from "antd";
+import dayjs from "dayjs";
+import React, { useState } from "react";
 
 const { Meta } = Card;
 const { TextArea } = Input;
-const defaultSrc =
-  "https://www.artmajeur.com/medias/standard/v/i/virtual-dzines/artwork/7112695_sun-l.jpg?v=1585072675";
-var toneColor = "#fddde6";
-//"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
 
 interface NewFormProps {
-  nombreEvento?: string;
-  descripcionEvento?: string;
-  fechaEvento?: string;
-  horaEvento?: string;
+  eventData: any;
   imagenSrc?: string;
 }
 
 const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { nombreEvento } = props;
-  const { descripcionEvento } = props;
-  const { fechaEvento } = props;
-  const { horaEvento } = props;
-  const { imagenSrc } = props;
+  const { eventData, imagenSrc } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -40,6 +30,7 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   };
 
   const handleOk = () => {
+    console.log("Hacer reporte!");
     setIsModalOpen(false);
   };
 
@@ -50,11 +41,14 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   return (
     <>
       <Card
-        title={nombreEvento}
-        hoverable
-        extra={<a href="#">nombreGrupo</a>}
+        title={eventData?.title}
         className="card__index"
-        cover={<img src={defaultSrc} onDoubleClick={showModal} />}
+        cover={
+          <Image
+            src={eventData?.photo ?? imagenSrc}
+            onDoubleClick={showModal}
+          />
+        }
         actions={[
           <StarTwoTone
             key="star"
@@ -67,8 +61,8 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
         ]}
       >
         <Meta
-          title={"Fecha: " + fechaEvento + "    Hora: " + horaEvento}
-          description={descripcionEvento}
+          title={dayjs(eventData?.date).format("DD/MM/YYYY, hh:mm a")}
+          description={eventData?.description}
         />
       </Card>
 
