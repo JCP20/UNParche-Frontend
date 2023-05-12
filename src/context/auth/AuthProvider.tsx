@@ -76,7 +76,6 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     // Don't check token on public routes
     setIsLoading(true);
     setIsTokenCheckCompleted(false);
-    console.log(router.pathname);
     if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();
     } else {

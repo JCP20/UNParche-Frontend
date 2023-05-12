@@ -17,7 +17,7 @@ import EventCardApp from "./EventsCard";
 
 const { TextArea } = Input;
 const { Title } = Typography;
-const defaultSrc ="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+const defaultSrc = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
 
 const layout = {
   labelCol: { span: 50 },
@@ -26,22 +26,23 @@ const layout = {
 
 interface NewFormProps {
   initialValues?: any;
+  style?: React.CSSProperties;
   service: (value: any) => void;
 }
 
 const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service } = props;
-  const { initialValues } = props;
+  const { service, style, initialValues } = props;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async() => {
+  const handleOk = async () => {
     const values = form.getFieldsValue();
-    values.Fecha = values.Fecha.format("DD/MM/YY")
-    values.Hora = values.Hora.format("h:mm a")    
+    values.Fecha = values.Fecha.format("DD/MM/YY");
+    values.Hora = values.Hora.format("h:mm a");
     setIsModalOpen(false);
     const resp = await service(values);
     console.log(resp);
@@ -100,7 +101,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button style={style ?? {}} type="primary" onClick={showModal}>
         Nuevo Evento
       </Button>
 
@@ -180,13 +181,11 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
             <EventCardApp
               nombreEvento={nameValue}
               descripcionEvento={desValue}
-              
-              imagenSrc={defaultSrc}//fileList[0].url}
+              imagenSrc={defaultSrc} //fileList[0].url}
               fechaEvento={fechaValue.format("DD/MM/YY")}
-              horaEvento={horaValue.format("h:mm a")} />
-
-
-          </div>          
+              horaEvento={horaValue.format("h:mm a")}
+            />
+          </div>
         </div>
       </Modal>
     </>

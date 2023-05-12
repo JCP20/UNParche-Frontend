@@ -1,7 +1,11 @@
+import { IUser } from "./user";
+
 export interface IGroup {
-  id: string;
+  _id: string;
   name: string;
   description: string;
-  users: string[];
+  members: string[] | IUser[];
+  administrators: string[] | IUser[];
+  category: string;
   photo: string;
 }

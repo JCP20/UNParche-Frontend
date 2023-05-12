@@ -8,7 +8,7 @@ import { getUserById, updateUserFn } from "@/services/user.service";
 import { getBase64 } from "@/utils/images";
 import { MessageOutlined } from "@ant-design/icons";
 
-import { Button, List, Modal, message } from "antd";
+import { Button, Image, List, Modal, message } from "antd";
 import { RcFile } from "antd/es/upload";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -85,11 +85,9 @@ const Profile = () => {
           defaultValues={{ preferredCategories: userData.preferredCategories }}
         />
         <div className="profileInfo__avatar shadow">
-          <img
-            className="profileInfo__avatar__image"
-            alt="profile"
-            src={userData?.photo}
-          />
+          <div className="profileInfo__avatar__image">
+            <Image alt="profile" src={userData?.photo} />
+          </div>
 
           <div className="profileInfo__avatar__user">
             <h2>@{userData?.username}</h2>

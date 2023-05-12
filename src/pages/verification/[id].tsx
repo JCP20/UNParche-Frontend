@@ -21,7 +21,7 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
         { verified: true } as IUser
       );
 
-      if (resp?.status === 200) {
+      if (resp?.ok) {
         setTimeout(() => {
           login(resp.data.token, resp.data.id, resp.data.username);
         }, 5000);
@@ -39,13 +39,7 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
   return (
     <div className="containerveri">
-      <Image
-        className="onda"
-        width={1480}
-        height={300}
-        src="/imagenes/wavesbl2.png"
-        alt=""
-      />
+      <Image fill src="/imagenes/wavesbl2.png" alt="" />
       <div className="verification-window">
         <h1 className="textveri">Su correo ha sido verificado correctamente</h1>
         <div className="imgCont">

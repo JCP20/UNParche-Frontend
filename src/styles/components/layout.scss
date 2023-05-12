@@ -17,12 +17,12 @@
   }
 
   .searchBarHeader {
-    width: 33%;
+    width: 36%;
     margin-right: 13%;
   }
 
   .userNotify {
-    width: 20%;
+    width: 17%;
     height: 75%;
     border-radius: 15px;
     display: flex;
@@ -33,6 +33,11 @@
 
     justify-content: center;
     cursor: pointer;
+    color: #fff;
+
+    p {
+      margin: 0;
+    }
 
     &::after,
     &::before {
@@ -71,11 +76,6 @@
     &:hover::before {
       width: 100%;
       height: 100%;
-    }
-
-    > p {
-      margin: 0;
-      color: #fff;
     }
 
     .userAvatar {

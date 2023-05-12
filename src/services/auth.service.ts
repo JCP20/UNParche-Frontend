@@ -40,14 +40,20 @@ export const renewToken = async () => {
   return result;
 };
 
+interface AxiosResponseBackend extends AxiosResponse<any> {
+  data: any;
+  ok: boolean;
+  msg?: string;
+}
+
 export const verifyEmailFn = async (
   id: string,
   input: { verified: boolean }
-): Promise<AxiosResponse<any> | null> => {
+): Promise<AxiosResponseBackend | null> => {
   try {
     const resp = await backendApi.put(`/auth/verify/${id}`, input);
-    return resp;
-  } catch (error) {
-    return null;
+    return resp.data;
+  } catch (error: any) {
+    return error.response;
   }
 };

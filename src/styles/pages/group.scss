@@ -1,3 +1,78 @@
-.mainContainerGroups {
+.mainContainerGroupsPage {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+
+  .group__info {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    height: 50%;
+    width: 100%;
+
+    .group__info__imageContainer {
+      display: flex;
+      justify-content: center;
+      width: 45%;
+      height: 100%;
+      .ant-image {
+        height: 100%;
+        .group__info__imageContainer__image {
+          height: 100%;
+        }
+      }
+    }
+
+    .group__info__details {
+      margin-left: 5%;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .group__info__details__title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .group__info__details__description {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+
+      .group__info__details__btn {
+        width: 60%;
+        margin: 0.5rem auto;
+      }
+    }
+  }
+
+  .group__feed {
+    height: 50%;
+    margin-top: 2rem;
+
+    .list__admin {
+      background: #fff;
+    }
+
+    .card__index {
+      width: 60%;
+      margin: 1rem auto;
+    }
+  }
+
+  #scrollableDiv {
+    height: 13rem;
+    overflow-y: auto;
+  }
 }

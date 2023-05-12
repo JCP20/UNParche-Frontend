@@ -1,37 +1,36 @@
-import React from "react";
-import MainLayout from "../components/Layout/Layout";
-import type { CalendarMode } from "antd/es/calendar/generateCalendar";
+import FormGrupo from "@/components/CreateGroup";
+import EventCardApp from "@/components/EventsCard";
+import FormEvento from "@/components/FormEvent";
+import { createEventFn } from "@/services/events.service";
+import { updateGroupFn } from "@/services/groups.service";
 import {
-  LikeOutlined,
-  MessageOutlined,
-  StarOutlined,
   AntDesignOutlined,
+  CalendarOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
-  Card,
-  TabsProps,
-  Tabs,
+  Badge,
   Button,
   Calendar,
-  List,
-  Space,
-  Tooltip,
+  Card,
+  Col,
+  Image,
   Layout,
-  Badge,
-  Tag,
+  List,
   Row,
-  Col
+  Space,
+  Tabs,
+  TabsProps,
+  Tag,
+  Tooltip,
 } from "antd";
-const { Header, Content, Sider } = Layout;
+import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import type { Dayjs } from "dayjs";
-import FormEvento from "@/components/FormEvent";
-import FormGrupo from "@/components/CreateGroup";
-import EventCardApp from "@/components/EventsCard";
-import { createEventFn } from "@/services/events.service";
-import { createGroupFn, updateGroupFn } from "@/services/groups.service";
 import dayjs from "dayjs";
+import React from "react";
+import MainLayout from "../components/Layout/Layout";
+const { Header, Content, Sider } = Layout;
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -73,26 +72,25 @@ const items: TabsProps["items"] = [
     key: "1",
     label: `Eventos`,
     children: (
-        <Row>
-          <Col span={5}>
+      <Row>
+        <Col span={5}>
           <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
-          </Col>
+        </Col>
         <List
-        itemLayout="vertical"
-        dataSource={pdata}
-        renderItem={(item, index) => (
-        <List.Item >
-        <Space direction="vertical">
-        <EventCardApp></EventCardApp>
-        <Space>
-        <Button>Eliminar</Button>
-        <Button>Editar</Button>
-        </Space>
-        </Space>
-      </List.Item>
-      
-    )}
-  />       
+          itemLayout="vertical"
+          dataSource={pdata}
+          renderItem={(item, index) => (
+            <List.Item>
+              <Space direction="vertical">
+                <EventCardApp></EventCardApp>
+                <Space>
+                  <Button>Eliminar</Button>
+                  <Button>Editar</Button>
+                </Space>
+              </Space>
+            </List.Item>
+          )}
+        />
       </Row>
     ),
   },
@@ -101,7 +99,7 @@ const items: TabsProps["items"] = [
     label: `Calendario`,
     children: (
       <div>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+        <Calendar fullscreen={false} onPanelChange={onPanelChange} />
       </div>
     ),
   },
@@ -109,106 +107,105 @@ const items: TabsProps["items"] = [
     key: "3",
     label: `Admin`,
     children: (
-        <Row gutter={16}>
+      <Row gutter={16}>
         <Col span={12}>
-        <Card >
-        <Meta
-          avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-          title="Pepito Perez"
-          description="pepitoperez@unal.edu.co"
-        />
-      </Card>
+          <Card>
+            <Meta
+              avatar={
+                <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+              }
+              title="Pepito Perez"
+              description="pepitoperez@unal.edu.co"
+            />
+          </Card>
         </Col>
-        <Col span={12} style={{padding:'24px'}}>        
-        <Button type="primary">Iniciar Chat</Button>
+        <Col span={12} style={{ padding: "24px" }}>
+          <Button type="primary">Iniciar Chat</Button>
         </Col>
-       </Row>
+      </Row>
     ),
   },
 ];
 
 const Grupo: React.FC = () => {
-    return (
-      <MainLayout notShowHeader>
-          <Layout>
-            <Content style={{padding: '24px', marginRight: 300 }}>
-              <Tabs
-                defaultActiveKey="1"
-                type="card"
-                items={items}
-                onChange={onChange}
-              />
-            </Content>
-            <Sider
-              width={300}
-              style={{
-                overflow: "auto",
-                height: "100vh",
-                position: "fixed",
-                right: "0",
-                padding: "16px  16px",
-              }}
+  return (
+    <MainLayout notShowHeader>
+      <Layout>
+        <Content style={{ padding: "24px", marginRight: 300 }}>
+          <Tabs
+            defaultActiveKey="1"
+            type="card"
+            items={items}
+            onChange={onChange}
+          />
+        </Content>
+        <Sider
+          width={300}
+          style={{
+            overflow: "auto",
+            height: "100vh",
+            position: "fixed",
+            right: "0",
+            padding: "16px  16px",
+          }}
+        >
+          <Badge.Ribbon text="Público" color="#2b3467">
+            <Card
+              cover={
+                <img
+                  alt="example"
+                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                />
+              }
+              actions={[
+                <FormGrupo service={updateGroupFn} initialValues={"Editar"} />,
+                <Button>Unirme </Button>,
+              ]}
             >
-              <Badge.Ribbon text="Público" color="#2b3467">
-                <Card
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              <Space
+                direction="vertical"
+                size="middle"
+                style={{ display: "flex" }}
+              >
+                <Meta
+                  title="Grupo 1"
+                  description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+                />
+                <Tag color="magenta">Religion</Tag>
+              </Space>
+              <Card style={{ marginTop: 48 }}>
+                <Avatar.Group maxCount={6}>
+                  <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+                  <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+                  <Tooltip title="Ant User">
+                    <Avatar
+                      style={{ backgroundColor: "#87d068" }}
+                      icon={<UserOutlined />}
                     />
-                  }
-                  actions={[
-                    <FormGrupo
-                      service={updateGroupFn}
-                      initialValues={"Editar"}
-                    />,
-                    <Button>Unirme </Button>,
-                  ]}
-                >
-                  <Space
-                    direction="vertical"
-                    size="middle"
-                    style={{ display: "flex" }}
-                  >
-                    <Meta
-                      title="Grupo 1"
-                      description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+                  </Tooltip>
+                  <Avatar
+                    style={{ backgroundColor: "#1890ff" }}
+                    icon={<AntDesignOutlined />}
+                  />
+                  <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+                  <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+                  <Tooltip title="Ant User">
+                    <Avatar
+                      style={{ backgroundColor: "#87d068" }}
+                      icon={<UserOutlined />}
                     />
-                    <Tag color="magenta">Religion</Tag>
-                  </Space>
-                  <Card style={{ marginTop: 48 }}>
-                    <Avatar.Group maxCount={6}>
-                      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-                      <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-                      <Tooltip title="Ant User">
-                        <Avatar
-                          style={{ backgroundColor: "#87d068" }}
-                          icon={<UserOutlined />}
-                        />
-                      </Tooltip>
-                      <Avatar
-                        style={{ backgroundColor: "#1890ff" }}
-                        icon={<AntDesignOutlined />}
-                      />
-                      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
-                      <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-                      <Tooltip title="Ant User">
-                        <Avatar
-                          style={{ backgroundColor: "#87d068" }}
-                          icon={<UserOutlined />}
-                        />
-                      </Tooltip>
-                      <Avatar
-                        style={{ backgroundColor: "#1890ff" }}
-                        icon={<AntDesignOutlined />}
-                      />
-                    </Avatar.Group>
-                  </Card>
-                </Card>
-              </Badge.Ribbon>
-            </Sider>
-          </Layout>
-      </MainLayout>
-    );
-  };
-  export default Grupo;
+                  </Tooltip>
+                  <Avatar
+                    style={{ backgroundColor: "#1890ff" }}
+                    icon={<AntDesignOutlined />}
+                  />
+                </Avatar.Group>
+              </Card>
+            </Card>
+          </Badge.Ribbon>
+        </Sider>
+      </Layout>
+    </MainLayout>
+  );
+};
+export default Grupo;

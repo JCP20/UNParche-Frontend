@@ -1,16 +1,10 @@
-import {
-  Button,
-  Modal,
-  Cascader,
-  Form,
-  Input,
-  Radio,
-  Upload,
-  message,
-} from "antd";
-import ImgCrop from "antd-img-crop";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
-import React, { useState } from "react";
+import { Form, Input, Modal, Select, message } from "antd";
+
+import { getBase64 } from "@/utils/images";
+import type { RcFile } from "antd/es/upload/interface";
+import React from "react";
+import { availableCategories } from "./Categories";
+import UploadPhoto from "./UploadPhoto";
 
 const { TextArea } = Input;
 
@@ -20,67 +14,50 @@ const layout = {
 };
 interface NewFormProps {
   initialValues?: any;
-  service: (value: any) => void;
+  user: string;
+  service: (value: any) => any;
+  isModalOpen: boolean;
+  setIsModalOpen: (value: boolean) => void;
 }
 
-const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service } = props;
-  const { initialValues } = props;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
+  const { service, isModalOpen, setIsModalOpen, user } = props;
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const [form] = Form.useForm();
 
-  const handleOk = () => {
+  const handleOk = async () => {
+    const values = await form.validateFields();
+
+    const { photo } = values;
+    const base64Photo = await getBase64(photo.file.originFileObj as RcFile);
+
+    values.photo = base64Photo;
+    values.administrators = [user];
+
+    const resp = await service(values);
+
+    if (resp.ok) {
+      message.success("Grupo creado exitosamente");
+      form.resetFields();
+    } else {
+      message.error(resp.data.msg);
+    }
+
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
+    form.resetFields();
     setIsModalOpen(false);
-  };
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-
-  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as RcFile);
-        reader.onload = () => resolve(reader.result as string);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-
-  //Declaración de constandes
-
-  const [form] = Form.useForm();
-
-  //Mensaje de exito
-  const onFinish = async (value: any) => {
-    await service(value);
-    message.success("Registro exitoso!");
-  };
-
-  //Mensaje de error
-  const onFinishFailed = () => {
-    message.error("Registro fallido!");
   };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      {/* <Button type="primary" onClick={showModal}>
         {initialValues}
-      </Button>
+      </Button> */}
       <Modal
+        destroyOnClose
         title="Creación de Grupo"
         open={isModalOpen}
         onOk={handleOk}
@@ -94,8 +71,6 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
               id="formCrearGrupo" //Detalles del Formulario
               form={form}
               layout="vertical"
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               name="wrap"
               labelAlign="left"
               style={{ maxWidth: 600 }}
@@ -103,73 +78,49 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
               scrollToFirstError
             >
               <Form.Item
-                name="nombreGrupo" //Label usuario
+                name="name"
                 label="Nombre del Grupo"
                 rules={[
                   {
                     required: true,
-                    message: "Porfavor ingrese el nombre del grupo",
+                    message: "Por favor ingresa el nombre del grupo",
                   },
                 ]}
               >
                 <Input placeholder="Escribe el nombre de tu grupo" />
               </Form.Item>
-              <Form.Item label="Privacidad">
-                <Radio.Group>
-                  <Radio value="Publico"> Público </Radio>
-                  <Radio value="Privado"> Privado </Radio>
-                </Radio.Group>
+
+              <Form.Item
+                name="category"
+                label="Categoría"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor selecciona la categoría del grupo",
+                  },
+                ]}
+              >
+                <Select>
+                  {availableCategories.map((category) => (
+                    <Select.Option key={category} value={category}>
+                      {category}
+                    </Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
-              <Form.Item label="Categoría">
-                <Cascader
-                  options={[
-                    {
-                      value: "Arte",
-                      label: "Arte",
-                    },
-                    {
-                      value: "Deporte",
-                      label: "Deporte",
-                    },
-                    {
-                      value: "Religión",
-                      label: "Religión",
-                    },
-                    {
-                      value: "Investigación",
-                      label: "Investigación",
-                    },
-                    {
-                      value: "Semillero",
-                      label: "Semillero",
-                    },
-                    {
-                      value: "Videojuegos",
-                      label: "Videojuegos",
-                    },
-                    {
-                      value: "Otro",
-                      label: "Otro",
-                    },
-                  ]}
-                />
+              <Form.Item
+                name="description"
+                label="Descripción"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor ingresa la descripción del grupo",
+                  },
+                ]}
+              >
+                <TextArea rows={2} placeholder="Descripción del grupo..." />
               </Form.Item>
-              <Form.Item label="Descripción">
-                <TextArea rows={2} />
-              </Form.Item>
-              <Form.Item label="Upload" valuePropName="fileList">
-                <ImgCrop rotationSlider>
-                  <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    listType="picture-card"
-                    fileList={fileList}
-                    onChange={onChange}
-                    onPreview={onPreview}
-                  >
-                    {fileList.length < 5 && "+ Upload"}
-                  </Upload>
-                </ImgCrop>
-              </Form.Item>
+              <UploadPhoto name="photo" label="Foto" isRequired />
             </Form>
           </div>
         </div>
@@ -178,4 +129,4 @@ const CrearGrupoApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   );
 };
 
-export default CrearGrupoApp;
+export default CrearGrupo;

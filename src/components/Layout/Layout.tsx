@@ -1,35 +1,14 @@
-import {
-  CalendarOutlined,
-  HomeOutlined,
-  BellOutlined,
-  PoweroffOutlined,
-  CommentOutlined,
-  TeamOutlined,
-  UserOutlined,
-  CoffeeOutlined,
-} from "@ant-design/icons";
-import {
-  Avatar,
-  Badge,
-  ConfigProvider,
-  Layout,
-  Menu,
-  MenuProps,
-  Switch,
-  theme,
-  Space,
-} from "antd";
-import React, { useContext, useEffect, useState } from "react";
-import SearchBar from "./SearchBar";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth/AuthContext";
-import { getItem } from "./utils";
-import Image from "next/image";
+import { IGroup } from "@/interfaces/groups";
+import { createGroupFn, getGroupsByUserFn } from "@/services/groups.service";
+import { Layout, Menu, Tooltip, theme } from "antd";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import CrearGrupo from "../CreateGroup";
+import { itemsMenuLayout } from "./MenuItems";
+import SearchBar from "./SearchBar";
+
 const { Header, Content, Footer, Sider } = Layout;
-import HeaderApp from "./Header";
-import { text } from "stream/consumers";
-type MenuItem = Required<MenuProps>["items"][number];
 
 interface MainLayoutProps {
   children: JSX.Element;
@@ -41,116 +20,108 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   notShowHeader,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
+  const { defaultAlgorithm, darkAlgorithm } = theme;
   const [selectedKey, setSelectedKey] = useState<string>("");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [groups, setGroups] = useState<IGroup[]>([]);
   const router = useRouter();
   const { user } = useContext(AuthContext);
-  const [darkMode, setDarkMode] = useState(false);
-
-  const items: MenuItem[] = [
-    getItem(
-      "Inicio",
-      "",
-
-      <HomeOutlined />
-    ),
-
-    getItem(
-      "Mis Grupos",
-      "gruop",
-
-      <TeamOutlined />,
-      [
-        getItem("Grupo 1", "/group"),
-        getItem("Grupo 2", "/group"),
-        getItem("Grupo 3", "/group"),
-      ]
-    ),
-    getItem(
-      "Calendario",
-      "calendar",
-
-      <CalendarOutlined />
-    ),
-    getItem("Perfil", `profile/${user.id}`, <UserOutlined />),
-    getItem("Mensajes", "messages", <CommentOutlined />),
-
-    getItem("Salir", "logout", <PoweroffOutlined />),
-  ];
-
-  useEffect(() => {
-    setSelectedKey(router.pathname);
-  }, [selectedKey]);
+  // const [darkMode, setDarkMode] = useState(false);
 
   const handleOnClick = (e: any) => {
     if (e.key === "logout") {
       logout();
     } else {
-      router.push(`/${e.key}`);
+      if (e.key === "createGroup") {
+        setIsModalOpen(true);
+      } else {
+        router.push(e.key);
+      }
     }
   };
 
+  const getData = async () => {
+    const res = await getGroupsByUserFn(user.id);
+    if (res.ok) {
+      setGroups(res.data);
+    }
+  };
+
+  useEffect(() => {
+    setSelectedKey(router.pathname);
+  }, [router.pathname]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
-      <Layout style={{ height: "100vh" }}>
-        <Header className="headerStyle">
-          <div className="logo"></div>
-          <SearchBar className="searchBarHeader" />
-          <div className="userNotify">
+    <Layout style={{ height: "100vh" }}>
+      <Header className="headerStyle">
+        <div className="logo"></div>
+        <SearchBar className="searchBarHeader" />
+        <Tooltip placement="bottom" title={"Ir a mi perfil"}>
+          <div
+            className="userNotify"
+            onClick={() => router.push(`/profile/${user.id}`)}
+          >
             <p>@{user.username}</p>
           </div>
-          {/* <Switch
+        </Tooltip>
+        {/* <Switch
             checkedChildren={<CoffeeOutlined />}
             unCheckedChildren={<HomeOutlined />}
             defaultChecked
             onChange={() => setDarkMode(!darkMode)}
           /> */}
-        </Header>
-        <Layout hasSider>
-          <Sider
-            collapsible
-            onCollapse={(collapsed) => setIsCollapsed(collapsed)}
-            collapsed={isCollapsed}
+      </Header>
+      <CrearGrupo
+        user={user.id}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        service={createGroupFn}
+      />
+      <Layout hasSider>
+        <Sider
+          collapsible
+          onCollapse={(collapsed) => setIsCollapsed(collapsed)}
+          collapsed={isCollapsed}
+          style={{
+            overflow: "auto",
+            position: "sticky",
+            top: 0,
+            left: 0,
+          }}
+        >
+          <Menu
+            selectedKeys={[selectedKey]}
+            mode="inline"
+            items={itemsMenuLayout(groups)}
+            onClick={handleOnClick}
+          />
+        </Sider>
+        <Layout>
+          <Content
             style={{
-              overflow: "auto",
-              position: "sticky",
-              top: 0,
-              left: 0,
+              overflowY: "auto",
+              background: "#0000",
+              padding: "1rem",
+              height: "100%",
+              width: "100%",
             }}
           >
-            <Menu
-              selectedKeys={[selectedKey]}
-              mode="inline"
-              items={items}
-              onClick={handleOnClick}
-            />
-          </Sider>
-          <Layout>
-            <Content
-              style={{
-                overflowY: "auto",
-                background: "#0000",
-                padding: "1rem",
-                height: "100%",
-                width: "100%",
-              }}
-            >
-              {children}
-            </Content>
-          </Layout>
-          {!notShowHeader && (
-            <Footer style={{ background: "#F4F4F4", width: "20%" }}>
-              <p>Política de cookies</p>
-              <p>© 2023 UnParche, Inc.</p>
-            </Footer>
-          )}
+            {children}
+          </Content>
         </Layout>
+        {!notShowHeader && (
+          <Footer style={{ background: "#F4F4F4", width: "20%" }}>
+            <p>Política de cookies</p>
+            <p>© 2023 UnParche</p>
+          </Footer>
+        )}
       </Layout>
-    </ConfigProvider>
+    </Layout>
   );
 };
 
