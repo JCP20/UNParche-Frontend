@@ -52,6 +52,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
       values.schedule = values.schedule.format("h:mm a")
       setIsModalOpen(false);
       const resp = await service(values);
+      message.success("Envento creado exitosamente!");
     } else {
       const values = form.getFieldsValue();
       values.id_group = "6451b709de14fbcd063fb109"
@@ -61,6 +62,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
       console.log(idEvent);
       const resp = await service({ values, idEvent });
       console.log(resp);
+      message.success("Envento editado exitosamente!");
     }
 
 
@@ -108,7 +110,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
   }
 
   //Mensaje de exito
-  const onFinish = () => {
+  const onFinish = () => {    
     message.success("Envento creado exitosamente!");
   };
 
@@ -201,9 +203,9 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               nombreEvento={nameValue}
               descripcionEvento={desValue}
 
-              imagenSrc={defaultSrc}//fileList[0].url}
+              imagenSrc={defaultSrc} //fileList[0].url}
               fechaEvento={fechaValue.format("DD/MM/YY")}
-              horaEvento={horaValue.format("h:mm a")} />
+              horaEvento={horaValue.format("h:mm a")} idEvento={""} />
           </div>
         </div>
       </Modal>

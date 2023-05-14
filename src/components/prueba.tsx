@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import { Input, Space, Button, Select } from "antd";
 import { getEventsUserFn } from "@/services/events.service";
+import { SendOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 
@@ -23,37 +24,42 @@ const SearchBar = () => {
   }, [])
 
 
-/*
-  const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-    const searchInput = e.target.value;
-    setInput(searchInput);
-    console.log(data);
-    const newFilter = data.filter((value: string) => {
-      return value.toLowerCase().includes(searchInput.toLowerCase());
-    });
-    if (searchInput === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-    }
-  };*/
+  /*
+    const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
+      console.log(e);
+      const searchInput = e.target.value;
+      setInput(searchInput);
+      console.log(data);
+      const newFilter = data.filter((value: string) => {
+        return value.toLowerCase().includes(searchInput.toLowerCase());
+      });
+      if (searchInput === "") {
+        setFilteredData([]);
+      } else {
+        setFilteredData(newFilter);
+      }
+    };*/
   return (
     <div className="search">
-      <Select
-        showSearch
-        style={{ width: 200 }}
-        placeholder="Search to Select"
-        optionFilterProp="children"
-        filterOption={(input, option) => (option?.label ?? '').includes(input)}
-        filterSort={(optionA, optionB) =>
-          (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-        }
-        options={(data || []).map((d: any) => ({
-          value: d,
-          label: d,
-        }))}
-      />
+      <Space.Compact block>
+        <Select
+          showSearch
+          style={{ width: 200 }}
+          placeholder="Search to Select"
+          optionFilterProp="children"
+          filterOption={(input, option) => (option?.label ?? '').includes(input)}
+          filterSort={(optionA, optionB) =>
+            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+          }
+          options={(data || []).map((d: any) => ({
+            value: d,
+            label: d,
+          }))}
+        />
+        <Button>
+          <SendOutlined /> 
+        </Button>
+      </Space.Compact>
     </div>
   )
 }

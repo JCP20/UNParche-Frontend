@@ -1,8 +1,9 @@
+import { AuthContext } from "@/context/auth/AuthContext";
 import { getGroupByNameFn } from "@/services/groups.service";
 import { Button, Modal, Cascader, Form, Input, Radio, Upload, message } from "antd";
 import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 const { TextArea } = Input;
 
@@ -17,6 +18,7 @@ interface NewFormProps {
 }
 
 const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
+  const { user } = useContext(AuthContext);
   const { service } = props;
   const { initialValues } = props;
   const { tittle } = initialValues;
@@ -35,11 +37,12 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
     if (tittle == "Crear Grupo") {
       const values = form.getFieldsValue();
       values.category = values.category[0];
-      values.administrators = ["644409d6659d4bfcb4ccbc01"];
+      values.administrators = [user.id];
       console.log(values);
       const resp = await service(values);
       console.log(resp);
       setIsModalOpen(false);
+      message.success("Grupo creado exitosamente!");
     } else if (tittle == "Editar Grupo") {
       const values = form.getFieldsValue();
       values.category = values.category[0];
@@ -50,6 +53,7 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
       const resp = await service({values, idGroup, idUser});
       console.log("Respuesta", resp);
       setIsModalOpen(false);
+      message.success("Grupo editado exitosamente!");
     }
 
   };
@@ -84,10 +88,11 @@ const FormGroupApp: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   //Mensaje de exito
   const onFinish = async (value: any) => {
-    await service(value);
+    //await service(value);
     message.success("Registro exitoso!");
 
   };
+  
 
   //Mensaje de error
   const onFinishFailed = () => {
