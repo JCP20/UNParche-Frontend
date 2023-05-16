@@ -39,7 +39,7 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const logout = async () => {
-    setUser({} as IUser);
+    setUser({} as userAuthTypes);
     setIsAuthenticated(false);
     Cookies.remove("x-token");
     await logoutUser();
