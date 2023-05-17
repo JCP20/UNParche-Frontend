@@ -5,7 +5,7 @@ import type { Dayjs } from "dayjs";
 import React, { useState } from "react";
 import MainLayout from "../components/Layout/Layout";
 import dayjs from "dayjs";
-import EventCardApp from "@/components/EventsCard";
+import EventCard from "@/components/EventsCard";
 
 dayjs.locale("es-mx");
 var fecha = "";
@@ -98,9 +98,9 @@ const CalendarPage: React.FC = () => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <EventCardApp />
-          <EventCardApp />
-          <EventCardApp />
+          <EventCard eventData={{}} />
+          <EventCard eventData={{}} />
+          <EventCard eventData={{}} />
         </Modal>
         <div className="mainContainerCalendar">
           <h2>Calendario</h2>

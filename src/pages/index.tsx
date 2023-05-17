@@ -1,4 +1,4 @@
-import EventCardApp from "@/components/EventsCard";
+import EventCard from "@/components/EventsCard";
 import MainLayout from "@/components/Layout/Layout";
 import { Tabs } from "antd";
 
@@ -8,9 +8,9 @@ const tabItems = [
     key: "1",
     children: (
       <>
-        <EventCardApp />
-        <EventCardApp />
-        <EventCardApp />
+        <EventCard eventData={{}} />
+        <EventCard eventData={{}} />
+        <EventCard eventData={{}} />
       </>
     ),
   },
@@ -19,8 +19,8 @@ const tabItems = [
     key: "2",
     children: (
       <>
-        <EventCardApp />
-        <EventCardApp />
+        <EventCard eventData={{}} />
+        <EventCard eventData={{}} />
       </>
     ),
   },

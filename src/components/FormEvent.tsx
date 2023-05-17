@@ -3,7 +3,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, Modal, Upload } from "antd";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import React, { useState } from "react";
-import EventCardApp from "./EventsCard";
+import EventCard from "./EventsCard";
 import { IGroup } from "@/interfaces/groups";
 import dayjs from "dayjs";
 
@@ -154,7 +154,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
           <div className="card">
             <h3>Vista previa</h3>
-            <EventCardApp eventData={formData} imagenSrc={previewImage} />
+            <EventCard eventData={formData} imagenSrc={previewImage} />
           </div>
         </div>
       </Modal>

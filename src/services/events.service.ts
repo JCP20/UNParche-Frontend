@@ -33,3 +33,13 @@ export const getEventsByGroupFn = async (id: string) => {
     return error.response;
   }
 };
+
+// listar todos los eventos DENUNCIADOS
+export const listAllEventsFn = async () => {
+  try {
+    const { data } = await backendApiPrivate.get("/events/");
+    return data.data;
+  } catch (error: any) {
+    return error.response;
+  }
+};

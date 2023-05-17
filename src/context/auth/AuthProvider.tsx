@@ -1,4 +1,3 @@
-import { IUser } from "@/interfaces/user";
 import { logoutUser, renewToken } from "@/services/auth.service";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -8,6 +7,7 @@ import { AuthContext } from "./AuthContext";
 interface userAuthTypes {
   id: string;
   username: string;
+  role: string;
 }
 
 const publicRoutes = [
@@ -18,6 +18,8 @@ const publicRoutes = [
   "/landingPage",
 ];
 
+const adminRoutes = ["/admin"];
+
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -27,11 +29,11 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const router = useRouter();
 
-  const login = async (token: string, id: string, username: string) => {
+  const login = async (token: string, userInfo: userAuthTypes) => {
     try {
       setIsAuthenticated(true);
       Cookies.set("x-token", token);
-      setUser({ id, username });
+      setUser(userInfo);
       router.replace("/");
     } catch (error) {
       logout();
@@ -60,7 +62,11 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
       if (resp?.data?.ok) {
         setIsAuthenticated(true);
         Cookies.set("x-token", resp.data.token);
-        setUser({ id: resp.data.id, username: resp.data.username });
+        setUser({
+          id: resp.data.id,
+          username: resp.data.username,
+          role: resp.data.role,
+        });
       } else {
         logout();
       }
@@ -72,16 +78,23 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
   };
 
+  const checkIfUserIsAdmin = () => {
+    if (user?.role !== "admin") {
+      router.replace("/");
+    }
+  };
+
   useEffect(() => {
     // Don't check token on public routes
     setIsLoading(true);
     setIsTokenCheckCompleted(false);
     if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();
+    } else if (adminRoutes.includes(router.pathname)) {
+      checkIfUserIsAdmin();
     } else {
       setIsLoading(false);
     }
-    // setIsLoading(false);
   }, []);
 
   if (

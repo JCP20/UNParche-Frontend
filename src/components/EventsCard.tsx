@@ -16,7 +16,7 @@ interface NewFormProps {
   imagenSrc?: string;
 }
 
-const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
+const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { eventData, imagenSrc } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,4 +82,4 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   );
 };
 
-export default EventCardApp;
+export default EventCard;

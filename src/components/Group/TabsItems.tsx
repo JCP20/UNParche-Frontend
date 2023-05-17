@@ -1,6 +1,6 @@
 import { Avatar, Button, Calendar, List, Skeleton, TabsProps } from "antd";
 import FormEvent from "@/components/FormEvent";
-import EventCardApp from "../EventsCard";
+import EventCard from "../EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEvent } from "@/interfaces/events";
 import { Dayjs } from "dayjs";
@@ -50,7 +50,7 @@ export const TabItemsGroup = (input: itemsInput) => {
               console.log(item);
               return (
                 <List.Item key={index}>
-                  <EventCardApp eventData={item} />
+                  <EventCard eventData={item} />
                 </List.Item>
               );
             }}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
-import EventCardApp from './EventsCard';
+import React, { useState } from "react";
+import { Button, Modal } from "antd";
+import EventCard from "./EventsCard";
 
 const CellApp: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,10 +22,15 @@ const CellApp: React.FC = () => {
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
-      <Modal title="Eventos del Usuario" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <EventCardApp />
-        <EventCardApp />
-        <EventCardApp />
+      <Modal
+        title="Eventos del Usuario"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <EventCard />
+        <EventCard />
+        <EventCard />
       </Modal>
     </>
   );

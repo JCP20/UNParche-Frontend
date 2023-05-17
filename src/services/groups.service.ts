@@ -2,23 +2,23 @@ import { backendApiPrivate } from "@/services/api/config";
 import { IGroup } from "@/interfaces/groups";
 import { AxiosError, AxiosResponse } from "axios";
 
-export const listAllGroups = async (): Promise<IGroup[] | null> => {
+export const listAllGroupsFn = async (): Promise<IGroup[] | false> => {
   try {
     const { data } = await backendApiPrivate.get(`/groups`);
     return data.data as IGroup[];
-  } catch (error) {
-    return null;
+  } catch (error: any) {
+    return false;
   }
 };
 
-export const GroupsfromAdmin = async (): Promise<IGroup[] | null> => {
+export const GroupsfromAdmin = async (): Promise<IGroup[] | false> => {
   try {
     const { data } = await backendApiPrivate.get(
       `/groups/your-groups-admin/:userId`
     );
     return data.data as IGroup[];
   } catch (error) {
-    return null;
+    return false;
   }
 };
 export const createGroupFn = async (values: any): Promise<any> => {

@@ -23,7 +23,11 @@ const verificarUsuario = ({ isVerified }: { isVerified: boolean | null }) => {
 
       if (resp?.ok) {
         setTimeout(() => {
-          login(resp.data.token, resp.data.id, resp.data.username);
+          login(resp.data.token, {
+            id: resp.data.id,
+            username: resp.data.username,
+            role: resp.data.role,
+          });
         }, 5000);
       }
     } catch (error) {

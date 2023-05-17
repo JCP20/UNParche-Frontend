@@ -99,7 +99,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <Menu
             selectedKeys={[selectedKey]}
             mode="inline"
-            items={itemsMenuLayout(groups)}
+            items={itemsMenuLayout(groups, user.role === "admin")}
             onClick={handleOnClick}
           />
         </Sider>

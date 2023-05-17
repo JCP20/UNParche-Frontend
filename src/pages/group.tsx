@@ -1,5 +1,5 @@
 import FormGrupo from "@/components/CreateGroup";
-import EventCardApp from "@/components/EventsCard";
+import EventCard from "@/components/EventsCard";
 import FormEvento from "@/components/FormEvent";
 import { createEventFn } from "@/services/events.service";
 import { updateGroupFn } from "@/services/groups.service";
@@ -82,7 +82,7 @@ const items: TabsProps["items"] = [
           renderItem={(item, index) => (
             <List.Item>
               <Space direction="vertical">
-                <EventCardApp></EventCardApp>
+                <EventCard />
                 <Space>
                   <Button>Eliminar</Button>
                   <Button>Editar</Button>

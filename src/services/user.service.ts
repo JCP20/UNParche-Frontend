@@ -22,3 +22,12 @@ export const updateUserFn = async (
     return error.response;
   }
 };
+
+export const listAllUsersFn = async () => {
+  try {
+    const { data } = await backendApiPrivate.get("/users");
+    return data.data;
+  } catch (error: any) {
+    return error.response;
+  }
+};

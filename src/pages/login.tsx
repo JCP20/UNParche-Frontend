@@ -22,7 +22,11 @@ const LoginPage = () => {
       const resp = await loginUser(values);
       if (resp.status === 200) {
         message.success("Login exitoso!");
-        login(resp.data.token, resp.data.id, resp.data.username);
+        login(resp.data.token, {
+          id: resp.data.id,
+          username: resp.data.username,
+          role: resp.data.role,
+        });
       } else {
         message.error("Login fallido");
       }
