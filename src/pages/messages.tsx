@@ -65,34 +65,36 @@ const MessagesPage = () => {
   }, [messages]);
 
   return (
-    <MainLayout notShowHeader>
-      <div className="messagesContainer shadow">
-        <div className="messages__chats">
-          <div className="messages__header">
-            <h2>Chats</h2>
-          </div>
+    <MainLayout>
+      <div className="p-1">
+        <div className="messagesContainer shadow">
+          <div className="messages__chats">
+            <div className="messages__header">
+              <h2>Chats</h2>
+            </div>
 
-          <div className="messages__conversations">
-            {conversations?.map((c) => (
-              <div
-                className="conversation"
-                onClick={() => {
-                  setCurrentChat(c);
-                }}
-              >
-                <ConversationComp conversation={c} currentUser={user} />
-              </div>
-            ))}
+            <div className="messages__conversations">
+              {conversations?.map((c) => (
+                <div
+                  className="conversation"
+                  onClick={() => {
+                    setCurrentChat(c);
+                  }}
+                >
+                  <ConversationComp conversation={c} currentUser={user} />
+                </div>
+              ))}
+            </div>
           </div>
+          <Chat
+            scrollRef={scrollRef}
+            messages={messages}
+            setMessages={setMessages}
+            actualUser={user}
+            currentChat={currentChat}
+            socket={socket}
+          />
         </div>
-        <Chat
-          scrollRef={scrollRef}
-          messages={messages}
-          setMessages={setMessages}
-          actualUser={user}
-          currentChat={currentChat}
-          socket={socket}
-        />
       </div>
     </MainLayout>
   );

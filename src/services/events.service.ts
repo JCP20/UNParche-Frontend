@@ -43,3 +43,12 @@ export const listAllEventsFn = async () => {
     return error.response;
   }
 };
+
+export const deleteEventFn = async (id: string) => {
+  try {
+    const resp = await backendApiPrivate.delete(`/events/${id}`);
+    return resp;
+  } catch (error: any) {
+    return error.response;
+  }
+};

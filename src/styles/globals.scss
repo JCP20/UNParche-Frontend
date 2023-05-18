@@ -38,6 +38,10 @@ body {
   top: 2.5rem;
 }
 
+a {
+  color: #3646a0;
+}
+
 a:link,
 a:visited {
   color: $primary-color;
@@ -93,7 +97,11 @@ a:visited {
 }
 
 .shadow {
-  -webkit-box-shadow: 3px 3px 15px -16px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 3px 3px 15px -16px rgba(0, 0, 0, 0.75);
-  box-shadow: 3px 3px 15px -16px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 20px -20px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 20px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 20px -20px rgba(0, 0, 0, 0.75);
+}
+
+.p-1 {
+  padding: 1rem;
 }

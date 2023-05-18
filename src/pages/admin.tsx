@@ -1,22 +1,45 @@
-import { columnsEvents } from "@/components/Event/ColumnsEvents";
-import { columnsGroups } from "@/components/Group/ColumnsGroups";
+import { columnsUsers } from "@/components/Columns/ColumnUsers";
+import { columnsEvents } from "@/components/Columns/ColumnsEvents";
+import { columnsGroups } from "@/components/Columns/ColumnsGroups";
+import { columnsReports } from "@/components/Columns/ColumnsReports";
 import MainLayout from "@/components/Layout/Layout";
 import GenericTable from "@/components/Table/GenericTable";
-import { columnsUsers } from "@/components/Users/ColumnUsers";
 import { IGroup } from "@/interfaces/groups";
+import { IReportsGrouped } from "@/interfaces/reports";
 import { IUser } from "@/interfaces/user";
 import { listAllEventsFn } from "@/services/events.service";
 import { listAllGroupsFn } from "@/services/groups.service";
+import { listAllReportsFn } from "@/services/reports.service";
 import { listAllUsersFn } from "@/services/user.service";
-import { Card, Statistic, Table } from "antd";
-import { useState, useEffect } from "react";
+import { getAllStaticsFn } from "@/services/statistics.service";
+import { Card, Statistic } from "antd";
+import { useEffect, useState } from "react";
 
 const AdminPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [statistics, setStatistics] = useState<any>({
+    totalEvents: 0,
+    totalGroups: 0,
+    totalUsers: 0,
+  });
   const [users, setUsers] = useState<IUser[]>([]);
   const [groups, setGroups] = useState<IGroup[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
+  const [reports, setReports] = useState<IReportsGrouped[]>([]);
 
   const getData = async () => {
+    setLoading(true);
+    const getStatistics = await getAllStaticsFn();
+    if (getStatistics) {
+      setStatistics(getStatistics);
+    }
+
+    // get reports
+    const allReports = await listAllReportsFn();
+    if (allReports) {
+      setReports(allReports);
+    }
+
     // get users
     const allUsers = await listAllUsersFn();
     setUsers(allUsers);
@@ -35,6 +58,7 @@ const AdminPage = () => {
     if (allEvents) {
       setEvents(allEvents);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -47,23 +71,53 @@ const AdminPage = () => {
         <Card bordered={false} className="statisticsContainer">
           <h2>Administración UnParche</h2>
           <div className="statisticsContainer__values">
-            <Statistic title="Usuarios activos" value={112893} />
-            <Statistic title="Grupos activos" value={112893} />
-            <Statistic title="Eventos activos" value={112893} />
+            <Statistic
+              valueStyle={{ textAlign: "center" }}
+              title="Usuarios creados"
+              value={statistics.totalUsers}
+            />
+            <Statistic
+              valueStyle={{ textAlign: "center" }}
+              title="Grupos creados"
+              value={statistics.totalGroups}
+            />
+            <Statistic
+              valueStyle={{ textAlign: "center" }}
+              title="Eventos creados"
+              value={statistics.totalEvents}
+            />
           </div>
         </Card>
 
-        <h2>Eventos reportados</h2>
-        <GenericTable dataSource={users} columns={columnsUsers} />
+        <div className="p-1">
+          <h2>Reportes</h2>
+          <GenericTable
+            loading={loading}
+            dataSource={reports}
+            columns={columnsReports(getData)}
+          />
 
-        <h2>Administración de usuarios</h2>
-        <GenericTable dataSource={users} columns={columnsUsers} />
+          <h2>Administración de usuarios</h2>
+          <GenericTable
+            loading={loading}
+            dataSource={users}
+            columns={columnsUsers(getData)}
+          />
 
-        <h2>Administración de grupos</h2>
-        <GenericTable dataSource={groups} columns={columnsGroups} />
+          <h2>Administración de grupos</h2>
+          <GenericTable
+            loading={loading}
+            dataSource={groups}
+            columns={columnsGroups(getData)}
+          />
 
-        <h2>Administración de eventos</h2>
-        <GenericTable dataSource={events} columns={columnsEvents} />
+          <h2>Administración de eventos</h2>
+          <GenericTable
+            loading={loading}
+            dataSource={events}
+            columns={columnsEvents(getData)}
+          />
+        </div>
       </>
     </MainLayout>
   );

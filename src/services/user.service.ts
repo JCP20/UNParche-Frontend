@@ -31,3 +31,12 @@ export const listAllUsersFn = async () => {
     return error.response;
   }
 };
+
+export const deleteUserFn = async (id: string) => {
+  try {
+    const resp = await backendApiPrivate.delete(`/users/${id}`);
+    return resp;
+  } catch (error: any) {
+    return error.response;
+  }
+};

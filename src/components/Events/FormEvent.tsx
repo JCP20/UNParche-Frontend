@@ -14,10 +14,11 @@ interface NewFormProps {
   initialValues?: any;
   style?: React.CSSProperties;
   service: (value: any) => void;
+  after: () => void;
 }
 
 const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service, style, initialValues, actualGroup } = props;
+  const { service, style, initialValues, actualGroup, after } = props;
   const [previewImage, setPreviewImage] = useState("");
   const [formData, setFormData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,11 +50,8 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
     values.date = dayjs(values.date).toISOString();
 
-    console.log(values);
-
     const resp = await service(values);
-
-    console.log(resp);
+    await after();
     // setIsModalOpen(false);
   };
 
@@ -154,7 +152,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
           <div className="card">
             <h3>Vista previa</h3>
-            <EventCard eventData={formData} imagenSrc={previewImage} />
+            <EventCard eventData={{ ...formData, photo: previewImage }} />
           </div>
         </div>
       </Modal>

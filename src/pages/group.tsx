@@ -1,6 +1,6 @@
-import FormGrupo from "@/components/CreateGroup";
-import EventCard from "@/components/EventsCard";
-import FormEvento from "@/components/FormEvent";
+import FormGrupo from "@/components/Group/CreateGroup";
+import EventCard from "@/components/Events/EventsCard";
+import FormEvento from "@/components/Events/FormEvent";
 import { createEventFn } from "@/services/events.service";
 import { updateGroupFn } from "@/services/groups.service";
 import {

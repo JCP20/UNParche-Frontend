@@ -1,7 +1,10 @@
+import { IGroup } from "./groups";
+
 export interface IEvent {
   id: string;
-  nombre: string;
-  fecha: Date;
-  horario: string;
-  Descripcion: String;
+  title: string;
+  date: Date;
+  description: string;
+  group: IGroup | string;
+  photo: string;
 }

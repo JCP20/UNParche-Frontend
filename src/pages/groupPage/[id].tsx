@@ -1,15 +1,15 @@
 import { TabItemsGroup } from "@/components/Group/TabsItems";
 import { AuthContext } from "@/context/auth/AuthContext";
+import { IEvent } from "@/interfaces/events";
 import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
 import { createEventFn, getEventsByGroupFn } from "@/services/events.service";
-import { getGroupById, getGroupsByUserFn } from "@/services/groups.service";
+import { getGroupById } from "@/services/groups.service";
 import { UserOutlined } from "@ant-design/icons";
 import { Button, Image, Tabs, Tag } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import MainLayout from "../../components/Layout/Layout";
-import { IEvent } from "@/interfaces/events";
 
 const Grupo = () => {
   const [group, setGroup] = useState<IGroup>({} as IGroup);
@@ -93,6 +93,7 @@ const Grupo = () => {
               events: events,
               group: group,
               isAdmin,
+              after: getData,
             })}
           />
         </div>

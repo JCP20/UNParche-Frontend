@@ -5,7 +5,7 @@ import type { Dayjs } from "dayjs";
 import React, { useState } from "react";
 import MainLayout from "../components/Layout/Layout";
 import dayjs from "dayjs";
-import EventCard from "@/components/EventsCard";
+import EventCard from "@/components/Events/EventsCard";
 
 dayjs.locale("es-mx");
 var fecha = "";
@@ -91,7 +91,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <MainLayout>
-      <>
+      <div className="p-1">
         <Modal
           title={"Eventos destacados del día  " + fecha}
           open={isModalOpen}
@@ -114,7 +114,7 @@ const CalendarPage: React.FC = () => {
             />
           </div>
         </div>
-      </>
+      </div>
     </MainLayout>
   );
 };

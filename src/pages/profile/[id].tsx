@@ -116,7 +116,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="profileInfo__details__groups">
-            <h2>Grupos</h2>
+            <h2>Mis grupos</h2>
             {userGroups?.length === 0 ? (
               <>Aún no hay grupos</>
             ) : (

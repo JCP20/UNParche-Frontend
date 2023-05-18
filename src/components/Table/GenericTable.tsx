@@ -12,13 +12,14 @@ interface ColumnType {
 interface Props {
   dataSource: any[];
   columns: ColumnType[];
+  loading: boolean;
 }
 
-const GenericTable: React.FC<Props> = ({ dataSource, columns }) => {
+const GenericTable: React.FC<Props> = ({ dataSource, columns, loading }) => {
   const [searchText, setSearchText] = useState("");
   const [searchColumn, setSearchColumn] = useState("");
 
-  const getColumnSearchProps = (dataIndex: string, title: string) => ({
+  const getColumnSearchProps: any = (dataIndex: string, title: string) => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -113,7 +114,9 @@ const GenericTable: React.FC<Props> = ({ dataSource, columns }) => {
     return actualColumn;
   });
 
-  return <Table dataSource={dataSource} columns={columnsGeneric} />;
+  return (
+    <Table loading={loading} dataSource={dataSource} columns={columnsGeneric} />
+  );
 };
 
 export default GenericTable;

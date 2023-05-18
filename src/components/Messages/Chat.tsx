@@ -84,7 +84,7 @@ const Chat = ({
   return (
     <div className="mainContainerChat">
       {currentChat ? (
-        <div className="chatContainer">
+        <>
           <div className="chatContainer__conversation">
             {messages?.map((m: any) => (
               <MessageElement
@@ -113,7 +113,7 @@ const Chat = ({
               onClick={sendMessage}
             />
           </Space.Compact>
-        </div>
+        </>
       ) : (
         <div className="mainContainerChat__noConversation">
           <Result

@@ -1,10 +1,10 @@
 import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
 import { createGroupFn, getGroupsByUserFn } from "@/services/groups.service";
-import { Layout, Menu, Spin, Tooltip, theme } from "antd";
+import { Button, Layout, Menu, Modal, Tooltip, Typography, theme } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import CrearGrupo from "../CreateGroup";
+import CrearGrupo from "../Group/CreateGroup";
 import { itemsMenuLayout } from "./MenuItems";
 import SearchBar from "./SearchBar";
 
@@ -20,10 +20,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   notShowHeader,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
-  const { defaultAlgorithm, darkAlgorithm } = theme;
+  // const { defaultAlgorithm, darkAlgorithm } = theme;
   const [selectedKey, setSelectedKey] = useState<string>("");
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    const collapsedState = localStorage.getItem("collapsedState");
+    return collapsedState ? JSON.parse(collapsedState) : false;
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cookiesModal, setCookiesModal] = useState(false);
   const [groups, setGroups] = useState<IGroup[]>([]);
   const router = useRouter();
   const { user } = useContext(AuthContext);
@@ -56,6 +60,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     getData();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("collapsedState", JSON.stringify(isCollapsed));
+  }, [isCollapsed]);
+
   return (
     <Layout style={{ height: "100vh" }}>
       <Header className="headerStyle">
@@ -83,6 +91,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         service={createGroupFn}
+        after={getData}
       />
       <Layout hasSider>
         <Sider
@@ -108,18 +117,63 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             style={{
               overflowY: "auto",
               background: "#0000",
-              padding: "1rem",
               height: "100%",
               width: "100%",
             }}
           >
-            {children}
+            <>{children}</>
           </Content>
         </Layout>
         {!notShowHeader && (
-          <Footer style={{ background: "#F4F4F4", width: "20%" }}>
-            <p>Política de cookies</p>
-            <p>© 2023 UnParche</p>
+          <Footer
+            style={{
+              background: "#F4F4F4",
+              width: "20%",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Modal
+              title="Política de Cookies"
+              open={cookiesModal}
+              onCancel={() => setCookiesModal(false)}
+              footer={
+                <>
+                  <Button type="primary" onClick={() => setCookiesModal(false)}>
+                    Ok
+                  </Button>
+                </>
+              }
+            >
+              <Typography>
+                <Typography.Paragraph>
+                  Este sitio web utiliza cookies para fines de autenticación. Al
+                  continuar utilizando este sitio, aceptas el uso de cookies
+                  para autenticación. Estas cookies se utilizan para mantener tu
+                  sesión de inicio de sesión y garantizar una experiencia de
+                  usuario segura. No recopilamos ninguna información personal o
+                  sensible a través de estas cookies.
+                </Typography.Paragraph>
+                <Typography.Paragraph>
+                  Puedes controlar y gestionar las cookies en la configuración
+                  de tu navegador. Consulta la documentación de ayuda de tu
+                  navegador para obtener más información sobre cómo bloquear,
+                  eliminar o desactivar las cookies.
+                </Typography.Paragraph>
+              </Typography>
+            </Modal>
+            <p>
+              <a onClick={() => setCookiesModal(true)}>Política de cookies</a>
+            </p>
+            <div className="creditsEnd">
+              <p className="credits">
+                Hecho con <span className="credits__hearth">❤</span> por equipo
+                UNParche, 2023
+              </p>
+              <p className="credits">Universidad Nacional de Colombia</p>
+            </div>
           </Footer>
         )}
       </Layout>

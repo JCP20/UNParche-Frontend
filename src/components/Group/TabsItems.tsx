@@ -1,6 +1,6 @@
 import { Avatar, Button, Calendar, List, Skeleton, TabsProps } from "antd";
-import FormEvent from "@/components/FormEvent";
-import EventCard from "../EventsCard";
+import FormEvent from "@/components/Events/FormEvent";
+import EventCard from "../Events/EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEvent } from "@/interfaces/events";
 import { Dayjs } from "dayjs";
@@ -13,6 +13,7 @@ interface itemsInput {
   events: IEvent[];
   group: IGroup;
   isAdmin: boolean;
+  after: () => void;
 }
 
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
@@ -20,7 +21,7 @@ const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
 };
 
 export const TabItemsGroup = (input: itemsInput) => {
-  const { createEventService, events, group, isAdmin } = input;
+  const { createEventService, events, group, isAdmin, after } = input;
 
   return [
     {
@@ -36,25 +37,18 @@ export const TabItemsGroup = (input: itemsInput) => {
         >
           {isAdmin && (
             <FormEvent
-              style={{ width: "50%", margin: "1rem auto" }}
+              style={{ width: "50%" }}
               actualGroup={group}
               service={createEventService}
               initialValues={"Crear Evento"}
+              after={after}
             />
           )}
-
-          <List
-            itemLayout="vertical"
-            dataSource={events}
-            renderItem={(item, index) => {
-              console.log(item);
-              return (
-                <List.Item key={index}>
-                  <EventCard eventData={item} />
-                </List.Item>
-              );
-            }}
-          />
+          <div className="mainContainerIndex">
+            {events.map((e) => (
+              <EventCard eventData={e} />
+            ))}
+          </div>
         </div>
       ),
     },

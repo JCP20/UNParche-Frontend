@@ -4,7 +4,7 @@ import {
   StarTwoTone,
   setTwoToneColor,
 } from "@ant-design/icons";
-import { Card, Image, Input, Modal } from "antd";
+import { Card, Image, Input, Modal, Typography } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
@@ -13,11 +13,10 @@ const { TextArea } = Input;
 
 interface NewFormProps {
   eventData: any;
-  imagenSrc?: string;
 }
 
 const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { eventData, imagenSrc } = props;
+  const { eventData } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,7 +29,6 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   };
 
   const handleOk = () => {
-    console.log("Hacer reporte!");
     setIsModalOpen(false);
   };
 
@@ -42,13 +40,8 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
     <>
       <Card
         title={eventData?.title}
-        className="card__index"
-        cover={
-          <Image
-            src={eventData?.photo ?? imagenSrc}
-            onDoubleClick={showModal}
-          />
-        }
+        className="card__index shadow"
+        cover={<Image src={eventData?.photo} fallback="/escudoUnal.png" />}
         actions={[
           <StarTwoTone
             key="star"
@@ -62,7 +55,17 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
       >
         <Meta
           title={dayjs(eventData?.date).format("DD/MM/YYYY, hh:mm a")}
-          description={eventData?.description}
+          description={
+            <Typography.Paragraph
+              ellipsis={{
+                rows: 3,
+                expandable: true,
+                symbol: "Ver más...",
+              }}
+            >
+              {eventData?.description}
+            </Typography.Paragraph>
+          }
         />
       </Card>
 

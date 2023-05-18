@@ -65,3 +65,12 @@ export const getGroupById = async (id: string): Promise<any | null> => {
     return error.response;
   }
 };
+
+export const deleteGroupFn = async (id: string) => {
+  try {
+    const resp = await backendApiPrivate.delete(`/groups/${id}`);
+    return resp;
+  } catch (error: any) {
+    return error.response;
+  }
+};

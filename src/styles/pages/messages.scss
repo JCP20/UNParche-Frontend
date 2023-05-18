@@ -4,13 +4,13 @@
   display: flex;
   max-height: 35rem;
   width: 100%;
-  border: 1px solid rgba(43, 52, 103, 0.5);
+  border: 1px solid rgba(43, 52, 103, 0.2);
 
   .messages__chats {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    width: 40%;
+    width: 30%;
 
     .messages__conversations {
       overflow-y: scroll;
@@ -38,9 +38,9 @@
 
   .mainContainerChat {
     padding: 1rem;
-    width: 60%;
+    width: 70%;
 
-    border-left: 1px solid rgba(43, 52, 103, 0.5);
+    border-left: 2px solid rgba(43, 52, 103, 0.1);
     display: flex;
     flex-direction: column;
     height: 550px;
@@ -53,54 +53,50 @@
       height: 100%;
     }
 
-    .chatContainer {
-      margin-top: 2%;
-      height: 98%;
+    .chatContainer__conversation {
+      height: 90%;
+      overflow-y: scroll;
+      padding-right: 3%;
 
-      .chatContainer__conversation {
-        height: 90%;
-        overflow-y: scroll;
-        padding-right: 3%;
+      .message {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.5rem;
 
-        .message {
-          display: flex;
-          flex-direction: column;
+        .message__text {
+          max-width: 80%;
+          border-radius: 10px;
+          padding: 0.8rem;
+          word-wrap: break-word;
+        }
+
+        .message__sender {
+          font-size: 1rem;
+          color: rgba(43, 52, 103, 0.9);
           margin-bottom: 0.5rem;
-
-          .message__text {
-            border-radius: 10px;
-            padding: 0.7rem;
-            //   border: 1px solid black;
-          }
-
-          .message__sender {
-            font-size: 1rem;
-            color: rgba(43, 52, 103, 0.9);
-            margin-bottom: 0.5rem;
-          }
-
-          .message__sentAt {
-            font-size: 0.8rem;
-            color: rgba(43, 52, 103, 0.5);
-            margin-bottom: 0.5rem;
-          }
         }
 
-        .messageRight {
-          align-items: flex-end;
-          justify-content: flex-end;
-          .message__text {
-            background: $color-boton;
-            color: #fff;
-          }
+        .message__sentAt {
+          font-size: 0.8rem;
+          color: rgba(43, 52, 103, 0.5);
+          margin-bottom: 0.5rem;
         }
+      }
 
-        .messageLeft {
-          align-items: flex-start;
-          justify-content: flex-start;
-          .message__text {
-            border: 1px solid rgba(43, 52, 103, 0.5);
-          }
+      .messageRight {
+        align-items: flex-end;
+        justify-content: flex-end;
+        .message__text {
+          background: $color-boton;
+          color: #fff;
+        }
+      }
+
+      .messageLeft {
+        align-items: flex-start;
+        justify-content: flex-start;
+        .message__text {
+          border: 1px solid rgba(43, 52, 103, 0.5);
         }
       }
     }

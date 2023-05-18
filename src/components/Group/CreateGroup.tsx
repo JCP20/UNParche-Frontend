@@ -3,8 +3,8 @@ import { Form, Input, Modal, Select, message } from "antd";
 import { getBase64 } from "@/utils/images";
 import type { RcFile } from "antd/es/upload/interface";
 import React from "react";
-import { availableCategories } from "./Categories";
-import UploadPhoto from "./UploadPhoto";
+import { availableCategories } from "../Categories";
+import UploadPhoto from "../UploadPhoto";
 
 const { TextArea } = Input;
 
@@ -18,10 +18,11 @@ interface NewFormProps {
   service: (value: any) => any;
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
+  after: () => void;
 }
 
 const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service, isModalOpen, setIsModalOpen, user } = props;
+  const { service, isModalOpen, setIsModalOpen, user, after } = props;
 
   const [form] = Form.useForm();
 
@@ -35,6 +36,7 @@ const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
     values.administrators = [user];
 
     const resp = await service(values);
+    await after();
 
     if (resp.ok) {
       message.success("Grupo creado exitosamente");
