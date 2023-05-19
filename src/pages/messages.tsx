@@ -65,7 +65,7 @@ const MessagesPage = () => {
   }, [messages]);
 
   return (
-    <MainLayout>
+    <MainLayout title="Mensajes">
       <div className="p-1">
         <div className="messagesContainer shadow">
           <div className="messages__chats">

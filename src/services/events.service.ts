@@ -1,8 +1,9 @@
-import { backendApiPrivate } from "@/services/api/config";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import { IEvent } from "@/interfaces/events";
 
 export const createEventFn = async (values: any): Promise<any | null> => {
   try {
+    const backendApiPrivate = useAxiosPrivate();
     const { data } = await backendApiPrivate.post(`/events/`, values);
     return data.data as IEvent[];
   } catch (error) {
@@ -15,6 +16,7 @@ export const updateEventFn = async (
   id: string
 ): Promise<any | null> => {
   try {
+    const backendApiPrivate = useAxiosPrivate();
     const { data } = await backendApiPrivate.post(
       `/events/update/${id}`,
       values
@@ -27,6 +29,7 @@ export const updateEventFn = async (
 
 export const getEventsByGroupFn = async (id: string) => {
   try {
+    const backendApiPrivate = useAxiosPrivate();
     const { data } = await backendApiPrivate.get(`/events/your-events/${id}`);
     return data.data as IEvent[];
   } catch (error: any) {
@@ -37,6 +40,7 @@ export const getEventsByGroupFn = async (id: string) => {
 // listar todos los eventos DENUNCIADOS
 export const listAllEventsFn = async () => {
   try {
+    const backendApiPrivate = useAxiosPrivate();
     const { data } = await backendApiPrivate.get("/events/");
     return data.data;
   } catch (error: any) {
@@ -46,6 +50,7 @@ export const listAllEventsFn = async () => {
 
 export const deleteEventFn = async (id: string) => {
   try {
+    const backendApiPrivate = useAxiosPrivate();
     const resp = await backendApiPrivate.delete(`/events/${id}`);
     return resp;
   } catch (error: any) {

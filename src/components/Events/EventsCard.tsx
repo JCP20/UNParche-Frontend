@@ -1,10 +1,10 @@
 import {
   ExclamationOutlined,
   ShareAltOutlined,
+  StarOutlined,
   StarTwoTone,
-  setTwoToneColor,
 } from "@ant-design/icons";
-import { Card, Image, Input, Modal, Typography } from "antd";
+import { Card, Image, Input, Modal, Typography, message, Form } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
@@ -19,17 +19,28 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { eventData } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const [form] = Form.useForm();
 
   const changeColor = () => {
-    setTwoToneColor("#a5b377");
+    setIsFilled(!isFilled);
+
+    if (!isFilled) {
+      message.success("¡Evento guardado en favoritos!");
+    } else {
+      message.success("¡Evento eliminado de favoritos!");
+    }
   };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleOk = async () => {
+    const values = await form.validateFields();
+    console.log(values);
+    // setIsModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -39,16 +50,15 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   return (
     <>
       <Card
-        title={eventData?.title}
+        title={eventData?.title ?? "Titulo"}
         className="card__index shadow"
         cover={<Image src={eventData?.photo} fallback="/escudoUnal.png" />}
         actions={[
-          <StarTwoTone
-            key="star"
-            twoToneColor="#eb2f96"
-            onClick={changeColor}
-          />,
-          /*<EditOutlined key="edit" />,*/
+          isFilled ? (
+            <StarTwoTone twoToneColor={"#fd028c"} onClick={changeColor} />
+          ) : (
+            <StarOutlined onClick={changeColor} />
+          ),
           <ShareAltOutlined />,
           <ExclamationOutlined key="report" onClick={showModal} />,
         ]}
@@ -63,7 +73,7 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
                 symbol: "Ver más...",
               }}
             >
-              {eventData?.description}
+              {eventData?.description ?? "Descripción"}
             </Typography.Paragraph>
           }
         />
@@ -76,10 +86,22 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
         onCancel={handleCancel}
       >
         <p>
-          El reporte será enviado a los administradores para revisar el
-          contenido de la publicación
+          El reporte será enviado al equipo de UnParche para revisar el
+          contenido del evento.
         </p>
-        <TextArea rows={2} />
+        <Form form={form}>
+          <Form.Item
+            name="reason"
+            rules={[
+              {
+                required: true,
+                message: "Por favor ingrese el motivo del reporte",
+              },
+            ]}
+          >
+            <TextArea rows={2} />
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );

@@ -90,7 +90,7 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title="Calendario">
       <div className="p-1">
         <Modal
           title={"Eventos destacados del día  " + fecha}

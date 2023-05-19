@@ -33,14 +33,15 @@ export const TabItemsGroup = (input: itemsInput) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            width: "100%",
           }}
         >
           {isAdmin && (
             <FormEvent
-              style={{ width: "50%" }}
+              style={{ width: "60%", margin: "auto" }}
               actualGroup={group}
               service={createEventService}
-              initialValues={"Crear Evento"}
+              // initialValues={"Crear Evento"}
               after={after}
             />
           )}

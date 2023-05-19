@@ -11,8 +11,9 @@ export const sendMessageFn = async (message: any) => {
 
 export const getConversationsFn = async (id: string) => {
   try {
+    
     const res = await backendApiPrivate.get(`/conversation/${id}`);
-    console.log(res);
+    
     return res.data;
   } catch (error) {
     console.log(error);
@@ -21,6 +22,7 @@ export const getConversationsFn = async (id: string) => {
 
 export const getMessagesFn = async (chatId: string) => {
   try {
+    
     const res = await backendApiPrivate.get(`/message/${chatId}`);
     return res.data;
   } catch (error) {
@@ -33,6 +35,7 @@ export const newConversationFn = async (input: {
   receiverId: string;
 }) => {
   try {
+    
     const res = await backendApiPrivate.post("/conversation", input);
     return res.data;
   } catch (error: any) {

@@ -52,7 +52,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
     const resp = await service(values);
     await after();
-    // setIsModalOpen(false);
+    setIsModalOpen(false);
   };
 
   const handleChange = async (value: any) => {
@@ -80,6 +80,8 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
     setFormData(allValues);
   };
 
+  console.log(style ?? {});
+
   return (
     <>
       <Button style={style ?? {}} type="primary" onClick={showModal}>
@@ -89,6 +91,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
       <Modal
         width={800}
         centered
+        destroyOnClose
         title="Creación de Evento"
         open={isModalOpen}
         onOk={handleOk}
@@ -99,6 +102,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
           <div className="card">
             <h3>Información</h3>
             <Form
+              preserve={false}
               form={form}
               layout="vertical"
               name="wrap"

@@ -115,7 +115,12 @@ const GenericTable: React.FC<Props> = ({ dataSource, columns, loading }) => {
   });
 
   return (
-    <Table loading={loading} dataSource={dataSource} columns={columnsGeneric} />
+    <Table
+      style={{ marginBottom: "1rem" }}
+      loading={loading}
+      dataSource={dataSource}
+      columns={columnsGeneric}
+    />
   );
 };
 

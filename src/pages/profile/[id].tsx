@@ -9,7 +9,7 @@ import { getUserById, updateUserFn } from "@/services/user.service";
 import { getBase64 } from "@/utils/images";
 import { MessageOutlined } from "@ant-design/icons";
 
-import { Button, Image, List, Modal, message } from "antd";
+import { Button, Image, List, Modal, message, Typography } from "antd";
 import { RcFile } from "antd/es/upload";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -74,7 +74,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <MainLayout>
+    <MainLayout title="Perfil">
       <div className="profileInfo__container">
         <ModalProfile
           open={open}
@@ -131,9 +131,9 @@ const Profile = () => {
                       className="profileInfo__details__groups__listContainer__item__image"
                       src={group?.photo}
                     />
-                    <p className="profileInfo__details__groups__listContainer__item__description">
+                    <Typography.Paragraph ellipsis={{ rows: 3 }}>
                       {group?.description}
-                    </p>
+                    </Typography.Paragraph>
                   </div>
                 ))}
               </div>

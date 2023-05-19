@@ -13,7 +13,7 @@
     margin-right: 4%;
     background: #fff;
 
-    .profileInfo__avatar__image {
+    &__image {
       width: 50%;
       height: auto;
 
@@ -22,7 +22,7 @@
       border: 2px solid rgba(0, 0, 0, 0.05);
     }
 
-    .profileInfo__avatar__user {
+    &__user {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -38,7 +38,7 @@
     width: 50%;
     height: 100%;
 
-    .profileInfo__details__interests {
+    &__interests {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -93,7 +93,7 @@
           margin: 0.5rem;
           padding: 1rem;
 
-          .profileInfo__details__groups__listContainer__item__image {
+          &__image {
             border-radius: 50%;
             width: 5rem;
             height: 5rem;
@@ -101,7 +101,7 @@
             margin-bottom: 0.5rem;
           }
 
-          .profileInfo__details__groups__listContainer__item__description {
+          &__description {
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 3;

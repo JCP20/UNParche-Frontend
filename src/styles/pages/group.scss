@@ -43,11 +43,16 @@
         margin-bottom: 1rem;
       }
 
+      // .group__info__details__description {
+      //   text-overflow: ellipsis;
+      //   display: -webkit-box;
+      //   -webkit-line-clamp: 4;
+      //   -webkit-box-orient: vertical;
+      // }
+
       .group__info__details__description {
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
+        max-height: 50rem; /* Set a maximum height for the container */
+        overflow-y: auto; /* Enable vertical scrolling */
       }
 
       .group__info__details__btn {

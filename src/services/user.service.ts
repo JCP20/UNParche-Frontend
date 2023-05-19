@@ -1,6 +1,6 @@
-import { backendApiPrivate } from "@/services/api/config";
 import { IUser } from "@/interfaces/user";
 import { AxiosResponse } from "axios";
+import { backendApiPrivate } from "./api/config";
 
 export const getUserById = async (id: string): Promise<IUser | null> => {
   try {

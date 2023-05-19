@@ -25,7 +25,11 @@ export const itemsMenuLayout = (groups: IGroup[], isAdmin: boolean) => {
   ];
 
   if (isAdmin) {
-    menuItems.splice(4, 0, getItem("Admin", "/admin", <CoffeeOutlined />));
+    menuItems.splice(
+      4,
+      0,
+      getItem("Administrar", "/admin", <CoffeeOutlined />)
+    );
   }
 
   return menuItems;

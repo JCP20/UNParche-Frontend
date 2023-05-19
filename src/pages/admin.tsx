@@ -12,8 +12,9 @@ import { listAllGroupsFn } from "@/services/groups.service";
 import { listAllReportsFn } from "@/services/reports.service";
 import { listAllUsersFn } from "@/services/user.service";
 import { getAllStaticsFn } from "@/services/statistics.service";
-import { Card, Statistic } from "antd";
+import { Card, Statistic, Button, Tooltip } from "antd";
 import { useEffect, useState } from "react";
+import { ReloadOutlined } from "@ant-design/icons";
 
 const AdminPage = () => {
   const [loading, setLoading] = useState(true);
@@ -66,10 +67,20 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <MainLayout notShowHeader>
+    <MainLayout notShowHeader title="Admin">
       <>
         <Card bordered={false} className="statisticsContainer">
-          <h2>Administración UnParche</h2>
+          <div className="statisticsContainer__header">
+            <h2>Administración UnParche</h2>
+            <Tooltip title="Actualizar datos" placement="right">
+              <Button
+                type="primary"
+                shape="round"
+                onClick={getData}
+                icon={<ReloadOutlined />}
+              />
+            </Tooltip>
+          </div>
           <div className="statisticsContainer__values">
             <Statistic
               valueStyle={{ textAlign: "center" }}

@@ -6,7 +6,7 @@ import { IUser } from "@/interfaces/user";
 import { createEventFn, getEventsByGroupFn } from "@/services/events.service";
 import { getGroupById } from "@/services/groups.service";
 import { UserOutlined } from "@ant-design/icons";
-import { Button, Image, Tabs, Tag } from "antd";
+import { Button, Image, Tabs, Tag, Typography } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import MainLayout from "../../components/Layout/Layout";
@@ -42,7 +42,7 @@ const Grupo = () => {
   // console.log(events);
 
   return (
-    <MainLayout>
+    <MainLayout title={group?.name}>
       <div className="mainContainerGroupsPage">
         <div className="group__info shadow">
           <div className="group__info__imageContainer">
@@ -55,9 +55,14 @@ const Grupo = () => {
           <div className="group__info__details">
             <h2 className="group__info__details__title">{group?.name}</h2>
 
-            <p className="group__info__details__description">
-              {group?.description}
-            </p>
+            <div className="group__info__details__description">
+              <Typography.Paragraph
+                ellipsis={{ rows: 3, expandable: true, symbol: "Leer más" }}
+              >
+                {group?.description}
+              </Typography.Paragraph>
+            </div>
+
             <div>
               <Tag icon={<UserOutlined />} color="blue">
                 {group?.members?.length + group?.administrators?.length === 1

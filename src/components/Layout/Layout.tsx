@@ -7,16 +7,19 @@ import React, { useContext, useEffect, useState } from "react";
 import CrearGrupo from "../Group/CreateGroup";
 import { itemsMenuLayout } from "./MenuItems";
 import SearchBar from "./SearchBar";
+import Head from "next/head";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps {
   children: JSX.Element;
+  title?: string;
   notShowHeader?: boolean;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
+  title,
   notShowHeader,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
@@ -67,6 +70,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   return (
     <Layout style={{ height: "100vh" }}>
       <Header className="headerStyle">
+        <Head>
+          <title>UnParche | {title ?? ""}</title>
+        </Head>
         <div className="logoLayout">
           <img src="/imagenes/logRecort.png" />
         </div>
@@ -170,9 +176,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             <div className="creditsEnd">
               <p className="credits">
                 Hecho con <span className="credits__hearth">❤</span> por equipo
-                UNParche, 2023
+                UNParche
               </p>
-              <p className="credits">Universidad Nacional de Colombia</p>
+              <p className="credits">Universidad Nacional de Colombia, 2023</p>
             </div>
           </Footer>
         )}

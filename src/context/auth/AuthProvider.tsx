@@ -22,6 +22,10 @@ const adminRoutes = ["/admin"];
 
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [persist, setPersist] = useState<boolean>(() => {
+  //   const persistCheck = localStorage.getItem("persist");
+  //   return persistCheck ? JSON.parse(persistCheck) : false;
+  // });
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<userAuthTypes>({} as userAuthTypes);
   const [isTokenCheckCompleted, setIsTokenCheckCompleted] =
