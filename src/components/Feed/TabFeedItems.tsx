@@ -1,7 +1,6 @@
 import EventCard from "../Events/EventsCard";
 
 export const tabItems = () => {
-  console.log("aqui");
   return [
     {
       label: "FYP",

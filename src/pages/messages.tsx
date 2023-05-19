@@ -8,6 +8,7 @@ import ConversationComp from "@/components/Messages/ConversationComp";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { getConversationsFn } from "@/services/messages.service";
 import { io } from "socket.io-client";
+import LoadingComponent from "@/components/LoadingComponent";
 
 interface IConversation {
   members: any[];
@@ -24,6 +25,7 @@ const MessagesPage = () => {
   const [messages, setMessages] = useState([]);
   const [currentChat, setCurrentChat] = useState<any>(null);
   const [arrivalMessage, setArrivalMessage] = useState<any>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     socket.current = io("ws://localhost:5000");
@@ -51,8 +53,10 @@ const MessagesPage = () => {
   }, [user]);
 
   const getData = async () => {
+    setLoading(true);
     const conversations = await getConversationsFn(user.id);
     setConversations(conversations?.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -66,36 +70,40 @@ const MessagesPage = () => {
 
   return (
     <MainLayout title="Mensajes">
-      <div className="p-1">
-        <div className="messagesContainer shadow">
-          <div className="messages__chats">
-            <div className="messages__header">
-              <h2>Chats</h2>
-            </div>
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <div className="p-1">
+          <div className="messagesContainer shadow animate__animated animate__fadeIn">
+            <div className="messages__chats">
+              <div className="messages__header">
+                <h2>Chats</h2>
+              </div>
 
-            <div className="messages__conversations">
-              {conversations?.map((c) => (
-                <div
-                  className="conversation"
-                  onClick={() => {
-                    setCurrentChat(c);
-                  }}
-                >
-                  <ConversationComp conversation={c} currentUser={user} />
-                </div>
-              ))}
+              <div className="messages__conversations">
+                {conversations?.map((c) => (
+                  <div
+                    className="conversation"
+                    onClick={() => {
+                      setCurrentChat(c);
+                    }}
+                  >
+                    <ConversationComp conversation={c} currentUser={user} />
+                  </div>
+                ))}
+              </div>
             </div>
+            <Chat
+              scrollRef={scrollRef}
+              messages={messages}
+              setMessages={setMessages}
+              actualUser={user}
+              currentChat={currentChat}
+              socket={socket}
+            />
           </div>
-          <Chat
-            scrollRef={scrollRef}
-            messages={messages}
-            setMessages={setMessages}
-            actualUser={user}
-            currentChat={currentChat}
-            socket={socket}
-          />
         </div>
-      </div>
+      )}
     </MainLayout>
   );
 };

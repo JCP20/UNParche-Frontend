@@ -1,4 +1,4 @@
-import { Form, Input, Modal, Radio, Select, Upload } from "antd";
+import { Form, Modal, Select, message } from "antd";
 import React from "react";
 import { availableCategories } from "../Categories";
 import UploadPhoto from "../UploadPhoto";
@@ -12,6 +12,7 @@ interface CollectionCreateFormProps {
   onCreate: (values: Values) => void;
   onCancel: () => void;
   defaultValues?: Values;
+  after: () => void;
 }
 
 const ModalProfile: React.FC<CollectionCreateFormProps> = ({
@@ -19,10 +20,21 @@ const ModalProfile: React.FC<CollectionCreateFormProps> = ({
   onCreate,
   onCancel,
   defaultValues,
+  after,
 }) => {
   const [form] = Form.useForm();
 
-  console.log(defaultValues);
+  const handleCreate = async () => {
+    try {
+      const values = await form.validateFields();
+      await onCreate(values);
+      await after();
+      form.resetFields();
+    } catch (error: any) {
+      console.log("Validate Failed:", error);
+    }
+  };
+
   return (
     <Modal
       open={open}
@@ -30,17 +42,7 @@ const ModalProfile: React.FC<CollectionCreateFormProps> = ({
       okText="Aceptar"
       cancelText="Cancelar"
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            onCreate(values);
-            // form.resetFields();
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={handleCreate}
     >
       <Form
         form={form}

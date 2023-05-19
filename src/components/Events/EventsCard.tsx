@@ -19,6 +19,7 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { eventData } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [animateClass, setAnimateClass] = useState("");
   const [isFilled, setIsFilled] = useState(false);
 
   const [form] = Form.useForm();
@@ -26,11 +27,9 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   const changeColor = () => {
     setIsFilled(!isFilled);
 
-    if (!isFilled) {
-      message.success("¡Evento guardado en favoritos!");
-    } else {
-      message.success("¡Evento eliminado de favoritos!");
-    }
+    setAnimateClass("animate__animated animate__heartBeat");
+
+    setTimeout(() => setAnimateClass(""), 1000);
   };
 
   const showModal = () => {
@@ -55,9 +54,13 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
         cover={<Image src={eventData?.photo} fallback="/escudoUnal.png" />}
         actions={[
           isFilled ? (
-            <StarTwoTone twoToneColor={"#fd028c"} onClick={changeColor} />
+            <StarTwoTone
+              className={animateClass}
+              twoToneColor={"#fd028c"}
+              onClick={changeColor}
+            />
           ) : (
-            <StarOutlined onClick={changeColor} />
+            <StarOutlined className={animateClass} onClick={changeColor} />
           ),
           <ShareAltOutlined />,
           <ExclamationOutlined key="report" onClick={showModal} />,

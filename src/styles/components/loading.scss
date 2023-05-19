@@ -72,3 +72,18 @@
     transform: translateY(0);
   }
 }
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  > p {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    color: $color-boton;
+  }
+}

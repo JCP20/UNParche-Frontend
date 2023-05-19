@@ -73,6 +73,7 @@ const Chat = ({
   };
 
   const getActualMessages = async () => {
+    if (!currentChat) return;
     const resp = await getMessagesFn(currentChat?._id);
     setMessages(resp?.data);
   };
