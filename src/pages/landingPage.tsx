@@ -4,60 +4,19 @@ import Link from 'next/link';
 
 const LandingPage = () => {
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      minHeight: '100vh',
-      backgroundImage: 'url(/fondoLandingPage.png)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      marginTop: 'auto'
-
-    }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center'
-      }}>
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center'
-        }}>
+    <div className= "principal">
+      <div className='segundo'>
+        <div className="tercero">
           <div>
-            <img src="/logoLargeWhite.png" alt="Logo" style={{ 
-              width: '100%', 
-              height: 'auto', 
-              maxWidth: '350px', 
-              marginTop: '90px',
-              borderRadius: '5px'
-            }} />
+            <img className="logoPrincipal" src="/logoLargeWhite.png" alt="Logo" />
           </div>
-          <div style={{ 
-            display: 'flex',
-            alignItems: 'center',
-            height: '339px',
-            border: '2px solid #F5EEE8',
-            marginTop: '90px',
-            borderRadius: '5px',
-            }}>
-            <div style={{ 
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-              padding: '0px  90px'
-            }}>
+          <div className= "cuarto">
+            <div className = "botones">
               <Link href="/register">
-                <Button type="primary" style={{ marginBottom: '80px', boxShadow: "0px 0px 0px" }}>Registrarse</Button>
+                <Button type="primary" className='botonRegistrarse'>Registrarse</Button>
               </Link>
               <Link href="/login">
-  
-                <Button style={{ 
-                  backgroundColor: 'rgb(44, 53, 102)', 
-                  border: '1px solid rgb(44, 53, 102)', 
-                  color: '#F5EEE8',
-                  width: '100%',
-                }}>
+                <Button className='botonIniciarSesion'>
                   Iniciar Sesión
                 </Button>
               </Link>
@@ -65,23 +24,55 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <footer style={{ 
-          backgroundColor: 'rgb(34, 45, 89)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column', 
-          position: "relative", 
-          marginTop: 'auto', 
-          bottom: 0,
-          left: 0,
-          right: 0, 
-}}>
-  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <img src="/escudoUnal.png" alt="Escudo UNAL" style={{ height: '50px', }} />
-  </div>
-  <div style={{ color: "#F5EEE8", marginTop: '10px', fontSize: ' 16px' }}>nuestros nombres y q tales</div>
-</footer>
+
+      <div className = "segundaParte">
+
+        <div className='segundo'>
+              <div className='tercero'>
+            <div className='tarjetaCentral'>
+              <h1>tarjeta1</h1>
+              <h1>tarjeta1</h1>
+              <h1>tarjeta1</h1>
+            </div>
+            <div className='tarjetaCentral'>
+              <h1>tarjeta2</h1>
+              <h1>tarjeta2</h1>
+              <h1>tarjeta2</h1>
+            </div>
+              </div>
+            </div>
+          </div>
+
+
+      <footer className = "footer">
+            <div>
+      <div className='segundo'>
+          <div className='tercero'>
+          <div className='footerImage' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img className= "escudo"src="/escudoUnal.png" alt="Escudo UNAL" />
+            </div>
+            <img  className= 'logoFooter' src="/logoLarge.png" alt="Logo" />
+            <div className = "correos">
+            <h1>Nuestro equipo</h1>
+            <p className='parrafo'>
+        jyarac@unal.edu.co <br/>
+        jveloza@unal.edu.co <br />
+        jcardozop@unal.edu.co <br />
+        lcastiblancos@unal.edu.co <br />
+        gotalorag@unal.edu.co <br />
+        lguacaneme@unal.edu.co <br />
+             </p>
+            </div>
+            <div className = "correos">
+                <h1>Compartir</h1>
+                <p>Iconos</p>
+              </div>
+        </div>
+        </div>
+        </div>
+
+
+       </footer>	
       </div>
 
   );

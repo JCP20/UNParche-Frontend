@@ -1,0 +1,122 @@
+.principal{
+    display: 'flex';
+    flex-direction: 'column';
+    min-height: '100vh';
+    background-image: 'url(/fondoLandingPage.png)';
+    background-size: 'cover';
+    background-position: 'center',;
+    background-repeat: 'no-repeat';
+    margin-top: 'auto';
+}
+.segundo{
+    display: 'flex';
+    justify-content: "center";
+    margin-top:"4%"
+}
+.tercero{
+    display: 'flex';
+    align-items: 'center';
+}
+.cuarto{
+    display: 'flex';
+    align-items: 'center';
+    height: '21.188rem';
+    border: '0.125rem solid #F5EEE8';
+    margin-top: '5.625rem';
+    border-radius: '0.313rem';
+}
+.logoPrincipal{
+    width: '100%';
+    height: 'auto'; 
+    max-width: '21.875rem'; 
+    margin-top: '5.625rem';
+    border-radius: '0.313rem';
+}
+.segundaParte{
+    background-color: #f5eee8;
+    height: 54rem;
+    width: 100%;
+    margin-top: 17rem
+}
+.botones{
+    display: 'flex';
+    flex-direction: 'column';
+    align-items: 'center';
+    width: '100%';
+    padding: '0 2.5rem';
+}
+.botonRegistrarse{
+    margin-bottom: '5rem';
+    box-shadow: "0rem 0rem 0rem";
+}
+.botonIniciarSesion{
+    background-color: 'rgb(44, 53, 102)';
+    border: '1px solid rgb(44, 53, 102)'; 
+    color: '#F5EEE8';
+    width: '100%';
+}
+.Segundaparte{
+    height: 54rem;
+    width: 100%;
+    margin-top: 17rem;  // si lo quiere ajustar mas arriba o abajo, modifique éste
+}
+.footer{
+    background-color: '#233266';
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+    flex-direction: 'column';
+    position: "relative";
+    margin-top: 'auto';
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    color: "#F5EEE8";
+}
+.footerText{
+    margin-top: "1.5rem";
+}
+.footerImage{
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+}
+.logoCorreos{
+    width: '100%';
+    height: 'auto'; 
+    max-width: '350px'; 
+    margin-top: '90px';
+    border-radius: '5px';
+}
+.correos{
+    margin-top: "1.5rem";
+    display: 'flex';
+    flex-direction: 'column';
+    align-items: 'center';
+    width: '100%';
+    margin-left: '1.2rem'
+}
+.parrafo{
+    line-height:"1.2rem"
+}
+.logoFooter{
+    width: '100%';
+    height: 'auto'; 
+    max-width: '21.875rem'; 
+    margin-top: '1rem';
+    border-radius: '0.313rem';
+}
+.escudo{
+    height: '50px';
+    margin-top: '1rem'
+}
+.tarjetaCentral{
+    display: 'flex';
+    flex-direction: 'column';
+    align-items: 'center';
+    width: '30%';
+    border: '0.13rem solid #233266';
+    margin-top: '25%';
+    margin-left: '14%';
+    border-radius: '0.2rem '
+}
