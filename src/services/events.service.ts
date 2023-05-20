@@ -9,7 +9,22 @@ export const createEventFn = async (values: any): Promise<any | null> => {
     return null;
   }
 };
-
+export const deleteEventFn = async (id:string)  => {
+  try {
+    const { data } = await backendApiPrivate.delete(`/events/${id}`);
+    return data.data as IEvent[];
+  } catch (error) {
+    return null;
+  }
+};
+export const EventsGroup = async (id:string): Promise<IEvent[] | null> => {
+  try {
+    const { data } = await backendApiPrivate.get(`/events/your-events/${id}`);
+    return data.data as IEvent[];
+  } catch (error) {
+    return null;
+  }
+};
 export const updateEventFn = async (
   values: any,
   id: string

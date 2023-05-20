@@ -1,5 +1,6 @@
 import { backendApiPrivate } from "@/services/api/config";
 import { IGroup } from "@/interfaces/groups";
+import { IUser } from "@/interfaces/user";
 
 export const listAllGroups = async (): Promise<IGroup[] | null> => {
   try {
@@ -42,6 +43,16 @@ export const updateGroupFn = async ({values,idGroup,idUser}: { values: any; idGr
       values
     );
     return data.data as IGroup[];
+  } catch (error) {
+    return null;
+  }
+};
+export const usersGroup = async (idGroup: string): Promise<IUser | null> => {
+  try {
+    const { data } = await backendApiPrivate.get(
+      `/groups/users/${idGroup}`
+    );
+    return data.data as IUser;
   } catch (error) {
     return null;
   }

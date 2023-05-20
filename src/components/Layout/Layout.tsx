@@ -25,15 +25,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { GroupsfromAdmin } from "@/services/groups.service";
-import { getItem } from "./utils";
-const { SubMenu } = Menu;
 import Image from "next/image";
 const { Header, Content, Footer, Sider } = Layout;
-import HeaderApp from "./Header";
 import { text } from "stream/consumers";
 type MenuItem = Required<MenuProps>["items"][number];
+import { useThemeContext } from '@/context/auth/ThemeContext';
 const logo = "/imagenes/logRecort.png";
-
+const {contextTheme, setContextTheme} = useThemeContext()
 
 interface MainLayoutProps {
   children: JSX.Element;
@@ -70,7 +68,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   
   useEffect(() => {
     getGrupos();
-    //console.log(menu) //obtener información
   }, [])
   const items: MenuProps['items'] = [
     {
@@ -111,6 +108,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   useEffect(() => {
     setSelectedKey(router.pathname);
   }, [selectedKey]);
+  const handleToggleTheme = () => {
+    const newTheme = contextTheme === 'lightMode' ? 'darkMode' : 'lightMode';
+    setContextTheme(newTheme);
+  };
   const handleOnClick = (e: any) => {
     if (e.key === "logout") {
       logout();
@@ -120,10 +121,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
   return (
     <ConfigProvider
-      theme={{
-        algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
+    theme={{
+      algorithm: contextTheme === 'darkMode' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    }}
+  >
       <Layout style={{ height: "100vh" }}>
         <Header className="headerStyle">
           <div className="logo"></div>
@@ -131,12 +132,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <div className="userNotify">
             <p>@{user.username}</p>
           </div>
-          {/* <Switch
-            checkedChildren={<CoffeeOutlined />}
-            unCheckedChildren={<HomeOutlined />}
-            defaultChecked
-            onChange={() => setDarkMode(!darkMode)}
-          /> */}
+          <Switch
+           checkedChildren={<CoffeeOutlined />}
+           unCheckedChildren={<HomeOutlined />}
+           defaultChecked
+           onChange={handleToggleTheme}
+            />
         </Header>
         <Layout hasSider>
           <Sider
@@ -162,7 +163,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               style={{
                 overflowY: "auto",
                 background: "#0000",
-                padding: "1rem",
+                //padding: "1rem",
                 height: "100%",
                 width: "100%",
               }}

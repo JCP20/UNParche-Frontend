@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import MainLayout from "@/components/Layout/Layout";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
@@ -25,41 +25,22 @@ import {
   Row,
   Col
 } from "antd";
-const { Header, Content, Sider } = Layout;
+const {Content, Sider } = Layout;
 import type { Dayjs } from "dayjs";
 import FormEvento from "@/components/FormEvent";
 import FormGrupo from "@/components/CreateGroup";
 import EventCardApp from "@/components/EventsCard";
-import { createEventFn } from "@/services/events.service";
-import { createGroupFn, updateGroupFn } from "@/services/groups.service";
+import { createEventFn, EventsGroup, deleteEventFn } from "@/services/events.service";
+import { updateGroupFn, GroupsNombre, usersGroup } from "@/services/groups.service";
 import dayjs from "dayjs";
-import { useParams } from 'react-router-dom';
+import { getUserById, Userenroll , Userquit } from "@/services/user.service";
+import { AuthContext } from '@/context/auth/AuthContext';
 dayjs.locale("es-mx");
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
   console.log(value.format("YYYY-MM-DD"), mode);
 };
-const pdata = [
-  {
-    title: "Pepito",
-  },
-  {
-    title: "Ana Maria",
-  },
-  {
-    title: "Juan",
-  },
-  {
-    title: "Jose",
-  },
-];
-const data = Array.from({ length: 23 }).map((_, i) => ({
-  href: "https://ant.design",
-  title: `Publicacion ${i}`,
-  avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-  description: "Evento en la concha Acústica ",
-  content:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-}));
+
+
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
   <Space>
     {React.createElement(icon)}
@@ -70,71 +51,127 @@ const { Meta } = Card;
 const onChange = (key: string) => {
   console.log(key);
 };
-const items: TabsProps["items"] = [
-  {
-    key: "1",
-    label: `Eventos`,
-    children: (
-        <Row>
-          <Col span={5}>
-          <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
-          </Col>
-        <List
-        itemLayout="vertical"
-        dataSource={pdata}
-        renderItem={(item, index) => (
-        <List.Item >
-        <Space direction="vertical">
-        <EventCardApp></EventCardApp>
-        <Space>
-        <Button>Eliminar</Button>
-        <Button>Editar</Button>
-        </Space>
-        </Space>
-      </List.Item>
-      
-    )}
-  />       
-      </Row>
-    ),
-  },
-  {
-    key: "2",
-    label: `Calendario`,
-    children: (
-      <div>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-      </div>
-    ),
-  },
-  {
-    key: "3",
-    label: `Admin`,
-    children: (
-        <Row gutter={16}>
-        <Col span={12}>
-        <Card >
-        <Meta
-          avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-          title="Pepito Perez"
-          description="pepitoperez@unal.edu.co"
-        />
-      </Card>
-        </Col>
-        <Col span={12} style={{padding:'24px'}}>        
-        <Button type="primary">Iniciar Chat</Button>
-        </Col>
-       </Row>
-    ),
-  },
-];
+
 
 const Grupo: React.FC = () => {
   const router = useRouter();
   const { name } = router.query;
-  console.log(name)
+  const {user} = useContext(AuthContext);
+  const [Grupo, setGrupoData] = useState<any>();
+  const [Admin, setAdminData] = useState<any>();
+  const [Events, setEventsData] = useState<any>();
+  const [Users, setUsersData] = useState<any>();
+ // console.log(user.id)
+  const getGrupos = async (name:string) => {
+    const data = await GroupsNombre(name);   
+    if(data != null){
+      setGrupoData(data);
+      const eventos = await EventsGroup(data._id);
+      const users = await  usersGroup(data._id); 
+      const admin = await getUserById(data.administrators[0]);
+      if(admin!= null){
+        setEventsData(eventos);
+        setAdminData(admin);
+        setUsersData(users); 
+      }        
+    }
+  }; 
+
+  useEffect(() => {
+    getGrupos(name as string);
+  }, [name]);
+  const enroll = async (username:string,name:string) => {
+    const input= {username,name}
+    const data = await  Userenroll(input); 
+    console.log(data);  
+  };
+  const quit = async (username:string,name:string) => {
+    const input= {username,name}
+    const data = await  Userquit(input); 
+    console.log(data);  
+  };
+  const deleteEvent = async (id:string) => {
+    const data = await  deleteEventFn(id); 
+    console.log(data);  
+  }; 
+  //console.log(Grupo.category)
+  const items: TabsProps["items"] = [
+    {
+      key: "1",
+      label: `Eventos`,
+      children: (
+          <Row>
+            <Col span={5}>
+            <FormEvento service={createEventFn} initialValues={"Crear Evento"} />
+            </Col>
+            <Col span= {14}>
+          <List
+          itemLayout="vertical"
+          dataSource={Events}
+          renderItem={(item, index) => (
+          <List.Item >
+          <Space direction="vertical">
+          <EventCardApp
+          nombreEvento = {item.title}
+          descripcionEvento={item.description}
+          fechaEvento={item.date}
+          horaEvento={item.schedule}
+          nombreGrupo={name}
+          ></EventCardApp>                 
+          {Admin && (Admin._id == user.id) && (
+            <Space>
+
+          <Button
+          onClick ={() => deleteEvent(item._id)}
+          >Eliminar</Button>
+          <Button>Editar</Button>
+          </Space>
+          ) 
+          }          
+          </Space>
+        </List.Item>
+          
+      )}
+    /> 
+    </Col>      
+        </Row>
+      ),
+    },
+    {
+      key: "2",
+      label: `Calendario`,
+      children: (
+        <div>
+            <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+        </div>
+      ),
+    },
+    {
+      key: "3",
+      label: `Admin`,
+      children: (
+          <Row gutter={16}>
+          <Col span={12}>         
+          <Card actions={[
+         <UserOutlined key="setting" />,]}>
+          {Admin && (<Meta
+            avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+            title= {Admin.username}
+            description= {Admin.email}
+
+          />)}
+          
+        </Card>
+          </Col>
+          <Col span={12} style={{padding:'24px'}}>        
+          <Button type="primary">Iniciar Chat</Button>
+          </Col>
+         </Row>
+      ),
+    },
+  ];
     return (
-      <MainLayout notShowHeader>
+      <MainLayout notShowHeader>       
           <Layout>
             <Content style={{padding: '24px', marginRight: 300 }}>
               <Tabs
@@ -147,14 +184,18 @@ const Grupo: React.FC = () => {
             <Sider
               width={300}
               style={{
-                overflow: "auto",
-                height: "100vh",
+                //overflow: "auto",
+                //height: "100vh",
                 position: "fixed",
                 right: "0",
+                top: "5",
+                //align-items: 'center',
                 padding: "16px  16px",
               }}
             >
-              <Badge.Ribbon text="Público" color="#2b3467">
+            {Grupo && (
+              <Badge.Ribbon text= {Grupo.category} color="#2b3467">
+                           
                 <Card
                   cover={
                     <img
@@ -162,25 +203,13 @@ const Grupo: React.FC = () => {
                       src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                     />
                   }
-                  actions={[
-                    <FormGrupo
-                      service={updateGroupFn}
-                      initialValues={"Editar"}
-                    />,
-                    <Button>Unirme </Button>,
-                  ]}
+              
                 >
-                  <Space
-                    direction="vertical"
-                    size="middle"
-                    style={{ display: "flex" }}
-                  >
                     <Meta
                       title= { name }
-                      description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+                      description= {Grupo.description}
                     />
-                    <Tag color="magenta">Religion</Tag>
-                  </Space>
+                    <Space direction="vertical">
                   <Card style={{ marginTop: 48 }}>
                     <Avatar.Group maxCount={6}>
                       <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
@@ -209,8 +238,26 @@ const Grupo: React.FC = () => {
                       />
                     </Avatar.Group>
                   </Card>
+                  
+                  {Admin && (Admin._id == user.id) && (
+                  <FormGrupo
+                      service={updateGroupFn}
+                      initialValues={"Editar"}
+                    />)}
+                   
+                    {Users && (!Users.includes(user.id)) && !(Admin._id == user.id) && (                  
+                    <Button
+                     onClick ={() => enroll(user.username , name )}
+                    >Unirme</Button>)}
+                    {Users && (Users.includes(user.id)) &&  !(Admin._id == user.id) &&(
+                    <Button
+                    onClick ={() => quit(user.username , name)}
+                    >Salirme</Button>                   
+                    )}
+                </Space>
                 </Card>
               </Badge.Ribbon>
+              )}
             </Sider>
           </Layout>
       </MainLayout>

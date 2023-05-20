@@ -20,6 +20,7 @@ interface NewFormProps {
   fechaEvento?: string;
   horaEvento?: string;
   imagenSrc?: string;
+  nombreGrupo?: string;
 }
 
 const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
@@ -27,6 +28,7 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
   const { descripcionEvento } = props;
   const { fechaEvento } = props;
   const { horaEvento } = props;
+  const {nombreGrupo} = props;
   const { imagenSrc } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,7 +54,7 @@ const EventCardApp: React.FC<NewFormProps> = (props: NewFormProps) => {
       <Card
         title={nombreEvento}
         hoverable
-        extra={<a href="#">nombreGrupo</a>}
+        extra={<a href={nombreGrupo}>{nombreGrupo}</a>}
         className="card__index"
         cover={<img src={defaultSrc} onDoubleClick={showModal} />}
         actions={[
