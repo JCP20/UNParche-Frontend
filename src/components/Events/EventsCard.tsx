@@ -1,10 +1,11 @@
 import {
   ExclamationOutlined,
+  HeartOutlined,
+  HeartTwoTone,
+  MessageFilled,
   ShareAltOutlined,
-  StarOutlined,
-  StarTwoTone,
 } from "@ant-design/icons";
-import { Card, Image, Input, Modal, Typography, message, Form } from "antd";
+import { Card, Form, Image, Input, Modal, Tooltip, Typography } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
@@ -28,8 +29,6 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
     setIsFilled(!isFilled);
 
     setAnimateClass("animate__animated animate__heartBeat");
-
-    setTimeout(() => setAnimateClass(""), 1000);
   };
 
   const showModal = () => {
@@ -54,15 +53,16 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
         cover={<Image src={eventData?.photo} fallback="/escudoUnal.png" />}
         actions={[
           isFilled ? (
-            <StarTwoTone
+            <HeartTwoTone
               className={animateClass}
               twoToneColor={"#fd028c"}
               onClick={changeColor}
             />
           ) : (
-            <StarOutlined className={animateClass} onClick={changeColor} />
+            <HeartOutlined className={animateClass} onClick={changeColor} />
           ),
           <ShareAltOutlined />,
+          <MessageFilled key="message" />,
           <ExclamationOutlined key="report" onClick={showModal} />,
         ]}
       >

@@ -15,12 +15,14 @@ interface MainLayoutProps {
   children: JSX.Element;
   title?: string;
   notShowHeader?: boolean;
+  updateGroupsData?: () => void;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   title,
   notShowHeader,
+  updateGroupsData,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
   // const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -61,7 +63,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [updateGroupsData]);
 
   useEffect(() => {
     localStorage.setItem("collapsedState", JSON.stringify(isCollapsed));

@@ -72,3 +72,33 @@ export const deleteGroupFn = async (id: string) => {
     return error.response;
   }
 };
+
+export const enrollUserToGroupFn = async (
+  memberId: string,
+  groupId: string
+) => {
+  try {
+    const resp = await backendApiPrivate.patch(`/groups/enroll`, {
+      memberId,
+      groupId,
+    });
+    return resp;
+  } catch (error: any) {
+    return false;
+  }
+};
+
+export const removeUserFromGroupFn = async (
+  memberId: string,
+  groupId: string
+) => {
+  try {
+    const resp = await backendApiPrivate.patch(`/groups/removeMember`, {
+      memberId,
+      groupId,
+    });
+    return resp;
+  } catch (error: any) {
+    return false;
+  }
+};

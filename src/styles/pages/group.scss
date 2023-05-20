@@ -16,7 +16,7 @@
     height: 50%;
     width: 100%;
 
-    .group__info__imageContainer {
+    &__imageContainer {
       display: flex;
       justify-content: center;
       width: 45%;
@@ -37,27 +37,24 @@
       flex-direction: column;
       align-items: center;
 
-      .group__info__details__title {
+      &__title {
         font-size: 1.3rem;
         font-weight: 700;
         margin-bottom: 1rem;
       }
 
-      // .group__info__details__description {
-      //   text-overflow: ellipsis;
-      //   display: -webkit-box;
-      //   -webkit-line-clamp: 4;
-      //   -webkit-box-orient: vertical;
-      // }
-
-      .group__info__details__description {
-        max-height: 50rem; /* Set a maximum height for the container */
-        overflow-y: auto; /* Enable vertical scrolling */
+      &__description {
+        max-height: 50rem;
+        overflow-y: auto;
       }
 
-      .group__info__details__btn {
+      &__btn {
         width: 60%;
         margin: 0.5rem auto;
+      }
+
+      &__tags {
+        margin-bottom: 1rem;
       }
     }
   }

@@ -24,15 +24,17 @@ const Profile = () => {
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
-  const handleOnCreate = async (values: any) => {
-    setLoading(true);
+  const handleOnUpdate = async (values: any) => {
     const { photo } = values;
-    const base64Photo = await getBase64(photo.file.originFileObj as RcFile);
+    if (photo) {
+      const base64Photo = await getBase64(photo.file.originFileObj as RcFile);
+      values.photo = base64Photo;
+    }
     message.loading({
       content: "Actualizando perfil...",
       key: "updateProfile",
     });
-    const resp = await updateUserFn(user.id, { ...values, photo: base64Photo });
+    const resp = await updateUserFn(user.id, { ...values });
     if (resp?.data.ok) {
       message.success({ content: "Perfil actualizado", key: "updateProfile" });
       getData();
@@ -43,7 +45,6 @@ const Profile = () => {
       });
     }
     setOpen(false);
-    setLoading(false);
   };
 
   const handleSendMessage = async () => {
@@ -95,7 +96,7 @@ const Profile = () => {
           <div className="profileInfo__container animate__animated animate__fadeIn">
             <ModalProfile
               open={open}
-              onCreate={handleOnCreate}
+              onUpdate={handleOnUpdate}
               after={getData}
               onCancel={() => setOpen(false)}
               defaultValues={{

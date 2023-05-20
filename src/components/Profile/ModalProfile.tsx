@@ -9,7 +9,7 @@ interface Values {
 
 interface CollectionCreateFormProps {
   open: boolean;
-  onCreate: (values: Values) => void;
+  onUpdate: (values: Values) => void;
   onCancel: () => void;
   defaultValues?: Values;
   after: () => void;
@@ -17,17 +17,17 @@ interface CollectionCreateFormProps {
 
 const ModalProfile: React.FC<CollectionCreateFormProps> = ({
   open,
-  onCreate,
+  onUpdate,
   onCancel,
   defaultValues,
   after,
 }) => {
   const [form] = Form.useForm();
 
-  const handleCreate = async () => {
+  const handleUpdate = async () => {
     try {
       const values = await form.validateFields();
-      await onCreate(values);
+      await onUpdate(values);
       await after();
       form.resetFields();
     } catch (error: any) {
@@ -42,7 +42,7 @@ const ModalProfile: React.FC<CollectionCreateFormProps> = ({
       okText="Aceptar"
       cancelText="Cancelar"
       onCancel={onCancel}
-      onOk={handleCreate}
+      onOk={handleUpdate}
     >
       <Form
         form={form}
