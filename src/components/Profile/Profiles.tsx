@@ -46,7 +46,7 @@ import { ownedGroups } from "@/services/profile";
 import { myGroupsShow } from "@/services/profile";
 import { IUser } from "@/interfaces/user";
 import { IGroup } from "@/interfaces/groups";
-import CrearGrupoApp from "../Group/CreateGroup";
+import CrearGrupoApp from "../Group/FromGroup";
 import { AuthContext } from "@/context/auth/AuthContext";
 
 const Profile = () => {

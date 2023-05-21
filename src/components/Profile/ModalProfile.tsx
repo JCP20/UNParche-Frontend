@@ -2,16 +2,13 @@ import { Form, Modal, Select, message } from "antd";
 import React from "react";
 import { availableCategories } from "../Categories";
 import UploadPhoto from "../UploadPhoto";
-
-interface Values {
-  preferredCategories: string[];
-}
+import { IUser } from "@/interfaces/user";
 
 interface CollectionCreateFormProps {
   open: boolean;
-  onUpdate: (values: Values) => void;
+  onUpdate: (values: any) => void;
   onCancel: () => void;
-  defaultValues?: Values;
+  defaultValues?: IUser;
   after: () => void;
 }
 
@@ -48,7 +45,7 @@ const ModalProfile: React.FC<CollectionCreateFormProps> = ({
         form={form}
         layout="vertical"
         name="form_in_modal"
-        initialValues={{ ...defaultValues }}
+        initialValues={defaultValues}
       >
         {/* <Form.Item name="actualPassword" label="Contraseña actual">
           <Input.Password />
@@ -89,7 +86,11 @@ const ModalProfile: React.FC<CollectionCreateFormProps> = ({
           </Select>
         </Form.Item>
 
-        <UploadPhoto name="photo" label="Imagen de perfil" />
+        <UploadPhoto
+          name="photo"
+          label="Imagen de perfil"
+          initialPhotoUrl={defaultValues?.photo}
+        />
       </Form>
     </Modal>
   );

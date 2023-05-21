@@ -8,7 +8,7 @@ import { getGroupsByUserFn } from "@/services/groups.service";
 import { newConversationFn } from "@/services/messages.service";
 import { getUserById, updateUserFn } from "@/services/user.service";
 import { getBase64 } from "@/utils/images";
-import { MessageOutlined, LoadingOutlined } from "@ant-design/icons";
+import { MessageOutlined } from "@ant-design/icons";
 
 import { Button, Image, List, Modal, message, Typography, Spin } from "antd";
 import { RcFile } from "antd/es/upload";
@@ -25,9 +25,10 @@ const Profile = () => {
   const router = useRouter();
 
   const handleOnUpdate = async (values: any) => {
-    const { photo } = values;
-    if (photo) {
-      const base64Photo = await getBase64(photo.file.originFileObj as RcFile);
+    if (typeof values.photo !== "string") {
+      const base64Photo = await getBase64(
+        values.photo.file.originFileObj as RcFile
+      );
       values.photo = base64Photo;
     }
     message.loading({
@@ -59,7 +60,10 @@ const Profile = () => {
           senderId: user.id,
         });
         if (resp?.ok) {
-          router.push("/messages");
+          router.push({
+            pathname: "/messages",
+            query: { current_conversation: resp.data._id },
+          });
         } else {
           message.error("Error al iniciar la conversación");
         }
@@ -93,15 +97,13 @@ const Profile = () => {
         {loading ? (
           <LoadingComponent />
         ) : (
-          <div className="profileInfo__container animate__animated animate__fadeIn">
+          <div className="profileInfo__container animate__animated animate__fadeIn animate__faster">
             <ModalProfile
               open={open}
               onUpdate={handleOnUpdate}
               after={getData}
               onCancel={() => setOpen(false)}
-              defaultValues={{
-                preferredCategories: userData.preferredCategories,
-              }}
+              defaultValues={userData}
             />
             <div className="profileInfo__avatar shadow">
               <div className="profileInfo__avatar__image">
@@ -147,8 +149,9 @@ const Profile = () => {
                   <div className="profileInfo__details__groups__listContainer">
                     {(userGroups as IGroup[])?.map((group) => (
                       <div
+                        onClick={() => router.push(`/groupPage/${group?._id}`)}
                         key={group?._id}
-                        className="profileInfo__details__groups__listContainer__item"
+                        className="shadow profileInfo__details__groups__listContainer__item"
                       >
                         <h3>{group?.name}</h3>
                         <img

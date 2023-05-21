@@ -6,6 +6,7 @@ import { getMessagesFn, sendMessageFn } from "@/services/messages.service";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es-mx";
+import { IUser } from "@/interfaces/user";
 
 dayjs.extend(relativeTime);
 dayjs.locale("es-mx");
@@ -18,7 +19,7 @@ interface ChatProps {
   };
   currentChat: {
     _id: string;
-    members: string[];
+    members: IUser[];
   };
   messages: any;
   setMessages: React.Dispatch<React.SetStateAction<any>>;
@@ -46,12 +47,12 @@ const Chat = ({
     };
 
     const receiverId = currentChat.members.find(
-      (member: string) => member !== actualUser.id
+      (member: IUser) => member._id !== actualUser.id
     );
 
     socket.current.emit("sendMessage", {
       senderId: actualUser.id,
-      receiverId,
+      receiverId: receiverId?._id,
       text: mssg,
     });
 

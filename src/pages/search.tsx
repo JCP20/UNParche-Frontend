@@ -132,7 +132,7 @@ const Search = () => {
         </div>
         {router.query.is_group && (
           <CheckboxGroup
-            className="animate__animated animate__fadeIn"
+            className="animate__animated animate__fadeIn animate__faster"
             options={plainOptions}
             value={checkedList}
             onChange={onChange}
@@ -141,7 +141,7 @@ const Search = () => {
         {loading ? (
           <LoadingComponent />
         ) : (
-          <div className="resultsContainer animate__animated animate__fadeIn">
+          <div className="resultsContainer animate__animated animate__fadeIn animate__faster">
             {groups?.length > 0 && (
               <>
                 <h3>Grupos:</h3>
@@ -160,13 +160,13 @@ const Search = () => {
                           </Button>,
                         ]}
                       >
-                        <h4>{item.name}</h4>
-                        <span>{item.description}</span>
-                        <span>{item.category}</span>
-                        <span>
+                        <h4 style={{ width: "10%" }}>{item.name}</h4>
+                        <span style={{ width: "20%" }}>{item.description}</span>
+                        <span style={{ width: "10%" }}>{item.category}</span>
+                        {/* <span style={{ width: "10%" }}>
                           Miembros:{" "}
                           {item.members.length + item.administrators.length}
-                        </span>
+                        </span> */}
                       </List.Item>
                     )}
                   />
@@ -189,14 +189,13 @@ const Search = () => {
                           </Button>,
                         ]}
                       >
-                        <h4>{item.username}</h4>
+                        <h4 style={{ width: "10%" }}>{item.username}</h4>
                         <Typography.Paragraph
                           ellipsis={{
                             rows: 2,
                             expandable: true,
                             symbol: "Ver más...",
                           }}
-                          style={{ width: "65%" }}
                         >
                           {item.email}
                         </Typography.Paragraph>

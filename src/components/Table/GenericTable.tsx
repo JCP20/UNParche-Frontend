@@ -120,6 +120,7 @@ const GenericTable: React.FC<Props> = ({ dataSource, columns, loading }) => {
       loading={loading}
       dataSource={dataSource}
       columns={columnsGeneric}
+      pagination={{ pageSize: 4 }}
     />
   );
 };

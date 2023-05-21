@@ -94,8 +94,10 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     setIsTokenCheckCompleted(false);
     if (!publicRoutes.includes(router.pathname)) {
       checkAuthToken();
-    } else if (adminRoutes.includes(router.pathname)) {
-      checkIfUserIsAdmin();
+
+      if (adminRoutes.includes(router.pathname)) {
+        checkIfUserIsAdmin();
+      }
     } else {
       setIsLoading(false);
     }

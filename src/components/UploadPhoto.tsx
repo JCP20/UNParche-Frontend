@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Form, Modal, Upload } from "antd";
 import type { RcFile, UploadProps } from "antd/es/upload";
@@ -9,16 +9,31 @@ interface UploadPhotoProps {
   name: string;
   label: string;
   isRequired?: boolean;
+  initialPhotoUrl?: string; // New prop for initial photo URL
 }
 
 const UploadPhoto: React.FC<UploadPhotoProps> = ({
   name,
   label,
   isRequired,
+  initialPhotoUrl,
 }: UploadPhotoProps) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  useEffect(() => {
+    if (initialPhotoUrl) {
+      setFileList([
+        {
+          uid: "-1",
+          name: "initialPhoto",
+          status: "done",
+          url: initialPhotoUrl,
+        },
+      ]);
+    }
+  }, [initialPhotoUrl]);
 
   const handleCancel = () => setPreviewOpen(false);
 

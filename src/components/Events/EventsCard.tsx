@@ -1,3 +1,4 @@
+import { reportEventFn } from "@/services/reports.service";
 import {
   ExclamationOutlined,
   HeartOutlined,
@@ -37,7 +38,11 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   const handleOk = async () => {
     const values = await form.validateFields();
-    console.log(values);
+    const newReport = await reportEventFn({
+      event: eventData._id,
+      reason: values.reason,
+    });
+    console.log(newReport);
     // setIsModalOpen(false);
   };
 

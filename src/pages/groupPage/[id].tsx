@@ -1,23 +1,27 @@
+import FormGroup from "@/components/Group/FromGroup";
 import { TabItemsGroup } from "@/components/Group/TabsItems";
+import LoadingComponent from "@/components/LoadingComponent";
 import { AuthContext } from "@/context/auth/AuthContext";
 import { IEvent } from "@/interfaces/events";
 import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
 import { createEventFn, getEventsByGroupFn } from "@/services/events.service";
 import {
+  deleteGroupFn,
   enrollUserToGroupFn,
   getGroupById,
   removeUserFromGroupFn,
+  updateGroupFn,
 } from "@/services/groups.service";
 import { UserOutlined } from "@ant-design/icons";
 import { Button, Image, Modal, Tabs, Tag, Typography } from "antd";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState, useCallback } from "react";
 import MainLayout from "../../components/Layout/Layout";
-import LoadingComponent from "@/components/LoadingComponent";
 
 const Grupo = () => {
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [group, setGroup] = useState<IGroup>({} as IGroup);
   const [events, setEvents] = useState<IEvent[]>([]); // TODO: Change to IEvent[
   const [isAdmin, setIsAdmin] = useState(false);
@@ -57,15 +61,12 @@ const Grupo = () => {
         const resp: any = await enrollUserToGroupFn(user.id, group._id);
         if (resp?.data?.ok) {
           await getData();
-          updateGroupsData();
-          // router.reload();
         }
       },
     });
   };
 
   const handleLeaveGroup = () => {
-    // TODO: Remove user from group
     Modal.confirm({
       content: "¿Estás seguro que quieres salir de este grupo?",
       okText: "Salir",
@@ -74,8 +75,6 @@ const Grupo = () => {
         const resp: any = await removeUserFromGroupFn(user.id, group._id);
         if (resp?.data?.ok) {
           await getData();
-          updateGroupsData();
-          // router.reload();
         }
       },
     });
@@ -89,83 +88,117 @@ const Grupo = () => {
     [group]
   );
 
-  const updateGroupsData = () => {};
+  const handleDeleteGroup = async () => {
+    Modal.confirm({
+      title: "Borrar grupo",
+      content: "¿Estás seguro que quieres borrar este grupo?",
+      okText: "Borrar",
+      cancelText: "Cancelar",
+      onOk: async () => {
+        const resp: any = await deleteGroupFn(group._id);
+        if (resp?.data?.ok) {
+          router.replace("/");
+        }
+      },
+    });
+  };
 
   return (
-    <MainLayout title={group?.name} updateGroupsData={updateGroupsData}>
+    <MainLayout title={group?.name}>
       <>
         {loading ? (
           <LoadingComponent />
         ) : (
-          <div className="mainContainerGroupsPage animate__animated animate__fadeIn">
-            <div className="group__info shadow">
-              <div className="group__info__imageContainer">
-                <Image
-                  className="group__info__imageContainer__image"
-                  src={group?.photo}
-                  alt="Imagen del grupo"
-                />
-              </div>
-              <div className="group__info__details">
-                <h2 className="group__info__details__title">{group?.name}</h2>
-
-                <div className="group__info__details__description">
-                  <Typography.Paragraph
-                    ellipsis={{ rows: 3, expandable: true, symbol: "Leer más" }}
-                  >
-                    {group?.description}
-                  </Typography.Paragraph>
+          <>
+            <FormGroup
+              initialValues={group}
+              isEditing
+              after={getData}
+              service={updateGroupFn}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+            />
+            <div className="mainContainerGroupsPage animate__animated animate__fadeIn animate__faster">
+              <div className="group__info shadow">
+                <div className="group__info__imageContainer">
+                  <Image
+                    className="group__info__imageContainer__image"
+                    src={group?.photo}
+                    alt="Imagen del grupo"
+                  />
                 </div>
+                <div className="group__info__details">
+                  <h2 className="group__info__details__title">{group?.name}</h2>
 
-                <div className="group__info__details__tags">
-                  <Tag icon={<UserOutlined />} color="blue">
-                    {group?.members?.length + group?.administrators?.length ===
-                    1
-                      ? "1 Miembro"
-                      : group?.members?.length +
-                        group?.administrators?.length +
-                        " Miembros"}
-                  </Tag>
-                  <Tag color="blue">{group?.category}</Tag>
-                </div>
-                {isAdmin ? (
-                  <>
+                  <div className="group__info__details__description">
+                    <Typography.Paragraph
+                      ellipsis={{
+                        rows: 3,
+                        expandable: true,
+                        symbol: "Leer más",
+                      }}
+                    >
+                      {group?.description}
+                    </Typography.Paragraph>
+                  </div>
+
+                  <div className="group__info__details__tags">
+                    <Tag icon={<UserOutlined />} color="blue">
+                      {group?.members?.length +
+                        group?.administrators?.length ===
+                      1
+                        ? "1 Interesado"
+                        : group?.members?.length +
+                          group?.administrators?.length +
+                          " Interesados"}
+                    </Tag>
+                    <Tag color="blue">{group?.category}</Tag>
+                  </div>
+                  {isAdmin ? (
+                    <>
+                      <Button
+                        className="group__info__details__btn"
+                        type="primary"
+                        onClick={() => setIsModalOpen(true)}
+                      >
+                        Editar información
+                      </Button>
+                      <Button
+                        onClick={handleDeleteGroup}
+                        className="group__info__details__btn"
+                        danger
+                      >
+                        Borrar grupo
+                      </Button>
+                    </>
+                  ) : (
+                    // check if user is member
                     <Button
                       className="group__info__details__btn"
                       type="primary"
+                      onClick={isMember ? handleLeaveGroup : handleJoinGroup}
                     >
-                      Editar información
+                      {isMember ? "Salir" : "Unirme"}
                     </Button>
-                    <Button className="group__info__details__btn" danger>
-                      Borrar grupo
-                    </Button>
-                  </>
-                ) : (
-                  // check if user is member
-                  <Button
-                    className="group__info__details__btn"
-                    type="primary"
-                    onClick={isMember ? handleLeaveGroup : handleJoinGroup}
-                  >
-                    {isMember ? "Salir" : "Unirme"}
-                  </Button>
-                )}
+                  )}
+                </div>
+              </div>
+
+              <div className="group__feed">
+                <Tabs
+                  type="card"
+                  items={TabItemsGroup({
+                    user,
+                    createEventService: createEventFn,
+                    events: events,
+                    group: group,
+                    isAdmin,
+                    after: getData,
+                  })}
+                />
               </div>
             </div>
-
-            <div className="group__feed">
-              <Tabs
-                type="card"
-                items={TabItemsGroup({
-                  createEventService: createEventFn,
-                  events: events,
-                  group: group,
-                  isAdmin,
-                  after: getData,
-                })}
-              />
-            </div>
-          </div>
+          </>
         )}
       </>
     </MainLayout>

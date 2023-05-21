@@ -4,7 +4,7 @@ import { createGroupFn, getGroupsByUserFn } from "@/services/groups.service";
 import { Button, Layout, Menu, Modal, Tooltip, Typography, theme } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import CrearGrupo from "../Group/CreateGroup";
+import CrearGrupo from "../Group/FromGroup";
 import { itemsMenuLayout } from "./MenuItems";
 import SearchBar from "./SearchBar";
 import Head from "next/head";
@@ -15,14 +15,12 @@ interface MainLayoutProps {
   children: JSX.Element;
   title?: string;
   notShowHeader?: boolean;
-  updateGroupsData?: () => void;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   title,
   notShowHeader,
-  updateGroupsData,
 }: MainLayoutProps) => {
   const { logout } = useContext(AuthContext);
   // const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -63,7 +61,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   useEffect(() => {
     getData();
-  }, [updateGroupsData]);
+  }, [user]);
 
   useEffect(() => {
     localStorage.setItem("collapsedState", JSON.stringify(isCollapsed));
@@ -75,7 +73,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         <Head>
           <title>UnParche | {title ?? ""}</title>
         </Head>
-        <div className="logoLayout">
+        <div className="logoLayout" onClick={() => router.push("/")}>
           <img src="/imagenes/logRecort.png" />
         </div>
         <SearchBar className="searchBarHeader" />
@@ -136,7 +134,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <Footer
             style={{
               background: "#F4F4F4",
-              width: "20%",
+              width: "18%",
               height: "100%",
               display: "flex",
               flexDirection: "column",

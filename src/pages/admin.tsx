@@ -100,7 +100,7 @@ const AdminPage = () => {
           </div>
         </Card>
 
-        <div className="p-1 animate__animated animate__fadeIn">
+        <div className="p-1 animate__animated animate__fadeIn animate__faster">
           <h2>Reportes</h2>
           <GenericTable
             loading={loading}

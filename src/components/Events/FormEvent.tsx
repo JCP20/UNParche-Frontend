@@ -52,6 +52,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
     const resp = await service(values);
     await after();
+    console.log(resp);
     setIsModalOpen(false);
   };
 
@@ -79,8 +80,6 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
   const handleOnFieldsChange = (_: any, allValues: any) => {
     setFormData(allValues);
   };
-
-  console.log(style ?? {});
 
   return (
     <>

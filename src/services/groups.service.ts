@@ -28,17 +28,16 @@ export const createGroupFn = async (values: any): Promise<any> => {
     return error.response;
   }
 };
-export const updateGroupFn = async ({
-  values,
-  id,
-}: {
+
+export const updateGroupFn = async (input: {
   values: any;
-  id: string;
+  groupId: string;
 }): Promise<any | null> => {
   try {
-    const { data } = await backendApiPrivate.post(
-      `/groups/update/${id}`,
-      values
+    const { groupId, ...bodyInfo } = input;
+    const { data } = await backendApiPrivate.patch(
+      `/groups/update/${input.groupId}`,
+      bodyInfo
     );
     return data.data as IGroup;
   } catch (error) {

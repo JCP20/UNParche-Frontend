@@ -1,4 +1,4 @@
-import FormGrupo from "@/components/Group/CreateGroup";
+import FormGrupo from "@/components/Group/FromGroup";
 import EventCard from "@/components/Events/EventsCard";
 import FormEvento from "@/components/Events/FormEvent";
 import { createEventFn } from "@/services/events.service";

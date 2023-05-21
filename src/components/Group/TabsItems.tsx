@@ -1,4 +1,4 @@
-import { Avatar, Button, Calendar, List, Skeleton, TabsProps } from "antd";
+import { Avatar, Button, Calendar, List, Skeleton, Modal } from "antd";
 import FormEvent from "@/components/Events/FormEvent";
 import EventCard from "../Events/EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -7,6 +7,8 @@ import { Dayjs } from "dayjs";
 import { CalendarMode } from "antd/es/calendar/generateCalendar";
 import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
+import { newConversationFn } from "@/services/conversation.service";
+import { useRouter } from "next/router";
 
 interface itemsInput {
   createEventService: (values: any) => Promise<any | null>;
@@ -14,6 +16,7 @@ interface itemsInput {
   group: IGroup;
   isAdmin: boolean;
   after: () => void;
+  user: any;
 }
 
 const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
@@ -21,7 +24,29 @@ const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
 };
 
 export const TabItemsGroup = (input: itemsInput) => {
-  const { createEventService, events, group, isAdmin, after } = input;
+  const { createEventService, events, group, isAdmin, after, user } = input;
+  const router = useRouter();
+
+  const handleNewConversation = async (receiverId: string) => {
+    Modal.confirm({
+      title: "Iniciar conversación",
+      content: "¿Estás seguro que quieres iniciar una conversación?",
+      okText: "Iniciar",
+      cancelText: "Cancelar",
+      onOk: async () => {
+        const resp: any = await newConversationFn({
+          receiverId,
+          senderId: user.id,
+        });
+        if (resp.status === 200) {
+          router.push({
+            pathname: "/messages",
+            query: { current_conversation: resp.data.data._id },
+          });
+        }
+      },
+    });
+  };
 
   return [
     {
@@ -81,7 +106,18 @@ export const TabItemsGroup = (input: itemsInput) => {
               renderItem={(item) => (
                 <List.Item
                   key={item?.email}
-                  actions={[<Button type="primary">Iniciar Chat</Button>]}
+                  actions={
+                    item._id !== user.id
+                      ? [
+                          <Button
+                            type="primary"
+                            onClick={() => handleNewConversation(item._id)}
+                          >
+                            Iniciar Chat
+                          </Button>,
+                        ]
+                      : []
+                  }
                 >
                   <List.Item.Meta
                     avatar={<Avatar src={item?.photo} />}

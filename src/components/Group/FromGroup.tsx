@@ -5,6 +5,7 @@ import type { RcFile } from "antd/es/upload/interface";
 import React from "react";
 import { availableCategories } from "../Categories";
 import UploadPhoto from "../UploadPhoto";
+import { useRouter } from "next/router";
 
 const { TextArea } = Input;
 
@@ -14,35 +15,56 @@ const layout = {
 };
 interface NewFormProps {
   initialValues?: any;
-  user: string;
+  user?: string;
   service: (value: any) => any;
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
-  after: () => void;
+  after?: () => void;
+  isEditing?: boolean;
 }
 
-const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service, isModalOpen, setIsModalOpen, user, after } = props;
+const FormGroup: React.FC<NewFormProps> = (props: NewFormProps) => {
+  const {
+    service,
+    isEditing,
+    isModalOpen,
+    setIsModalOpen,
+    user,
+    after,
+    initialValues,
+  } = props;
 
   const [form] = Form.useForm();
+  const router = useRouter();
 
   const handleOk = async () => {
     const values = await form.validateFields();
 
-    const { photo } = values;
-    const base64Photo = await getBase64(photo.file.originFileObj as RcFile);
+    message.loading({
+      content: "Cargando...",
+      key: "loading",
+    });
 
-    values.photo = base64Photo;
-    values.administrators = [user];
+    if (typeof values.photo !== "string") {
+      values.photo = await getBase64(values.photo.file.originFileObj as RcFile);
+    }
+
+    if (!isEditing) {
+      values.administrators = [user];
+    } else {
+      values.groupId = initialValues._id;
+    }
 
     const resp = await service(values);
-    await after();
+    after && (await after());
 
-    if (resp.ok) {
-      message.success("Grupo creado exitosamente");
+    if (resp?.ok && !isEditing) {
+      router.push(`/groupPage/${resp.data._id}`);
+    }
+
+    if (resp?.ok) {
+      message.success({ content: "Grupo creado exitosamente", key: "loading" });
       form.resetFields();
-    } else {
-      message.error(resp.data.msg);
     }
 
     setIsModalOpen(false);
@@ -60,7 +82,7 @@ const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
       </Button> */}
       <Modal
         destroyOnClose
-        title="Creación de Grupo"
+        title={isEditing ? "Editar Grupo" : "Crear Grupo"}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -77,17 +99,22 @@ const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
               labelAlign="left"
               style={{ maxWidth: 600 }}
               {...layout}
+              initialValues={initialValues}
               scrollToFirstError
             >
               <Form.Item
                 name="name"
                 label="Nombre del Grupo"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor ingresa el nombre del grupo",
-                  },
-                ]}
+                rules={
+                  !isEditing
+                    ? [
+                        {
+                          required: true,
+                          message: "Por favor ingresa el nombre del grupo",
+                        },
+                      ]
+                    : []
+                }
               >
                 <Input placeholder="Escribe el nombre de tu grupo" />
               </Form.Item>
@@ -95,12 +122,17 @@ const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
               <Form.Item
                 name="category"
                 label="Categoría"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor selecciona la categoría del grupo",
-                  },
-                ]}
+                rules={
+                  !isEditing
+                    ? [
+                        {
+                          required: true,
+                          message:
+                            "Por favor selecciona la categoría del grupo",
+                        },
+                      ]
+                    : []
+                }
               >
                 <Select>
                   {availableCategories.map((category) => (
@@ -113,16 +145,25 @@ const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
               <Form.Item
                 name="description"
                 label="Descripción"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor ingresa la descripción del grupo",
-                  },
-                ]}
+                rules={
+                  !isEditing
+                    ? [
+                        {
+                          required: true,
+                          message: "Por favor ingresa la descripción del grupo",
+                        },
+                      ]
+                    : []
+                }
               >
                 <TextArea rows={2} placeholder="Descripción del grupo..." />
               </Form.Item>
-              <UploadPhoto name="photo" label="Foto" isRequired />
+              <UploadPhoto
+                name="photo"
+                label="Foto"
+                isRequired={!isEditing}
+                initialPhotoUrl={isEditing && initialValues?.photo}
+              />
             </Form>
           </div>
         </div>
@@ -131,4 +172,4 @@ const CrearGrupo: React.FC<NewFormProps> = (props: NewFormProps) => {
   );
 };
 
-export default CrearGrupo;
+export default FormGroup;

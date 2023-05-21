@@ -11,3 +11,12 @@ export const listAllReportsFn = async (): Promise<
     return false;
   }
 };
+
+export const reportEventFn = async (report: any) => {
+  try {
+    const resp = await backendApiPrivate.post(`/reports`, report);
+    return resp.data;
+  } catch (error) {
+    throw new Error("Error en la creación de la denuncia");
+  }
+};

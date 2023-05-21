@@ -12,7 +12,11 @@ const ReportReasons = ({ reports }: { reports: IReports[] }) => {
         <List
           dataSource={reports}
           renderItem={(item: IReports) => (
-            <List.Item>
+            <List.Item
+              style={{
+                borderBottom: "1px solid rgba(0,0,0,0.2)",
+              }}
+            >
               <Typography.Paragraph
                 ellipsis={{ rows: 2, expandable: true, symbol: "Ver más..." }}
                 style={{ width: "65%" }}
