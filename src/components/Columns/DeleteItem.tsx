@@ -18,10 +18,13 @@ const DeleteItem = ({
       okText: "Eliminar",
       cancelText: "Cancelar",
       onOk: async () => {
-        await service(record._id);
-
-        if (after) {
-          await after();
+        try {
+          await service(record._id);
+          if (after) {
+            await after();
+          }
+        } catch (error) {
+          console.log(error);
         }
       },
     });

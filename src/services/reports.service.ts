@@ -20,3 +20,12 @@ export const reportEventFn = async (report: any) => {
     throw new Error("Error en la creación de la denuncia");
   }
 };
+
+export const deleteReportsByEventFn = async (id: string) => {
+  try {
+    const resp = await backendApiPrivate.delete(`/reports/by-event/${id}`);
+    return resp;
+  } catch (error: any) {
+    throw new Error(error.response.data.message);
+  }
+};

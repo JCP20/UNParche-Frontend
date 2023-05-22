@@ -6,7 +6,11 @@ export const columnsReports = (after?: () => void) => {
   const operations = (_: any, record: any) => {
     return (
       <>
-        <ModerateEvent eventData={record.event} reports={record.reports} />
+        <ModerateEvent
+          after={after}
+          eventData={record.event}
+          reports={record.reports}
+        />
       </>
     );
   };

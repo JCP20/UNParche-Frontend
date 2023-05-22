@@ -6,7 +6,7 @@ import {
   MessageFilled,
   ShareAltOutlined,
 } from "@ant-design/icons";
-import { Card, Form, Image, Input, Modal, Tooltip, Typography } from "antd";
+import { Card, Form, Image, Input, Modal, Typography, message } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
@@ -37,12 +37,31 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   };
 
   const handleOk = async () => {
-    const values = await form.validateFields();
-    const newReport = await reportEventFn({
-      event: eventData._id,
-      reason: values.reason,
-    });
-    console.log(newReport);
+    try {
+      message.loading({
+        content: "Enviando reporte...",
+        key: "report",
+      });
+      const values = await form.validateFields();
+      const newReport = await reportEventFn({
+        event: eventData._id,
+        reason: values.reason,
+      });
+
+      if (newReport.ok) {
+        message.success({
+          content: "Reporte enviado con éxito",
+          key: "report",
+        });
+      }
+      setIsModalOpen(false);
+    } catch (error) {
+      message.error({
+        content: "No fue posible generar el reporte",
+        key: "report",
+      });
+    }
+
     // setIsModalOpen(false);
   };
 

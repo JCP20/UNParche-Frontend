@@ -1,19 +1,72 @@
 import { IEvent } from "@/interfaces/events";
 import { EyeOutlined } from "@ant-design/icons";
-import { Card, Image, Modal, Button, Tooltip, Typography } from "antd";
+import { Card, Image, Modal, Button, Tooltip, Typography, message } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import ReportReasons from "./ReportReasons";
 import { IReports } from "@/interfaces/reports";
+import { deleteEventFn } from "@/services/events.service";
+import { deleteReportsByEventFn } from "@/services/reports.service";
 
 const ModerateEvent = ({
   eventData,
   reports,
+  after,
 }: {
   eventData: IEvent;
   reports: IReports[];
+  after?: () => void;
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleAcceptEvent = async () => {
+    console.log("aceptar evento", eventData);
+    Modal.confirm({
+      title: "¿Estás seguro de aceptar este evento?",
+      content: "Esta acción no se puede deshacer",
+      okText: "Aceptar",
+      cancelText: "Cancelar",
+      onOk: async () => {
+        try {
+          message.loading({
+            content: "Eliminando reportes...",
+            key: "deleteReports",
+          });
+          await deleteReportsByEventFn(eventData._id);
+
+          after && (await after());
+          message.success({
+            content: "Reportes eliminados con éxito",
+            key: "deleteReports",
+          });
+        } catch (error) {
+          message.error({
+            content: "No fue posible eliminar los reportes",
+            key: "deleteReports",
+          });
+          console.log(error);
+        }
+      },
+    });
+  };
+
+  const handleRejectEvent = () => {
+    console.log("rechazar evento", eventData);
+    Modal.confirm({
+      title: "¿Estás seguro de eliminar este evento?",
+      content: "Esta acción no se puede deshacer",
+      okText: "Eliminar",
+      cancelText: "Cancelar",
+      onOk: async () => {
+        try {
+          await deleteEventFn(eventData._id);
+          after && (await after());
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    });
+  };
 
   return (
     <>
@@ -31,8 +84,12 @@ const ModerateEvent = ({
         centered
         onCancel={() => setIsOpenModal(false)}
         footer={[
-          <Button danger>Rechazar</Button>,
-          <Button type="primary">Aceptar</Button>,
+          <Button danger onClick={handleRejectEvent}>
+            Eliminar evento
+          </Button>,
+          <Button type="primary" onClick={handleAcceptEvent}>
+            Aceptar evento
+          </Button>,
         ]}
       >
         <>

@@ -49,6 +49,6 @@ export const deleteEventFn = async (id: string) => {
     const resp = await backendApiPrivate.delete(`/events/${id}`);
     return resp;
   } catch (error: any) {
-    return error.response;
+    throw new Error(error.response.data.message);
   }
 };
