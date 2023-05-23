@@ -23,8 +23,9 @@ const Registro = () => {
   const onFinish = async (values: any) => {
     try {
       message.loading({
-        content: "Espera un momento porfavor...",
+        content: "Espera un momento por favor...",
         key: "creating",
+        duration: 0,
       });
 
       const { photo } = values;

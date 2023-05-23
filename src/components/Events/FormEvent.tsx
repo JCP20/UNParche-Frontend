@@ -155,7 +155,10 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
           <div className="card">
             <h3>Vista previa</h3>
-            <EventCard eventData={{ ...formData, photo: previewImage }} />
+            <EventCard
+              noShowActions
+              eventData={{ ...formData, photo: previewImage }}
+            />
           </div>
         </div>
       </Modal>

@@ -1,0 +1,10 @@
+.eventPageContainer {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+
+  .card_index {
+    width: 62%;
+    margin: 1.5rem auto;
+  }
+}

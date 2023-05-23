@@ -54,9 +54,6 @@ export default function Home() {
 
   return (
     <MainLayout title="Inicio">
-      {/* {loading ? (
-        <LoadingComponent />
-      ) : ( */}
       <div className="p-1 mainContainerIndex animate__animated animate__fadeIn animate__faster">
         <Tabs
           defaultActiveKey="1"
@@ -72,7 +69,6 @@ export default function Home() {
           )}
         />
       </div>
-      {/* )} */}
     </MainLayout>
   );
 }

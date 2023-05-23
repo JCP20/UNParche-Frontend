@@ -50,6 +50,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   const getData = async () => {
     const res = await getGroupsByUserFn(user.id);
+    console.log("me llame!");
     if (res?.ok) {
       setGroups(res.data);
     }
@@ -61,7 +62,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   useEffect(() => {
     getData();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("collapsedState", JSON.stringify(isCollapsed));

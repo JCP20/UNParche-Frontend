@@ -43,6 +43,7 @@ const FormGroup: React.FC<NewFormProps> = (props: NewFormProps) => {
     message.loading({
       content: "Cargando...",
       key: "loading",
+      duration: 0,
     });
 
     if (typeof values.photo !== "string") {

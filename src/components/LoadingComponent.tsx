@@ -3,7 +3,7 @@ import { Spin } from "antd";
 
 const LoadingComponent = () => {
   return (
-    <div className="loadingContainer animate__animated animate__fadeOut animate__faster">
+    <div className="loadingContainer">
       <Spin indicator={<LoadingOutlined spin style={{ fontSize: 120 }} />} />
       <p>Cargando...</p>
     </div>

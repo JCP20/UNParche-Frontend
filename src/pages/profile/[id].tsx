@@ -34,6 +34,7 @@ const Profile = () => {
     message.loading({
       content: "Actualizando perfil...",
       key: "updateProfile",
+      duration: 0,
     });
     const resp = await updateUserFn(user.id, { ...values });
     if (resp?.data.ok) {
