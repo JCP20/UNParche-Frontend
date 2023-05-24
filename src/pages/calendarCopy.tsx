@@ -4,11 +4,12 @@ import { Badge, Calendar, Modal } from 'antd';
 import type { Dayjs } from 'dayjs';
 import type { CellRenderInfo } from 'rc-picker/lib/interface';
 import { getEventsUserFn } from '@/services/events.service';
-import dayjs from 'dayjs';
 import MainLayout from '@/components/Layout/Layout';
 import EventCardApp from '@/components/EventsCard';
-import { AuthContext } from '@/context/auth/AuthContext';
-
+interface CalenderProps {
+  type?: string;
+  id: string;
+}
 
 var actDate = '';
 const getListData = (value: Dayjs, data: any) => {
@@ -38,9 +39,8 @@ const getMonthData = (value: Dayjs) => {
   }
 };
 
-const CalendarApp: React.FC = () => {
-  const { user } = useContext(AuthContext);
-  //console.log(user);
+const CalendarApp: React.FC<CalenderProps> = (props) => {
+  const { type, id } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = (nn: string, eventos: any) => {
@@ -61,10 +61,16 @@ const CalendarApp: React.FC = () => {
     setIsModalOpen(false);
   };
   const getData = async () => {
-    const data = await getEventsUserFn("6451b2e42106d973347a5fc8");
-    console.log(data);
+    if(type == "Group" ){
+        const data = await getEventsUserFn(id);
+        setCalendarEvents(data);
+    }
+    else{
+        const data = await getEventsUserFn(id);
+        setCalendarEvents(data);
+    }
     //const fecha = dayjs(data[0].date, ("DD/MM/YY"));
-    setCalendarEvents(data);
+    
   };
   const [calendarEvents, setCalendarEvents] = useState<any>([]);
 
@@ -103,6 +109,7 @@ const CalendarApp: React.FC = () => {
   const loadEvents = (eventos: any) => {
     console.log(eventos);
     const result = eventos;
+    console.log(result)
     //const result = eventos.filter((e: any) => e.date === actDate);
     return result.map((e: any) => <EventCardApp
       nombreEvento={e.title}
