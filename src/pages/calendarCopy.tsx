@@ -117,16 +117,16 @@ const CalendarApp: React.FC<CalenderProps> = (props) => {
       //imagenSrc={defaultSrc}//fileList[0].url}
       fechaEvento={e.date}
       horaEvento={e.schedule}
-    />);    
+      idEvento={e.id} />);
   };
 
   return (
     <MainLayout>
       <>
-        <Modal title={"Eventos destacados del día  " + actDate} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <div>
-            { }
-          </div>
+        <Modal title={"Eventos destacados del día  " + actDate} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+          bodyStyle={{ overflowY: 'auto', maxHeight: 'calc(85vh - 10em)', padding: "1em"}}
+          width={'41em'}
+        >          
           {loadEvents(calendarEvents)}
         </Modal>
         <Calendar cellRender={cellRender}
