@@ -31,7 +31,7 @@ import { text } from "stream/consumers";
 type MenuItem = Required<MenuProps>["items"][number];
 import { useThemeContext } from '@/context/auth/ThemeContext';
 const logo = "/imagenes/logRecort.png";
-const {contextTheme, setContextTheme} = useThemeContext()
+//const {contextTheme, setContextTheme} = useThemeContext()
 
 interface MainLayoutProps {
   children: JSX.Element;
@@ -109,8 +109,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     setSelectedKey(router.pathname);
   }, [selectedKey]);
   const handleToggleTheme = () => {
-    const newTheme = contextTheme === 'lightMode' ? 'darkMode' : 'lightMode';
-    setContextTheme(newTheme);
+    //const newTheme = contextTheme === 'lightMode' ? 'darkMode' : 'lightMode';
+    //setContextTheme(newTheme);
   };
   const handleOnClick = (e: any) => {
     if (e.key === "logout") {
@@ -121,9 +121,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
   return (
     <ConfigProvider
-    theme={{
-      algorithm: contextTheme === 'darkMode' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-    }}
+    //theme={{
+    //  algorithm: contextTheme === 'darkMode' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    //}}
   >
       <Layout style={{ height: "100vh" }}>
         <Header className="headerStyle">

@@ -22,3 +22,13 @@ export const updateUserFn = async (
     return null;
   }
 };
+export const getUByParamFn = async (body: {
+  username: string
+}): Promise<AxiosResponse<any> | null> => {
+  try {
+    const result = await backendApiPrivate.post("/users/getbyparam/", body);
+    return result;
+  } catch (error) { 
+    return null;
+  }
+};

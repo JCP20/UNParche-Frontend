@@ -3,19 +3,21 @@ import type { BadgeProps } from 'antd';
 import { Badge, Calendar, Modal } from 'antd';
 import type { Dayjs } from 'dayjs';
 import type { CellRenderInfo } from 'rc-picker/lib/interface';
-import {EventsGroup } from '@/services/events.service';
-import dayjs from 'dayjs';
-import MainLayout from '@/components/Layout/Layout';
-import EventCardApp from '@/components/EventsCard';
-import { AuthContext } from '@/context/auth/AuthContext';
+import { getEventsUserFn } from '@/services/events.service';
 
+import EventCardApp from '@/components/EventsCard';
+import {EventsGroup } from '@/services/events.service';
+interface CalenderProps {
+  type?: string;
+  id: string;
+}
 
 var actDate = '';
 const getListData = (value: Dayjs, data: any) => {
   let listData;
   if (data.length > 0) {
     const fecha = value.format("DD/MM/YY");
-    console.log(data[1].date, fecha);
+    //console.log(data[1].date, fecha);
 
     for (let i = 0; i < data.length; i++) {
       if (fecha == data[i].date) {
@@ -38,9 +40,8 @@ const getMonthData = (value: Dayjs) => {
   }
 };
 
-const CalendarApp: React.FC = () => {
-  const { user } = useContext(AuthContext);
-  //console.log(user);
+const CalendarApp: React.FC<CalenderProps> = (props) => {
+  const { type, id } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = (nn: string, eventos: any) => {
@@ -61,10 +62,16 @@ const CalendarApp: React.FC = () => {
     setIsModalOpen(false);
   };
   const getData = async () => {
-    const data = await EventsGroup("6457edec01df2f5284aea409");
-    console.log(data);
+    if(type == "Group" ){
+        const data = await EventsGroup(id);
+        setCalendarEvents(data);
+    }
+    else{
+        const data = await getEventsUserFn(id);
+        setCalendarEvents(data);
+    }
     //const fecha = dayjs(data[0].date, ("DD/MM/YY"));
-    setCalendarEvents(data);
+    
   };
   const [calendarEvents, setCalendarEvents] = useState<any>([]);
 
@@ -102,34 +109,32 @@ const CalendarApp: React.FC = () => {
   };
   const loadEvents = (eventos: any) => {
     console.log(eventos);
-    const result = eventos;
-    //const result = eventos.filter((e: any) => e.date === actDate);
+    const result = eventos.filter((e: any) => e.date === actDate);
     return result.map((e: any) => <EventCardApp
       nombreEvento={e.title}
       descripcionEvento={e.description}
-      //imagenSrc={defaultSrc}//fileList[0].url}
+      //imagenSrc={e.defaultSrc}//fileList[0].url}
       fechaEvento={e.date}
       horaEvento={e.schedule}
-    />);    
+      idEvento= {e.id}
+      />);
   };
 
   return (
-    <MainLayout>
+
       <>
-        <Modal title={"Eventos destacados del día  " + actDate} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <div>
-            { }
-          </div>
+        <Modal title={"Eventos destacados del día  " + actDate} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+          bodyStyle={{ overflowY: 'auto', maxHeight: 'calc(85vh - 10em)', padding: "1em"}}
+          width={'41em'}
+        >          
           {loadEvents(calendarEvents)}
         </Modal>
         <Calendar cellRender={cellRender}
-         fullscreen={false}
           onSelect={(e) => { showModal(e.format("DD/MM/YY"), calendarEvents) }}
 
         />;
 
       </>
-    </MainLayout>
   )
 };
 export default CalendarApp;

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import MainLayout from "@/components/Layout/Layout";
+import CalendarApp from "@/components/calender";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import {
   LikeOutlined,
@@ -142,7 +143,10 @@ const Grupo: React.FC = () => {
       label: `Calendario`,
       children: (
         <div>
-            <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+           {Grupo && (<CalendarApp
+            type="Group"
+            id= {Grupo._id}
+            ></CalendarApp>) }
         </div>
       ),
     },
