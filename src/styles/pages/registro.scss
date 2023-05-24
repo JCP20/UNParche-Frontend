@@ -143,3 +143,37 @@
     transform: translateY(1.875rem) rotate(45deg);
   }
 }
+
+.Termodal {
+  max-height: 24rem; /* Altura máxima del contenido del modal */
+  overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
+  text-align: justify;
+  margin-right: 2%;
+}
+.botonterm{
+ color:#2b3467;
+ margin-left: -0.5rem;
+}
+.terminos{
+  margin-right: 3%;
+  
+}
+.termtitle{
+  color:#2b3467
+}
+.number{
+  color:#2b3467;
+  font-weight: bold;
+
+}
+.number-ident-1{
+  margin-left:1rem;
+  color:#2b3467;
+  font-weight: bold;
+}
+.number-ident-2{
+  margin-left:2rem;
+  color:#2b3467;
+  font-weight: bold;
+}
+
