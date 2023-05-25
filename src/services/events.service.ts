@@ -15,7 +15,7 @@ export const updateEventFn = async (
   id: string
 ): Promise<any | null> => {
   try {
-    const { data } = await backendApiPrivate.post(
+    const { data } = await backendApiPrivate.patch(
       `/events/update/${id}`,
       values
     );

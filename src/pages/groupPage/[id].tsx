@@ -116,6 +116,8 @@ const Grupo = () => {
     });
   }, [events, group, isAdmin, user]);
 
+  console.log(events);
+
   return (
     <MainLayout title={group?.name}>
       <>

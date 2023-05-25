@@ -10,7 +10,7 @@ import { IUser } from "@/interfaces/user";
 import { newConversationFn } from "@/services/conversation.service";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { deleteEventFn } from "@/services/events.service";
+import { deleteEventFn, updateEventFn } from "@/services/events.service";
 import dayjs from "dayjs";
 
 interface itemsInput {
@@ -86,8 +86,10 @@ export const TabItemsGroup = (input: itemsInput) => {
     });
   };
 
-  const handleUpdate = () => {
-    console.log("update");
+  const handleUpdate = async (input: { _id: string }) => {
+    console.log(input);
+    const resp = await updateEventFn(input, input._id);
+    console.log(resp);
   };
 
   return [
@@ -123,6 +125,7 @@ export const TabItemsGroup = (input: itemsInput) => {
                         Eliminar
                       </Button>
                       <FormEvent
+                        isEditing
                         buttonText="Editar evento"
                         style={{ width: "60%", margin: "auto" }}
                         actualGroup={group}
