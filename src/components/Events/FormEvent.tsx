@@ -15,10 +15,12 @@ interface NewFormProps {
   style?: React.CSSProperties;
   service: (value: any) => void;
   after: () => void;
+  buttonText: string;
 }
 
 const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { service, style, initialValues, actualGroup, after } = props;
+  const { service, style, actualGroup, after, buttonText, initialValues } =
+    props;
   const [previewImage, setPreviewImage] = useState("");
   const [formData, setFormData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -81,10 +83,12 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
     setFormData(allValues);
   };
 
+  console.log(initialValues);
+
   return (
     <>
       <Button style={style ?? {}} type="primary" onClick={showModal}>
-        Nuevo Evento
+        {buttonText}
       </Button>
 
       <Modal
@@ -107,6 +111,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
               name="wrap"
               labelAlign="left"
               onValuesChange={handleOnFieldsChange}
+              initialValues={initialValues ?? {}}
               scrollToFirstError
             >
               <Form.Item

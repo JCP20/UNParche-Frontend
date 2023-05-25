@@ -10,3 +10,16 @@ export const getFilteredGroupsAndUsersFn = async (
     return false;
   }
 };
+
+export const getFYPData = async (page: number, limit: number) => {
+  try {
+    const response = await backendApiPrivate.get(
+      `/search/fypData/${page}/${limit}`
+    );
+    const data = response.data.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch FYP data.");
+  }
+};

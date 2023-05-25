@@ -47,7 +47,7 @@ export const listAllEventsFn = async () => {
 export const deleteEventFn = async (id: string) => {
   try {
     const resp = await backendApiPrivate.delete(`/events/${id}`);
-    return resp;
+    return resp.data;
   } catch (error: any) {
     throw new Error("Error eliminando evento");
   }
@@ -78,5 +78,14 @@ export const getEventFn = async (id: string) => {
   } catch (error: any) {
     console.log(error);
     throw new Error("Error obteniendo eventos");
+  }
+};
+
+export const getEventsUserFn = async (id: string): Promise<any | null> => {
+  try {
+    const { data } = await backendApiPrivate.get(`/events/${id}`);
+    return data.data as IEvent[];
+  } catch (error) {
+    return null;
   }
 };

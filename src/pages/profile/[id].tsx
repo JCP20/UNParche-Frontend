@@ -5,12 +5,21 @@ import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
 import { getGroupsByUserFn } from "@/services/groups.service";
-import { newConversationFn } from "@/services/messages.service";
+import { newConversationFn } from "@/services/conversation.service";
 import { getUserById, updateUserFn } from "@/services/user.service";
 import { getBase64 } from "@/utils/images";
 import { MessageOutlined } from "@ant-design/icons";
 
-import { Button, Image, List, Modal, message, Typography, Spin } from "antd";
+import {
+  Button,
+  Image,
+  List,
+  Modal,
+  message,
+  Typography,
+  Spin,
+  Tag,
+} from "antd";
 import { RcFile } from "antd/es/upload";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";

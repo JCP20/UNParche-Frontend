@@ -1,4 +1,4 @@
-import { Avatar, Button, Calendar, List, Skeleton, Modal } from "antd";
+import { Avatar, Button, Calendar, List, Skeleton, Modal, message } from "antd";
 import FormEvent from "@/components/Events/FormEvent";
 import EventCard from "../Events/EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -9,6 +9,9 @@ import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
 import { newConversationFn } from "@/services/conversation.service";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { deleteEventFn } from "@/services/events.service";
+import dayjs from "dayjs";
 
 interface itemsInput {
   createEventService: (values: any) => Promise<any | null>;
@@ -38,14 +41,53 @@ export const TabItemsGroup = (input: itemsInput) => {
           receiverId,
           senderId: user.id,
         });
-        if (resp.status === 200) {
+        if (resp?.ok) {
           router.push({
             pathname: "/messages",
-            query: { current_conversation: resp.data.data._id },
+            query: { current_conversation: resp?.data?._id },
           });
         }
       },
     });
+  };
+
+  const deleteEvent = async (id: string) => {
+    try {
+      message.loading({
+        content: "Eliminando evento",
+        key: "loading",
+        duration: 0,
+      });
+      const data = await deleteEventFn(id);
+      if (data?.ok) {
+        message.success({
+          content: "Evento eliminado",
+          key: "loading",
+        });
+      }
+      await after();
+    } catch (error) {
+      message.error({
+        content: "Error al eliminar evento",
+        key: "loading",
+      });
+    }
+  };
+
+  const handleDeleteEvent = (id: string) => {
+    Modal.confirm({
+      title: "Eliminar evento",
+      content: "¿Estás seguro que quieres eliminar este evento?",
+      okText: "Eliminar",
+      cancelText: "Cancelar",
+      onOk: async () => {
+        await deleteEvent(id);
+      },
+    });
+  };
+
+  const handleUpdate = () => {
+    console.log("update");
   };
 
   return [
@@ -63,17 +105,40 @@ export const TabItemsGroup = (input: itemsInput) => {
         >
           {isAdmin && (
             <FormEvent
+              buttonText="Nuevo evento"
               style={{ width: "60%", margin: "auto" }}
               actualGroup={group}
               service={createEventService}
-              // initialValues={"Crear Evento"}
               after={after}
             />
           )}
           <div className="mainContainerIndex">
-            {events.map((e) => (
-              <EventCard eventData={e} />
-            ))}
+            {events.length > 0 ? (
+              events.map((e) => (
+                <>
+                  <EventCard eventData={e} isAdmin={isAdmin} />
+                  {isAdmin && (
+                    <>
+                      <Button danger onClick={() => handleDeleteEvent(e._id)}>
+                        Eliminar
+                      </Button>
+                      <FormEvent
+                        buttonText="Editar evento"
+                        style={{ width: "60%", margin: "auto" }}
+                        actualGroup={group}
+                        service={handleUpdate}
+                        initialValues={{ ...e, date: dayjs(e.date) }}
+                        after={after}
+                      />
+                    </>
+                  )}
+                </>
+              ))
+            ) : (
+              <div className="noEvents">
+                Aún no hay eventos! 😞 Revisa más tarde
+              </div>
+            )}
           </div>
         </div>
       ),
@@ -119,11 +184,13 @@ export const TabItemsGroup = (input: itemsInput) => {
                       : []
                   }
                 >
-                  <List.Item.Meta
-                    avatar={<Avatar src={item?.photo} />}
-                    title={item?.username}
-                    description={item?.email}
-                  />
+                  <Link href={`/profile/${item?._id}`}>
+                    <List.Item.Meta
+                      avatar={<Avatar src={item?.photo} />}
+                      title={item?.username}
+                      description={item?.email}
+                    />
+                  </Link>
                 </List.Item>
               )}
             />

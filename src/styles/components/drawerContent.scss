@@ -1,0 +1,29 @@
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .drawerList {
+    height: 60%;
+    overflow-y: auto;
+  }
+
+  .drawerCreateGroup {
+    margin-top: 10%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .drawerAdditional {
+    height: 5%;
+    opacity: 0.6;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

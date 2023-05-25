@@ -5,15 +5,19 @@ import {
 } from "@/services/events.service";
 import { reportEventFn } from "@/services/reports.service";
 import {
+  CopyTwoTone,
   ExclamationOutlined,
-  HeartOutlined,
-  HeartTwoTone,
-  MessageFilled,
+  StarTwoTone,
+  StarOutlined,
   ShareAltOutlined,
+  EllipsisOutlined,
 } from "@ant-design/icons";
 import { Card, Form, Image, Input, Modal, Typography, message } from "antd";
 import dayjs from "dayjs";
-import React, { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import React, { useContext, useState, useMemo } from "react";
+import UserSearchBar from "../Messages/UserSearchBar";
+import ShareSocials from "./ShareSocials";
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -21,10 +25,11 @@ const { TextArea } = Input;
 interface NewFormProps {
   eventData: any;
   noShowActions?: boolean;
+  isAdmin?: boolean;
 }
 
 const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
-  const { eventData, noShowActions } = props;
+  const { eventData, noShowActions, isAdmin } = props;
 
   const { user } = useContext(AuthContext);
 
@@ -35,6 +40,8 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
   );
 
   const [form] = Form.useForm();
+
+  const router = useRouter();
 
   const addUserToEvent = async () => {
     try {
@@ -127,32 +134,85 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
     });
   };
 
+  const handleShare = () => {
+    Modal.confirm({
+      title: "¿Cómo quieres compartir el evento?",
+      icon: <ShareAltOutlined />,
+      content: (
+        <>
+          <UserSearchBar
+            router={router}
+            actualUser={user}
+            shareText={window.location.href + "event/" + eventData._id}
+          />
+          <ShareSocials url={window.location.href + "event/" + eventData._id} />
+
+          <div className="shareLink">
+            <span>Copiar link</span>
+            <Input
+              placeholder="Link de evento"
+              style={{ width: "90%", marginRight: "1rem" }}
+              value={window.location.href + "event/" + eventData._id}
+            />
+            <CopyTwoTone onClick={copyToClipboard} />
+          </div>
+        </>
+      ),
+      onOk() {
+        console.log("OK");
+      },
+    });
+  };
+
+  const actions = useMemo(() => {
+    if (noShowActions) {
+      return [];
+    }
+
+    const actions: React.ReactNode[] = [
+      isFilled ? (
+        <StarTwoTone
+          className={animateClass}
+          twoToneColor={"#fd028c"}
+          onClick={removeUserFromEvent}
+        />
+      ) : (
+        <StarOutlined className={animateClass} onClick={addUserToEvent} />
+      ),
+      <ShareAltOutlined onClick={handleShare} />,
+      <ExclamationOutlined key="report" onClick={showModal} />,
+    ];
+
+    // if (isAdmin) {
+    //   actions.push(<EllipsisOutlined />);
+    // }
+
+    return actions;
+  }, [isFilled, isAdmin]);
+
+  const highlight = async () => {
+    if (!isFilled) {
+      await addUserToEvent();
+    } else {
+      await removeUserFromEvent();
+    }
+  };
+
   return (
     <>
       <Card
         title={eventData?.title ?? "Titulo"}
-        className="card__index shadow"
-        cover={<Image src={eventData?.photo} fallback="/escudoUnal.png" />}
-        actions={
-          !noShowActions
-            ? [
-                isFilled ? (
-                  <HeartTwoTone
-                    className={animateClass}
-                    twoToneColor={"#fd028c"}
-                    onClick={removeUserFromEvent}
-                  />
-                ) : (
-                  <HeartOutlined
-                    className={animateClass}
-                    onClick={addUserToEvent}
-                  />
-                ),
-                <ShareAltOutlined onClick={copyToClipboard} />,
-                <ExclamationOutlined key="report" onClick={showModal} />,
-              ]
-            : []
+        hoverable
+        onDoubleClick={highlight}
+        className="card__index shadow animate__animated animate__fadeIn"
+        cover={
+          <Image
+            style={{ maxHeight: 300, objectFit: "cover" }}
+            src={eventData?.photo}
+            fallback="/escudoUnal.png"
+          />
         }
+        actions={actions}
       >
         <Meta
           title={dayjs(eventData?.date).format("DD/MM/YYYY, hh:mm a")}

@@ -17,6 +17,18 @@
     background: #fff;
     border-radius: 0.5rem;
     margin: 1rem;
+    max-height: 400px;
+
+    // ajustar el ancho del scroll
+    &::-webkit-scrollbar {
+      width: 0.3rem;
+    }
+
+    // cambiar el color del scroll
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 0.5rem;
+    }
   }
 }
 

@@ -1,14 +1,17 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import EventCard from "../Events/EventsCard";
 import { Divider, Skeleton } from "antd";
+import GroupCard from "../Group/GroupCard";
+import { NextRouter } from "next/router";
 
 export const tabItems = (
-  myRecommendedEvents: any[],
+  myRecommendedData: any[],
   loadMoreFyp: () => void,
   hasMoreFyp: boolean,
   myGroupsEvents: any[],
   loadMoreGroups: () => void,
-  hasMoreGroups: boolean
+  hasMoreGroups: boolean,
+  redirectToGroup: (id: string) => void
 ) => {
   return [
     {
@@ -18,12 +21,12 @@ export const tabItems = (
         <div
           id="scrollableDivFyp"
           style={{
-            height: 550,
+            height: 570,
             overflowY: "auto",
           }}
         >
           <InfiniteScroll
-            dataLength={myRecommendedEvents.length}
+            dataLength={myRecommendedData.length}
             next={loadMoreFyp}
             hasMore={hasMoreFyp}
             scrollableTarget="scrollableDivFyp"
@@ -42,26 +45,36 @@ export const tabItems = (
             }
             endMessage={
               <Divider>
-                ¡Es todo por ahora! Busca más tarde para encontrar más eventos
-                😅
+                ¡Es todo por ahora! Busca más tarde para encontrar más
+                recomendaciones 😅
               </Divider>
             }
           >
-            {myRecommendedEvents.map((event: any) => (
-              <EventCard eventData={event} key={event.id} />
-            ))}
+            {myRecommendedData.map((item: any) => {
+              if (item.type === "event") {
+                return <EventCard eventData={item.data} key={item.data._id} />;
+              } else {
+                return (
+                  <GroupCard
+                    redirectToGroup={redirectToGroup}
+                    groupData={item.data}
+                    key={item.data._id}
+                  />
+                );
+              }
+            })}
           </InfiniteScroll>
         </div>
       ),
     },
     {
-      label: "Mis grupos",
+      label: "Mis eventos",
       key: "2",
       children: (
         <div
           id="scrollableDivGroups"
           style={{
-            height: 550,
+            height: 570,
             overflowY: "auto",
           }}
         >
@@ -85,8 +98,8 @@ export const tabItems = (
             }
             endMessage={
               <Divider>
-                ¡Es todo por ahora! Busca más tarde para encontrar más eventos
-                😅
+                ¡Vaya... tus grupos no tienen eventos! Busca más tarde para
+                encontrar si hay novedades 🤔
               </Divider>
             }
           >
