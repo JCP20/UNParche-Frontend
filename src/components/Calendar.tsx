@@ -19,6 +19,7 @@ const getListData = (value: Dayjs, data: any) => {
     //console.log(data[1].date, fecha);
 
     for (let i = 0; i < data.length; i++) {
+      //console.log(data[i].date);
       if (fecha == data[i].date) {
         listData = [
           { type: 'warning', content: data[i].title }

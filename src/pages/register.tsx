@@ -3,7 +3,7 @@ import { availableCategories } from "@/components/Categories";
 import UploadPhoto from "@/components/UploadPhoto";
 import { createUser } from "@/services/auth.service";
 import { getBase64 } from "@/utils/images";
-import { Button, Form, Input, Modal, Select, message } from "antd";
+import { Button, Form, Input, Modal, Select, message,Checkbox } from "antd";
 import { RcFile } from "antd/es/upload";
 import Head from "next/head";
 import Image from "next/image";
@@ -75,7 +75,6 @@ const Registro = () => {
                 name="wrap"
                 labelAlign="left"
                 onFinishFailed={onFinishFailed}
-                //style={{ maxWidth: 600 }}
                 scrollToFirstError
               >
                 <Form.Item
@@ -173,24 +172,24 @@ const Registro = () => {
                     ))}
                   </Select>
                 </Form.Item>
+                <Form.Item wrapperCol={{offset:1}}>
+            Al registrarte aceptas nuestros  
+            <Button className="botonterm" type="link" onClick={handleModalOpen}>
+          &nbsp;&nbsp;&nbsp; Términos y condiciones
+      </Button>
+          </Form.Item>
                 <Form.Item>
                   <Button block type="primary" htmlType="submit">
                     Registrarme
                   </Button>
                 </Form.Item>
-                <Form.Item>
+                <Form.Item >
                   ¿Ya tienes una cuenta?
                   <Link href="/login" className="url">
                     Ingresa
                   </Link>
                 </Form.Item>
-                <Form.Item wrapperCol={{offset:1}}>
 
-            Al registrarte aceptas nuestros  
-          <Button className="botonterm" type="link" onClick={handleModalOpen}>
-          &nbsp;&nbsp;&nbsp; Términos y condiciones
-      </Button>
-          </Form.Item>
 
       <Modal
   open={modalVisible}

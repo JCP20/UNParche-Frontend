@@ -98,9 +98,6 @@ const LoginPage = () => {
           <div className="carrouselContainer">
             <CarouselCustom images={imagesLogin} />
           </div>
-          {/* <div className="gallery">
-            <div className="pic" id="picLogin" />
-          </div> */}
         </div>
       </div>
     </div>

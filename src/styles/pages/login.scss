@@ -5,8 +5,6 @@
 
   .mainContainerLogin {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -19,18 +17,18 @@
     }
 
     .card {
-      min-height: 60%;
-      min-width: 50%;
+      height: 70%;
+      width: 50%;
       border-radius: 1.5rem;
       background: $color-base;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      
 
       .formLogin {
         width: 50%;
-        max-width: 400px;
+        padding: 2rem;
       }
 
       .createAccountInfo {
@@ -45,13 +43,14 @@
 
       .carrouselContainer {
         width: 50%;
-        margin: auto;
+        border-color: "black";
         z-index: 100;
+        padding: 2rem;
         .carousel-root,
         .carousel-slider {
           img {
-            width: 12.5rem;
-            height: 18.75rem;
+            width: 14rem;
+            height: 20rem;
             object-fit: cover;
           }
         }

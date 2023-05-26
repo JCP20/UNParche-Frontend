@@ -7,16 +7,17 @@ interface CarouselCustomProps {
 
 const CarouselCustom = ({ images }: CarouselCustomProps) => {
   return (
-    <Carousel
+    <Carousel 
       showArrows={false}
       showIndicators={false}
       showStatus={false}
       showThumbs={false}
       autoPlay={true}
       infiniteLoop={true}
-      animationHandler={"fade"}
       swipeable={false}
-      interval={5000}
+      interval={6000}
+      animationHandler={"fade"}
+      transitionTime = {2000}
     >
       {images.map((image, i) => (
         <div key={i}>
