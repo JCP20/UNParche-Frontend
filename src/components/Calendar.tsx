@@ -64,10 +64,12 @@ const CalendarApp: React.FC<CalenderProps> = (props) => {
     if(type == "Group" ){
         const data = await getEventsByGroupFn(id);
         setCalendarEvents(data);
+        console.log(data[0].date);
     }
     else{
         const data = await getEventsUserFn(id);
         setCalendarEvents(data);
+        console.log(data.date);
     }
     //const fecha = dayjs(data[0].date, ("DD/MM/YY"));
     
@@ -107,7 +109,6 @@ const CalendarApp: React.FC<CalenderProps> = (props) => {
     return info.originNode;
   };
   const loadEvents = (eventos: any) => {
-    console.log(eventos);
     const result = eventos.filter((e: any) => e.date === actDate);
     return result.map((e: any) => <EventCardApp
       eventData={e.data}

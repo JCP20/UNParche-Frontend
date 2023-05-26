@@ -152,8 +152,8 @@ export const TabItemsGroup = (input: itemsInput) => {
       children: (
         <div>
           <CalendarApp 
-       type="user"
-       id= {user.id} 
+       type="Group"
+       id= {group._id} 
        ></CalendarApp>
         </div>
       ),
