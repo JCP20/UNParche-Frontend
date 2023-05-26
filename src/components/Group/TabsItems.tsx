@@ -1,4 +1,4 @@
-import { Avatar, Button, Calendar, List, Skeleton, Modal, message } from "antd";
+import { Avatar, Button, Row, List, Skeleton, Modal, message, Col, Space} from "antd";
 import FormEvent from "@/components/Events/FormEvent";
 import EventCard from "../Events/EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -12,12 +12,13 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { deleteEventFn, updateEventFn } from "@/services/events.service";
 import dayjs from "dayjs";
-
+import CalendarApp from "@/components/Calendar";
+import { UserOutlined } from "@ant-design/icons";
 interface itemsInput {
   createEventService: (values: any) => Promise<any | null>;
   events: IEvent[];
   group: IGroup;
-  isAdmin: boolean;
+  isAdmin: boolean; 
   after: () => void;
   user: any;
 }
@@ -97,43 +98,42 @@ export const TabItemsGroup = (input: itemsInput) => {
       key: "1",
       label: `Eventos`,
       children: (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
+        <Row>
+          <Col>
           {isAdmin && (
             <FormEvent
               buttonText="Nuevo evento"
               style={{ width: "60%", margin: "auto" }}
               actualGroup={group}
-              service={createEventService}
+              service={createEventService}            
               after={after}
             />
           )}
-          <div className="mainContainerIndex">
+          </Col>
+          <div className="mainContainerIndex">        
             {events.length > 0 ? (
               events.map((e) => (
-                <>
-                  <EventCard eventData={e} isAdmin={isAdmin} />
+               <>       
+                  <EventCard eventData={e} isAdmin={isAdmin} />                  
                   {isAdmin && (
-                    <>
+                      <Row>
+                      <Col span={9}></Col>
+                      <Col>
+                      <Space size="large">
                       <Button danger onClick={() => handleDeleteEvent(e._id)}>
-                        Eliminar
+                        Eliminar 
                       </Button>
                       <FormEvent
                         isEditing
-                        buttonText="Editar evento"
-                        style={{ width: "60%", margin: "auto" }}
+                        buttonText="Editar evento"              
                         actualGroup={group}
                         service={handleUpdate}
                         initialValues={{ ...e, date: dayjs(e.date) }}
                         after={after}
                       />
-                    </>
+                    </Space>
+                    </Col>
+                    </Row>
                   )}
                 </>
               ))
@@ -143,7 +143,7 @@ export const TabItemsGroup = (input: itemsInput) => {
               </div>
             )}
           </div>
-        </div>
+        </Row>
       ),
     },
     {
@@ -151,7 +151,10 @@ export const TabItemsGroup = (input: itemsInput) => {
       label: `Calendario`,
       children: (
         <div>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+          <CalendarApp 
+       type="user"
+       id= {user.id} 
+       ></CalendarApp>
         </div>
       ),
     },
@@ -171,6 +174,7 @@ export const TabItemsGroup = (input: itemsInput) => {
               bordered
               className="list__admin"
               dataSource={group?.administrators as IUser[]}
+              
               renderItem={(item) => (
                 <List.Item
                   key={item?.email}
@@ -183,17 +187,23 @@ export const TabItemsGroup = (input: itemsInput) => {
                           >
                             Iniciar Chat
                           </Button>,
+                          <a href={`/profile/${item?._id}`}> <UserOutlined/></a>  
+                          
                         ]
-                      : []
+                      : [    
+                       ]
+                      
                   }
                 >
-                  <Link href={`/profile/${item?._id}`}>
+                  
                     <List.Item.Meta
                       avatar={<Avatar src={item?.photo} />}
                       title={item?.username}
                       description={item?.email}
+                      
                     />
-                  </Link>
+                  
+
                 </List.Item>
               )}
             />

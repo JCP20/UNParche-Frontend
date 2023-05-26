@@ -31,7 +31,7 @@ import Head from "next/head";
 import { ItemType } from "antd/es/breadcrumb/Breadcrumb";
 import { itemsMenuLayout } from "./MenuItems";
 import { getItem } from "./utils";
-
+import {Switch} from "antd";
 const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps {
@@ -121,6 +121,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       getItem("Calendario", "/calendar", <CalendarOutlined />),
       getItem("Mensajes", "/messages", <CommentOutlined />),
       getItem("Salir", "logout", <PoweroffOutlined />),
+      getItem("Darkmode", "",<Switch/>),
     ];
 
     if (user.role === "admin") {

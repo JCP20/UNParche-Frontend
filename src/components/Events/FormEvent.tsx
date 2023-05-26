@@ -73,7 +73,7 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   return (
     <>
-      <Button style={style ?? {}} type="primary" onClick={showModal}>
+      <Button  type="primary" onClick={showModal}>
         {buttonText}
       </Button>
 
