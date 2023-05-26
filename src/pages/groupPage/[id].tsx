@@ -16,14 +16,14 @@ import {
 import { UserOutlined } from "@ant-design/icons";
 import { Button, Image, Modal, Tabs, Tag, Typography } from "antd";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useMemo, useState, useCallback } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import MainLayout from "../../components/Layout/Layout";
 
 const Grupo = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [group, setGroup] = useState<IGroup>({} as IGroup);
-  const [events, setEvents] = useState<IEvent[]>([]); // TODO: Change to IEvent[
+  const [events, setEvents] = useState<IEvent[]>([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -38,7 +38,9 @@ const Grupo = () => {
 
       setGroup(resp.data);
       setIsAdmin(
-        resp.data.administrators?.some((admin: IUser) => admin._id === user?.id)
+        resp?.data?.administrators?.some(
+          (admin: IUser) => admin._id === user?.id
+        )
       );
     } else {
       // redirect to 404
@@ -102,6 +104,19 @@ const Grupo = () => {
       },
     });
   };
+
+  const tabItemsGroup = useMemo(() => {
+    return TabItemsGroup({
+      user,
+      createEventService: createEventFn,
+      events: events,
+      group: group,
+      isAdmin,
+      after: getData,
+    });
+  }, [events, group, isAdmin, user]);
+
+  console.log(events);
 
   return (
     <MainLayout title={group?.name}>
@@ -185,17 +200,7 @@ const Grupo = () => {
               </div>
 
               <div className="group__feed">
-                <Tabs
-                  type="card"
-                  items={TabItemsGroup({
-                    user,
-                    createEventService: createEventFn,
-                    events: events,
-                    group: group,
-                    isAdmin,
-                    after: getData,
-                  })}
-                />
+                <Tabs type="card" items={tabItemsGroup} />
               </div>
             </div>
           </>

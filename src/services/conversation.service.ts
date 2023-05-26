@@ -1,19 +1,14 @@
 import { backendApiPrivate } from "./api/config";
 
-export const newConversationFn = async ({
-  senderId,
-  receiverId,
-}: {
+export const newConversationFn = async (input: {
   senderId: string;
   receiverId: string;
 }) => {
   try {
-    const resp = await backendApiPrivate.post("/conversation", {
-      senderId,
-      receiverId,
-    });
-    return resp;
-  } catch (error) {
-    return false;
+    const res = await backendApiPrivate.post("/conversation", input);
+    return res.data;
+  } catch (error: any) {
+    console.log(error.response);
+    return error.response;
   }
 };

@@ -11,6 +11,7 @@ import { io } from "socket.io-client";
 import LoadingComponent from "@/components/LoadingComponent";
 import { IUser } from "@/interfaces/user";
 import { useRouter } from "next/router";
+import UserSearchBar from "@/components/Messages/UserSearchBar";
 
 interface IConversation {
   members: any[];
@@ -89,29 +90,32 @@ const MessagesPage = () => {
 
   return (
     <MainLayout title="Mensajes">
-      {loading ? (
-        <LoadingComponent />
-      ) : (
-        <div className="p-1">
-          <div className="messagesContainer shadow animate__animated animate__fadeIn animate__faster">
-            <div className="messages__chats">
-              <div className="messages__header">
-                <h2>Chats</h2>
-              </div>
-
-              <div className="messages__conversations">
-                {conversations?.map((c) => (
-                  <div
-                    className="conversation"
-                    onClick={() => {
-                      setCurrentChat(c);
-                    }}
-                  >
-                    <ConversationComp conversation={c} currentUser={user} />
-                  </div>
-                ))}
-              </div>
+      <div className="p-1">
+        <div className="messagesContainer shadow animate__animated animate__fadeIn animate__faster">
+          <div className="messages__chats animate__animated animate__fadeIn animate__faster">
+            <div className="messages__header">
+              <h2>Chats</h2>
+              <UserSearchBar router={router} actualUser={user} />
             </div>
+            <div className="messages__conversations">
+              {conversations?.map((c) => (
+                <div
+                  className="conversation"
+                  onClick={() => {
+                    setCurrentChat(c);
+                    router.push(router.pathname, {});
+                  }}
+                >
+                  <ConversationComp conversation={c} currentUser={user} />
+                </div>
+              ))}
+            </div>
+          </div>
+          {loading ? (
+            <div className="mainContainerChat">
+              <LoadingComponent />
+            </div>
+          ) : (
             <Chat
               scrollRef={scrollRef}
               messages={messages}
@@ -120,9 +124,9 @@ const MessagesPage = () => {
               currentChat={currentChat}
               socket={socket}
             />
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </MainLayout>
   );
 };

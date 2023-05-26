@@ -40,3 +40,12 @@ export const deleteUserFn = async (id: string) => {
     return error.response;
   }
 };
+
+export const listUsersForSearchFn = async (username: string) => {
+  try {
+    const resp = await backendApiPrivate.get(`/users/search/${username}`);
+    return resp.data;
+  } catch (error: any) {
+    return error?.response;
+  }
+};

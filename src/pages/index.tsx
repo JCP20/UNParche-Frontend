@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { tabItems } from "@/components/Feed/TabFeedItems";
 import MainLayout from "@/components/Layout/Layout";
 import { Tabs } from "antd";
-import LoadingComponent from "@/components/LoadingComponent";
 import { IEvent } from "@/interfaces/events";
 import { getFYPEvents, getGroupEvents } from "@/services/feed.service";
+import { IGroup } from "@/interfaces/groups";
+import { getFYPData } from "@/services/search.service";
+import { useRouter } from "next/router";
 
 export default function Home() {
   // const [loading, setLoading] = useState(true);
@@ -13,17 +15,21 @@ export default function Home() {
   const [pageGroups, setPageGroups] = useState(1);
 
   const [hasMoreFyp, setHasMoreFyp] = useState(true);
-  const [myRecommendedEvents, setMyRecommendedEvents] = useState<IEvent[]>([]);
+  const [myRecommendedData, setMyRecommendedData] = useState<any[]>([]);
   const [pageFyp, setPageFyp] = useState(1);
 
+  const router = useRouter();
+
   const getDataFyp = async () => {
-    const myRecommendedEvents = await getFYPEvents(pageFyp, 2);
+    const myRecommendedEvents = await getFYPData(pageFyp, 3);
+
+    console.log(myRecommendedEvents);
 
     if (myRecommendedEvents.length === 0) {
       setHasMoreFyp(false);
     }
 
-    setMyRecommendedEvents((prev) => [...prev, ...myRecommendedEvents]);
+    setMyRecommendedData((prev) => [...prev, ...myRecommendedEvents]);
   };
 
   useEffect(() => {
@@ -52,6 +58,10 @@ export default function Home() {
     setPageGroups(pageGroups + 1);
   };
 
+  const hanldeRedirectToGroup = (id: string) => {
+    router.push(`/groupPage/${id}`);
+  };
+
   return (
     <MainLayout title="Inicio">
       <div className="p-1 mainContainerIndex animate__animated animate__fadeIn animate__faster">
@@ -60,12 +70,13 @@ export default function Home() {
           centered
           type="card"
           items={tabItems(
-            myRecommendedEvents,
+            myRecommendedData,
             loadMoreFyp,
             hasMoreFyp,
             myGroupsEvents,
             loadMoreGroups,
-            hasMoreGroups
+            hasMoreGroups,
+            hanldeRedirectToGroup
           )}
         />
       </div>

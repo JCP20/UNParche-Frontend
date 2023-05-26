@@ -19,7 +19,6 @@ export const itemsMenuLayout = (groups: IGroup[], isAdmin: boolean) => {
       getItem("Crear grupo", "createGroup", <UserAddOutlined />),
     ]),
     getItem("Calendario", "/calendar", <CalendarOutlined />),
-    // getItem("Perfil", `/profile/${id}`, <UserOutlined />),
     getItem("Mensajes", "/messages", <CommentOutlined />),
     getItem("Salir", "logout", <PoweroffOutlined />),
   ];

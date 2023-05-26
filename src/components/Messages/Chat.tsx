@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MessageElement from "./MessageElement";
-import { Button, Input, Result, Space } from "antd";
+import { Button, Input, Result, Space, message as mssgAntd } from "antd";
 import { SendOutlined, SmileOutlined } from "@ant-design/icons";
 import { getMessagesFn, sendMessageFn } from "@/services/messages.service";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es-mx";
 import { IUser } from "@/interfaces/user";
+import { useRouter } from "next/router";
 
 dayjs.extend(relativeTime);
 dayjs.locale("es-mx");
@@ -35,10 +36,15 @@ const Chat = ({
   setMessages,
 }: ChatProps) => {
   // const [messages, setMessages] = useState<any>([]);
+  const router = useRouter();
   const [mssg, setMssg] = useState<string>("");
 
   const sendMessage = async () => {
-    if (!mssg) return;
+    if (!mssg || !mssg.trim()) {
+      mssgAntd.error("No puedes enviar un mensaje vacío");
+      setMssg("");
+      return;
+    }
 
     const message = {
       sender: actualUser.id,
@@ -83,8 +89,14 @@ const Chat = ({
     getActualMessages();
   }, [currentChat]);
 
+  useEffect(() => {
+    if (router.query.shareText) {
+      setMssg(("¡Mira este evento! " + router.query.shareText) as string);
+    }
+  }, [router.query]);
+
   return (
-    <div className="mainContainerChat">
+    <div className="mainContainerChat animate__animated animate__fadeIn">
       {currentChat ? (
         <>
           <div className="chatContainer__conversation">

@@ -31,7 +31,7 @@ const EventPage = () => {
       {loading ? (
         <LoadingComponent />
       ) : (
-        <div className="p-1 mainContainerIndex animate__animated animate__fadeIn animate__faster">
+        <div className="p-1 singleEventContainer animate__animated animate__fadeIn animate__faster">
           <EventCard eventData={eventData} />
         </div>
       )}

@@ -1,4 +1,4 @@
-import { Avatar, Button, Calendar, List, Skeleton, Modal } from "antd";
+import { Avatar, Button, Row, List, Skeleton, Modal, message, Col, Space} from "antd";
 import FormEvent from "@/components/Events/FormEvent";
 import EventCard from "../Events/EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -9,12 +9,16 @@ import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
 import { newConversationFn } from "@/services/conversation.service";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
+import { deleteEventFn, updateEventFn } from "@/services/events.service";
+import dayjs from "dayjs";
+import CalendarApp from "@/components/Calendar";
+import { UserOutlined } from "@ant-design/icons";
 interface itemsInput {
   createEventService: (values: any) => Promise<any | null>;
   events: IEvent[];
   group: IGroup;
-  isAdmin: boolean;
+  isAdmin: boolean; 
   after: () => void;
   user: any;
 }
@@ -38,14 +42,55 @@ export const TabItemsGroup = (input: itemsInput) => {
           receiverId,
           senderId: user.id,
         });
-        if (resp.status === 200) {
+        if (resp?.ok) {
           router.push({
             pathname: "/messages",
-            query: { current_conversation: resp.data.data._id },
+            query: { current_conversation: resp?.data?._id },
           });
         }
       },
     });
+  };
+
+  const deleteEvent = async (id: string) => {
+    try {
+      message.loading({
+        content: "Eliminando evento",
+        key: "loading",
+        duration: 0,
+      });
+      const data = await deleteEventFn(id);
+      if (data?.ok) {
+        message.success({
+          content: "Evento eliminado",
+          key: "loading",
+        });
+      }
+      await after();
+    } catch (error) {
+      message.error({
+        content: "Error al eliminar evento",
+        key: "loading",
+      });
+    }
+  };
+
+  const handleDeleteEvent = (id: string) => {
+    Modal.confirm({
+      title: "Eliminar evento",
+      content: "¿Estás seguro que quieres eliminar este evento?",
+      okText: "Eliminar",
+      cancelText: "Cancelar",
+      onOk: async () => {
+        await deleteEvent(id);
+      },
+    });
+  };
+
+  const handleUpdate = async (input: { _id: string }) => {
+    console.log(input);
+    const resp = await updateEventFn(input, input._id);
+    console.log(resp);
   };
 
   return [
@@ -53,29 +98,52 @@ export const TabItemsGroup = (input: itemsInput) => {
       key: "1",
       label: `Eventos`,
       children: (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
+        <Row>
+          <Col>
           {isAdmin && (
             <FormEvent
+              buttonText="Nuevo evento"
               style={{ width: "60%", margin: "auto" }}
               actualGroup={group}
-              service={createEventService}
-              // initialValues={"Crear Evento"}
+              service={createEventService}            
               after={after}
             />
           )}
-          <div className="mainContainerIndex">
-            {events.map((e) => (
-              <EventCard eventData={e} />
-            ))}
+          </Col>
+          <div className="mainContainerIndex">        
+            {events.length > 0 ? (
+              events.map((e) => (
+               <>       
+                  <EventCard eventData={e} isAdmin={isAdmin} />                  
+                  {isAdmin && (
+                      <Row>
+                      <Col span={9}></Col>
+                      <Col>
+                      <Space size="large">
+                      <Button danger onClick={() => handleDeleteEvent(e._id)}>
+                        Eliminar 
+                      </Button>
+                      <FormEvent
+                        isEditing
+                        buttonText="Editar evento"              
+                        actualGroup={group}
+                        service={handleUpdate}
+                        initialValues={{ ...e, date: dayjs(e.date) }}
+                        after={after}
+                      />
+                    </Space>
+                    </Col>
+                    </Row>
+                  )}
+                </>
+              ))
+            ) : (
+              <div className="noEvents">
+                Aún no hay eventos! 😞 Revisa más tarde
+              </div>
+            )}
           </div>
-        </div>
+        </Row>
       ),
     },
     {
@@ -83,7 +151,10 @@ export const TabItemsGroup = (input: itemsInput) => {
       label: `Calendario`,
       children: (
         <div>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+          <CalendarApp 
+       type="Group"
+       id= {group._id} 
+       ></CalendarApp>
         </div>
       ),
     },
@@ -103,6 +174,7 @@ export const TabItemsGroup = (input: itemsInput) => {
               bordered
               className="list__admin"
               dataSource={group?.administrators as IUser[]}
+              
               renderItem={(item) => (
                 <List.Item
                   key={item?.email}
@@ -115,15 +187,23 @@ export const TabItemsGroup = (input: itemsInput) => {
                           >
                             Iniciar Chat
                           </Button>,
+                          <a href={`/profile/${item?._id}`}> <UserOutlined/></a>  
+                          
                         ]
-                      : []
+                      : [    
+                       ]
+                      
                   }
                 >
-                  <List.Item.Meta
-                    avatar={<Avatar src={item?.photo} />}
-                    title={item?.username}
-                    description={item?.email}
-                  />
+                  
+                    <List.Item.Meta
+                      avatar={<Avatar src={item?.photo} />}
+                      title={item?.username}
+                      description={item?.email}
+                      
+                    />
+                  
+
                 </List.Item>
               )}
             />

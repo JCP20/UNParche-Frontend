@@ -1,14 +1,37 @@
 import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
 import { createGroupFn, getGroupsByUserFn } from "@/services/groups.service";
-import { Button, Layout, Menu, Modal, Tooltip, Typography, theme } from "antd";
+import {
+  Button,
+  Drawer,
+  Layout,
+  Menu,
+  Modal,
+  Tooltip,
+  Typography,
+  theme,
+  List,
+} from "antd";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import CrearGrupo from "../Group/FromGroup";
-import { itemsMenuLayout } from "./MenuItems";
+import {
+  CalendarOutlined,
+  CommentOutlined,
+  HomeOutlined,
+  PoweroffOutlined,
+  CoffeeOutlined,
+  TeamOutlined,
+  UserAddOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
+
 import SearchBar from "./SearchBar";
 import Head from "next/head";
-
+import { ItemType } from "antd/es/breadcrumb/Breadcrumb";
+import { itemsMenuLayout } from "./MenuItems";
+import { getItem } from "./utils";
+import {Switch} from "antd";
 const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps {
@@ -30,6 +53,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     return collapsedState ? JSON.parse(collapsedState) : false;
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cookiesModal, setCookiesModal] = useState(false);
   const [groups, setGroups] = useState<IGroup[]>([]);
   const router = useRouter();
@@ -42,6 +66,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     } else {
       if (e.key === "createGroup") {
         setIsModalOpen(true);
+      } else if (e.key === "seeMore") {
+        setIsDrawerOpen(true);
       } else {
         router.push(e.key);
       }
@@ -50,7 +76,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   const getData = async () => {
     const res = await getGroupsByUserFn(user.id);
-    console.log("me llame!");
     if (res?.ok) {
       setGroups(res.data);
     }
@@ -67,6 +92,48 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   useEffect(() => {
     localStorage.setItem("collapsedState", JSON.stringify(isCollapsed));
   }, [isCollapsed]);
+
+  const renderGroupItems = () => {
+    const MAX_GROUPS = 3;
+    const displayedGroups = groups.slice(0, MAX_GROUPS);
+    const remainingGroups = groups.slice(MAX_GROUPS);
+
+    const groupItems = displayedGroups.map((group) =>
+      getItem(group.name, `/groupPage/${group._id}`)
+    );
+
+    if (remainingGroups.length > 0) {
+      groupItems.push(
+        { type: "divider" },
+        getItem("Ver más", "seeMore", <EyeOutlined />)
+      );
+    }
+
+    return groupItems;
+  };
+
+  const itemsMenu = useMemo(() => {
+    const groupItems = renderGroupItems();
+
+    const menuItems = [
+      getItem("Inicio", "/", <HomeOutlined />),
+      getItem("Mis Grupos", "group", <TeamOutlined />, groupItems),
+      getItem("Calendario", "/calendar", <CalendarOutlined />),
+      getItem("Mensajes", "/messages", <CommentOutlined />),
+      getItem("Salir", "logout", <PoweroffOutlined />),
+      getItem("Darkmode", "",<Switch/>),
+    ];
+
+    if (user.role === "admin") {
+      menuItems.splice(
+        4,
+        0,
+        getItem("Administrar", "/admin", <CoffeeOutlined />)
+      );
+    }
+
+    return menuItems;
+  }, [groups, user.role]);
 
   return (
     <Layout style={{ height: "100vh" }}>
@@ -115,7 +182,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <Menu
             selectedKeys={[selectedKey]}
             mode="inline"
-            items={itemsMenuLayout(groups, user.role === "admin")}
+            items={itemsMenu}
             onClick={handleOnClick}
           />
         </Sider>
@@ -184,6 +251,44 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           </Footer>
         )}
       </Layout>
+      <Drawer
+        title="Mis Grupos"
+        placement="left"
+        closable={false}
+        onClose={() => setIsDrawerOpen(false)}
+        open={isDrawerOpen}
+      >
+        <div className="drawerContent">
+          <List
+            className="drawerList"
+            dataSource={groups}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  style={{ width: "100%", textAlign: "center" }}
+                  title={
+                    <a
+                      onClick={() => {
+                        router.push(`/groupPage/${item._id}`);
+                      }}
+                    >
+                      {item.name}
+                    </a>
+                  }
+                />
+              </List.Item>
+            )}
+          />
+
+          <div className="drawerCreateGroup">
+            <Button type="primary" onClick={() => setIsModalOpen(true)}>
+              Crear grupo
+            </Button>
+          </div>
+
+          <p className="drawerAdditional">UnParche</p>
+        </div>
+      </Drawer>
     </Layout>
   );
 };
