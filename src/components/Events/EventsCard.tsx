@@ -48,7 +48,7 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
       message.loading({
         content: "Cargando...",
         key: "event",
-        duration: 0,
+        duration: 2,
       });
       setIsFilled(true);
       await addUserToEventFn(eventData._id);
@@ -70,7 +70,7 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
       message.loading({
         content: "Cargando...",
         key: "event",
-        duration: 0,
+        duration: 2,
       });
       setIsFilled(false);
       await removeUserFromEventFn(eventData._id);
@@ -96,7 +96,7 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
       message.loading({
         content: "Enviando reporte...",
         key: "report",
-        duration: 0,
+        duration: 2,
       });
       const values = await form.validateFields();
       const newReport = await reportEventFn({

@@ -14,7 +14,7 @@ import {
   updateGroupFn,
 } from "@/services/groups.service";
 import { UserOutlined } from "@ant-design/icons";
-import { Button, Image, Modal, Tabs, Tag, Typography } from "antd";
+import { Button, Image, Modal, Tabs, Tag, Typography, Space, Card, Badge } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useMemo, useState } from "react";
 import MainLayout from "../../components/Layout/Layout";
@@ -135,17 +135,18 @@ const Grupo = () => {
             />
             <div className="mainContainerGroupsPage animate__animated animate__fadeIn animate__faster">
               <div className="group__info shadow">
-                <div className="group__info__imageContainer">
+              
+                <div className="group__info__imageContainer">                  
                   <Image
                     className="group__info__imageContainer__image"
                     src={group?.photo}
                     alt="Imagen del grupo"
-                  />
+                  />                  
                 </div>
+                <Badge.Ribbon text={group?.category} color="#2b3467">
+                <Card >
                 <div className="group__info__details">
                   <h2 className="group__info__details__title">{group?.name}</h2>
-
-                  <div className="group__info__details__description">
                     <Typography.Paragraph
                       ellipsis={{
                         rows: 3,
@@ -155,8 +156,6 @@ const Grupo = () => {
                     >
                       {group?.description}
                     </Typography.Paragraph>
-                  </div>
-
                   <div className="group__info__details__tags">
                     <Tag icon={<UserOutlined />} color="blue">
                       {group?.members?.length +
@@ -167,12 +166,10 @@ const Grupo = () => {
                           group?.administrators?.length +
                           " Interesados"}
                     </Tag>
-                    <Tag color="blue">{group?.category}</Tag>
                   </div>
                   {isAdmin ? (
-                    <>
+                    <Space>
                       <Button
-                        className="group__info__details__btn"
                         type="primary"
                         onClick={() => setIsModalOpen(true)}
                       >
@@ -180,12 +177,11 @@ const Grupo = () => {
                       </Button>
                       <Button
                         onClick={handleDeleteGroup}
-                        className="group__info__details__btn"
                         danger
                       >
                         Borrar grupo
                       </Button>
-                    </>
+                    </Space>
                   ) : (
                     // check if user is member
                     <Button
@@ -197,8 +193,10 @@ const Grupo = () => {
                     </Button>
                   )}
                 </div>
+                </Card>
+                </Badge.Ribbon>
               </div>
-
+              
               <div className="group__feed">
                 <Tabs type="card" items={tabItemsGroup} />
               </div>

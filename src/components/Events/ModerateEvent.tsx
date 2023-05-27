@@ -31,7 +31,7 @@ const ModerateEvent = ({
           message.loading({
             content: "Eliminando reportes...",
             key: "deleteReports",
-            duration: 0,
+            duration: 2,
           });
           await deleteReportsByEventFn(eventData._id);
 

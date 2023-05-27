@@ -30,7 +30,7 @@ const Registro = () => {
       message.loading({
         content: "Espera un momento por favor...",
         key: "creating",
-        duration: 0,
+        duration: 2,
       });
 
       const { photo } = values;
