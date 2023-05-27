@@ -33,6 +33,8 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
   const [formData, setFormData] = useState(initialValues ?? {});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState(initialValues?.photo ?? "");
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const [form] = Form.useForm();
 
@@ -57,19 +59,46 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
     values.date = dayjs(values.date).toISOString();
 
-    const resp = await service(values);
-    console.log(resp);
+    await service(values);
+
+    form.resetFields();
     await after();
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
+    form.resetFields();
     setIsModalOpen(false);
   };
 
-  const handleOnFieldsChange = (_: any, allValues: any) => {
+  const handleOnFieldsChange = async (_: any, allValues: any) => {
     setFormData(allValues);
   };
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+  };
+
+  const handleChange = async (value: any) => {
+    setFileList(value.fileList);
+
+    if (!value.file.url && !value.file.preview) {
+      value.file.preview = await getBase64(value.file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(value.file.url || (value.file.preview as string));
+  };
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Subir</div>
+    </div>
+  );
 
   return (
     <>
@@ -120,12 +149,20 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
                 <TextArea />
               </Form.Item>
 
-              <UploadPhoto
-                isRequired
-                name="photo"
+              <Form.Item
                 label="Imagen del evento"
-                initialPhotoUrl={initialValues?.photo}
-              />
+                name="photo"
+                rules={[{ required: true, message: "Imagen requerida" }]}
+              >
+                <Upload
+                  listType="picture-card"
+                  fileList={fileList}
+                  onChange={handleChange}
+                  onPreview={handlePreview}
+                >
+                  {fileList.length >= 1 ? null : uploadButton}
+                </Upload>
+              </Form.Item>
 
               <Form.Item
                 name="date"
@@ -139,7 +176,10 @@ const FormEvent: React.FC<NewFormProps> = (props: NewFormProps) => {
 
           <div className="card">
             <h3>Vista previa</h3>
-            <EventCard noShowActions eventData={{ ...formData }} />
+            <EventCard
+              noShowActions
+              eventData={{ ...formData, photo: previewImage }}
+            />
           </div>
         </div>
       </Modal>

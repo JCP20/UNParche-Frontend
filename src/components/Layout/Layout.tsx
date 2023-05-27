@@ -2,34 +2,30 @@ import { AuthContext } from "@/context/auth/AuthContext";
 import { IGroup } from "@/interfaces/groups";
 import { createGroupFn, getGroupsByUserFn } from "@/services/groups.service";
 import {
+  CalendarOutlined,
+  CoffeeOutlined,
+  CommentOutlined,
+  EyeOutlined,
+  HomeOutlined,
+  PoweroffOutlined,
+  TeamOutlined,
+} from "@ant-design/icons";
+import {
   Button,
   Drawer,
   Layout,
+  List,
   Menu,
   Modal,
   Tooltip,
   Typography,
-  theme,
-  List,
 } from "antd";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState, useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import CrearGrupo from "../Group/FromGroup";
-import {
-  CalendarOutlined,
-  CommentOutlined,
-  HomeOutlined,
-  PoweroffOutlined,
-  CoffeeOutlined,
-  TeamOutlined,
-  UserAddOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
 
-import SearchBar from "./SearchBar";
 import Head from "next/head";
-import { ItemType } from "antd/es/breadcrumb/Breadcrumb";
-import { itemsMenuLayout } from "./MenuItems";
+import SearchBar from "./SearchBar";
 import { getItem } from "./utils";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -96,18 +92,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const renderGroupItems = () => {
     const MAX_GROUPS = 3;
     const displayedGroups = groups.slice(0, MAX_GROUPS);
-    const remainingGroups = groups.slice(MAX_GROUPS);
 
     const groupItems = displayedGroups.map((group) =>
       getItem(group.name, `/groupPage/${group._id}`)
     );
 
-    if (remainingGroups.length > 0) {
-      groupItems.push(
-        { type: "divider" },
-        getItem("Ver más", "seeMore", <EyeOutlined />)
-      );
-    }
+    groupItems.push(
+      { type: "divider" },
+      getItem("Ver más", "seeMore", <EyeOutlined />)
+    );
 
     return groupItems;
   };
@@ -152,12 +145,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             <p>@{user.username}</p>
           </div>
         </Tooltip>
-        {/* <Switch
-            checkedChildren={<CoffeeOutlined />}
-            unCheckedChildren={<HomeOutlined />}
-            defaultChecked
-            onChange={() => setDarkMode(!darkMode)}
-          /> */}
       </Header>
       <CrearGrupo
         user={user.id}

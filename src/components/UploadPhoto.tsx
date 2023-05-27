@@ -9,7 +9,7 @@ interface UploadPhotoProps {
   name: string;
   label: string;
   isRequired?: boolean;
-  initialPhotoUrl?: string; // New prop for initial photo URL
+  initialPhotoUrl?: string;
 }
 
 const UploadPhoto: React.FC<UploadPhotoProps> = ({
@@ -46,8 +46,9 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({
     setPreviewOpen(true);
   };
 
-  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
+  const handleChange: UploadProps["onChange"] = async (value: any) => {
+    setFileList(value.fileList);
+  };
 
   const uploadButton = (
     <div>

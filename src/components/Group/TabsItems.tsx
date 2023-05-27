@@ -1,10 +1,18 @@
-import { Avatar, Button, Calendar, List, Skeleton, Modal, message } from "antd";
+import {
+  Avatar,
+  Button,
+  Calendar,
+  List,
+  Skeleton,
+  Badge,
+  Modal,
+  message,
+} from "antd";
 import FormEvent from "@/components/Events/FormEvent";
 import EventCard from "../Events/EventsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEvent } from "@/interfaces/events";
 import { Dayjs } from "dayjs";
-import { CalendarMode } from "antd/es/calendar/generateCalendar";
 import { IGroup } from "@/interfaces/groups";
 import { IUser } from "@/interfaces/user";
 import { newConversationFn } from "@/services/conversation.service";
@@ -12,6 +20,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { deleteEventFn, updateEventFn } from "@/services/events.service";
 import dayjs from "dayjs";
+import type { CellRenderInfo } from "rc-picker/lib/interface";
+import { UserOutlined, MessageOutlined } from "@ant-design/icons";
 
 interface itemsInput {
   createEventService: (values: any) => Promise<any | null>;
@@ -22,13 +32,13 @@ interface itemsInput {
   user: any;
 }
 
-const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
-  console.log(value.format("YYYY-MM-DD"), mode);
-};
-
 export const TabItemsGroup = (input: itemsInput) => {
   const { createEventService, events, group, isAdmin, after, user } = input;
   const router = useRouter();
+
+  const handleGoToProfile = (id: string) => {
+    router.push(`/profile/${id}`);
+  };
 
   const handleNewConversation = async (receiverId: string) => {
     Modal.confirm({
@@ -92,6 +102,26 @@ export const TabItemsGroup = (input: itemsInput) => {
     console.log(resp);
   };
 
+  const dateCellRender = (current: Dayjs) => {
+    const listData = events.filter(
+      (item: any) =>
+        dayjs(item.date).format("YYYY-MM-DD") === current.format("YYYY-MM-DD")
+    );
+
+    return (
+      <ul className="eventCellContainer">
+        {listData.map((item: IEvent) => (
+          <Badge key={item._id} color="#eb455f" />
+        ))}
+      </ul>
+    );
+  };
+
+  const cellRender = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
+    if (info.type === "date") return dateCellRender(current);
+    return info.originNode;
+  };
+
   return [
     {
       key: "1",
@@ -114,28 +144,32 @@ export const TabItemsGroup = (input: itemsInput) => {
               after={after}
             />
           )}
-          <div className="mainContainerIndex">
+          <div className="mainContainerCard">
             {events.length > 0 ? (
               events.map((e) => (
-                <>
+                <div className="card__tab">
                   <EventCard eventData={e} isAdmin={isAdmin} />
                   {isAdmin && (
-                    <>
-                      <Button danger onClick={() => handleDeleteEvent(e._id)}>
+                    <div className="card__tab__btns">
+                      <Button
+                        style={{ margin: "0.5rem auto", width: "100%" }}
+                        danger
+                        onClick={() => handleDeleteEvent(e._id)}
+                      >
                         Eliminar
                       </Button>
                       <FormEvent
                         isEditing
                         buttonText="Editar evento"
-                        style={{ width: "60%", margin: "auto" }}
+                        style={{ margin: "0 auto", width: "100%" }}
                         actualGroup={group}
                         service={handleUpdate}
                         initialValues={{ ...e, date: dayjs(e.date) }}
                         after={after}
                       />
-                    </>
+                    </div>
                   )}
-                </>
+                </div>
               ))
             ) : (
               <div className="noEvents">
@@ -151,7 +185,7 @@ export const TabItemsGroup = (input: itemsInput) => {
       label: `Calendario`,
       children: (
         <div>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+          <Calendar cellRender={cellRender} fullscreen={false} />
         </div>
       ),
     },
@@ -177,23 +211,32 @@ export const TabItemsGroup = (input: itemsInput) => {
                   actions={
                     item._id !== user.id
                       ? [
+                          <Link href={`/profile/${item?._id}`}>
+                            <Button shape="circle" icon={<UserOutlined />} />
+                          </Link>,
                           <Button
-                            type="primary"
-                            onClick={() => handleNewConversation(item._id)}
-                          >
-                            Iniciar Chat
-                          </Button>,
+                            shape="circle"
+                            icon={
+                              <MessageOutlined
+                                onClick={() => handleNewConversation(item._id)}
+                              />
+                            }
+                          />,
                         ]
-                      : []
+                      : [
+                          <Button
+                            shape="circle"
+                            icon={<UserOutlined />}
+                            onClick={() => handleGoToProfile(item._id)}
+                          />,
+                        ]
                   }
                 >
-                  <Link href={`/profile/${item?._id}`}>
-                    <List.Item.Meta
-                      avatar={<Avatar src={item?.photo} />}
-                      title={item?.username}
-                      description={item?.email}
-                    />
-                  </Link>
+                  <List.Item.Meta
+                    avatar={<Avatar src={item?.photo} />}
+                    title={item?.username}
+                    description={item?.email}
+                  />
                 </List.Item>
               )}
             />

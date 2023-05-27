@@ -1,0 +1,31 @@
+.mainContainerCard {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2rem;
+
+  .card__tab {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .card__tab__btns {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .card__index {
+    width: 62%;
+    margin: auto;
+  }
+
+  .btn-50 {
+    width: 50%;
+  }
+}

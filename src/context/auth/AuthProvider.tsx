@@ -16,6 +16,7 @@ const publicRoutes = [
   "/landing",
   "/verification/[id]",
   "/landingPage",
+  "/reset_password",
 ];
 
 const adminRoutes = ["/admin"];

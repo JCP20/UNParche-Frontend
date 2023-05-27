@@ -83,9 +83,9 @@ export const getEventFn = async (id: string) => {
 
 export const getEventsUserFn = async (id: string): Promise<any | null> => {
   try {
-    const { data } = await backendApiPrivate.get(`/events/${id}`);
-    return data.data as IEvent[];
+    const resp = await backendApiPrivate.get(`/events/${id}`);
+    return resp.data as IEvent[];
   } catch (error) {
-    return null;
+    return { ok: false };
   }
 };

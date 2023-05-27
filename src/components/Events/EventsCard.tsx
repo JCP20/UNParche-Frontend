@@ -15,7 +15,7 @@ import {
 import { Card, Form, Image, Input, Modal, Typography, message } from "antd";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useMemo, useEffect } from "react";
 import UserSearchBar from "../Messages/UserSearchBar";
 import ShareSocials from "./ShareSocials";
 
@@ -183,10 +183,6 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
       <ExclamationOutlined key="report" onClick={showModal} />,
     ];
 
-    // if (isAdmin) {
-    //   actions.push(<EllipsisOutlined />);
-    // }
-
     return actions;
   }, [isFilled, isAdmin]);
 
@@ -204,7 +200,7 @@ const EventCard: React.FC<NewFormProps> = (props: NewFormProps) => {
         title={eventData?.title ?? "Titulo"}
         hoverable
         onDoubleClick={highlight}
-        className="card__index shadow animate__animated animate__fadeIn"
+        className={"card__index shadow animate__animated animate__fadeIn"}
         cover={
           <Image
             style={{ maxHeight: 300, objectFit: "cover" }}

@@ -66,6 +66,8 @@ const FormGroup: React.FC<NewFormProps> = (props: NewFormProps) => {
     if (resp?.ok) {
       message.success({ content: "Grupo creado exitosamente", key: "loading" });
       form.resetFields();
+    } else {
+      message.error({ content: "Error al crear el grupo", key: "loading" });
     }
 
     setIsModalOpen(false);

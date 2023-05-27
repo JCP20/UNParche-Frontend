@@ -4,7 +4,7 @@ export interface IEvent {
   _id: string;
   id: string;
   title: string;
-  date: Date;
+  date: string | Date;
   description: string;
   group: IGroup | string;
   photo: string;
