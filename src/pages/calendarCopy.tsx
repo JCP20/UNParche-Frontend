@@ -87,7 +87,7 @@ const CalendarApp: React.FC = () => {
       <ul className="events">
         {listData.map((item) => (
           <li key={item.content}>
-            <Badge status={item.type as BadgeProps['status']} text={item.content} />
+            <Badge status={item.type as BadgeProps['status']}  />
           </li>
         ))}
       </ul>
@@ -120,7 +120,7 @@ const CalendarApp: React.FC = () => {
         >          
           {loadEvents(calendarEvents)}
         </Modal>
-        <Calendar cellRender={cellRender}
+        <Calendar cellRender={cellRender} fullscreen={false}
           onSelect={(e) => { showModal(e.format("DD/MM/YY"), calendarEvents) }}
 
         />;

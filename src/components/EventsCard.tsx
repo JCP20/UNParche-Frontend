@@ -9,7 +9,7 @@ import { AuthContext } from '@/context/auth/AuthContext';
 const { info } = Modal;
 const { Meta } = Card;
 const { TextArea } = Input;
-const defaultSrc = "https://www.artmajeur.com/medias/standard/v/i/virtual-dzines/artwork/7112695_sun-l.jpg?v=1585072675"
+const defaultSrc = "/poesia.jpg";//"https://www.artmajeur.com/medias/standard/v/i/virtual-dzines/artwork/7112695_sun-l.jpg?v=1585072675"
 var toneColor = '#fddde6';
 //"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
 
